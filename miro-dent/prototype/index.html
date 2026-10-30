@@ -1,0 +1,567 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>Миро-Дент</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@400;500;600&display=swap"></head><body>
+
+
+
+
+
+<style>
+/* Layout: sticky glass header → hero with interactive dental arch → services → doctors with real schedule → booking wizard → prices → contacts. Brand navy kept from the current site, glove-cyan as the single accent. */
+:root{
+  --ink:#16224a;          /* brand navy, deepened */
+  --ink-2:#3a4775;
+  --enamel:#f5f7fb;       /* page ground, blue-biased white */
+  --card:#ffffff;
+  --line:#dfe4f0;
+  --muted:#66708f;
+  --accent:#12a7bd;       /* glove cyan */
+  --accent-ink:#ffffff;
+  --accent-soft:#e2f5f8;
+  --warm:#ff8a5b;         /* promo only */
+  --shadow:0 18px 50px -24px rgba(22,34,74,.35);
+  --display:"Unbounded","Onest",system-ui,sans-serif;
+  --body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:18px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#e8ecf8;--ink-2:#b6bfdc;--enamel:#0d1430;--card:#141d40;--line:#26315c;--muted:#94a0c4;
+  --accent:#3cc6d9;--accent-ink:#06202a;--accent-soft:#123447;--shadow:0 18px 50px -24px rgba(0,0,0,.7);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#e8ecf8;--ink-2:#b6bfdc;--enamel:#0d1430;--card:#141d40;--line:#26315c;--muted:#94a0c4;
+  --accent:#3cc6d9;--accent-ink:#06202a;--accent-soft:#123447;--shadow:0 18px 50px -24px rgba(0,0,0,.7);color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--enamel);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--enamel)}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.02em;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,3.6vw,44px);line-height:1.08}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.lead{color:var(--muted);font-size:18px;max-width:56ch}
+section{padding-block:clamp(56px,8vw,104px)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:600 16px/1 var(--body);padding:16px 24px;border-radius:999px;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 10px 30px -10px var(--accent)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -12px var(--accent)}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--enamel) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.02em}
+.logo svg{width:34px;height:34px}
+.logo small{display:block;font-family:var(--body);font-weight:500;font-size:11px;color:var(--muted);letter-spacing:.02em}
+nav.menu{display:flex;gap:26px;margin-left:auto;font-weight:500;font-size:15px}
+nav.menu a{text-decoration:none;color:var(--ink-2)}
+nav.menu a:hover{color:var(--accent)}
+.top .phone{font-weight:600;text-decoration:none;white-space:nowrap}
+.top .btn{padding:12px 18px;font-size:15px}
+@media (max-width:980px){nav.menu,.top .phone{display:none}.top .btn{margin-left:auto}}
+
+/* hero */
+.hero{padding-block:clamp(40px,6vw,80px) clamp(48px,6vw,80px)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(36px,5.4vw,68px);line-height:1.02}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{margin:22px 0 32px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;color:var(--muted);font-size:14px}
+.facts b{display:block;color:var(--ink);font-family:var(--display);font-weight:500;font-size:22px}
+.arch-card{position:relative;background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:28px 24px 22px;border:1px solid var(--line)}
+.arch-card .hint{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}
+#arch{width:100%;height:auto;display:block;margin:6px 0 4px;touch-action:manipulation}
+#arch .tooth{fill:var(--enamel);stroke:var(--line);stroke-width:2;cursor:pointer;transition:fill .25s,stroke .25s,transform .25s;transform-box:fill-box;transform-origin:center}
+#arch .tooth:hover,#arch .tooth.on{fill:var(--accent-soft);stroke:var(--accent);transform:scale(1.08)}
+#arch text{fill:var(--muted);font:500 11px var(--body)}
+.zone-info{min-height:92px;border-top:1px solid var(--line);padding-top:14px;display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center}
+.zone-info h3{font-size:17px}
+.zone-info p{margin:0;color:var(--muted);font-size:14px;grid-column:1}
+.zone-info .btn{grid-row:1/3;grid-column:2;padding:12px 16px;font-size:14px}
+.promo-chip{position:absolute;top:-16px;right:20px;background:var(--warm);color:#fff;font-weight:600;font-size:13px;padding:8px 14px;border-radius:999px;box-shadow:0 10px 24px -10px var(--warm)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.zone-info{grid-template-columns:1fr}.zone-info .btn{grid-row:auto;grid-column:1;justify-self:start}}
+
+/* promo */
+.promo{padding-block:0}
+.promo .box{background:var(--ink);color:var(--enamel);border-radius:28px;padding:clamp(28px,4vw,48px);display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;position:relative;overflow:hidden}
+.promo .box::after{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-160px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 55%,transparent),transparent 70%)}
+.promo h2{font-size:clamp(24px,3vw,36px)}
+.promo ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;position:relative;z-index:1}
+.promo li{display:flex;gap:10px;align-items:center;font-weight:500}
+.promo li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
+.promo .btn{margin-top:22px}
+@media (max-width:800px){.promo .box{grid-template-columns:1fr}}
+
+/* services */
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.services{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:12px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:transform .25s,border-color .25s,box-shadow .25s}
+.svc:hover,.svc.on{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--shadow)}
+.svc .ic{width:48px;height:48px;border-radius:14px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+.svc .ic svg{width:26px;height:26px}
+.svc h3{font-size:18px}
+.svc p{margin:0;color:var(--muted);font-size:14px;flex:1}
+.svc .more{font-weight:600;font-size:14px;color:var(--accent)}
+
+/* doctors */
+.doctors{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:14px}
+.ava{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;font-family:var(--display);font-size:20px;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 50%,var(--ink)))}
+.doc h3{font-size:16px;line-height:1.3}
+.doc .role{color:var(--muted);font-size:14px;margin-top:4px}
+.days{display:flex;gap:4px}
+.days span{flex:1;text-align:center;font-size:11px;font-weight:600;padding:6px 0;border-radius:8px;background:var(--enamel);color:var(--muted)}
+.days span.w{background:var(--accent-soft);color:var(--accent)}
+.doc .btn{padding:12px 16px;font-size:14px;justify-content:center}
+.note{font-size:13px;color:var(--muted);margin-top:18px}
+
+/* booking */
+.booking .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+.book{background:var(--card);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:clamp(20px,3vw,32px)}
+.steps{display:flex;gap:6px;margin-bottom:22px}
+.steps i{flex:1;height:4px;border-radius:4px;background:var(--line);transition:background .3s}
+.steps i.on{background:var(--accent)}
+.book h3{font-size:20px;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;border-radius:12px;font:500 14px var(--body);cursor:pointer;transition:all .2s}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.chip small{display:block;font-size:11px;opacity:.75}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;color:var(--muted);font-weight:500}
+.field input{font:500 16px var(--body);padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--enamel);color:var(--ink)}
+.field input:focus{border-color:var(--accent);outline:none}
+.book-nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.summary{background:var(--enamel);border-radius:14px;padding:14px 16px;font-size:14px;display:grid;gap:4px;margin-bottom:16px}
+.summary b{font-weight:600}
+.done{text-align:center;padding:20px 0}
+.done .ok{width:72px;height:72px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 16px}
+.demo-tag{display:inline-block;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:4px 8px;margin-top:14px}
+@media (max-width:900px){.booking .wrap{grid-template-columns:1fr}}
+
+/* prices */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.price-list{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.prow{display:flex;justify-content:space-between;gap:16px;padding:16px 22px;border-bottom:1px solid var(--line);font-size:15px}
+.prow:last-child{border-bottom:0}
+.prow span:last-child{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.prow .ph{color:var(--muted);font-weight:500}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.trust div{border-top:2px solid var(--ink);padding-top:16px}
+.trust b{font-family:var(--display);font-weight:500;font-size:18px;display:block;margin-bottom:6px}
+.trust p{margin:0;color:var(--muted);font-size:14px}
+@media (max-width:800px){.trust{grid-template-columns:1fr 1fr}}
+
+/* contacts */
+.contacts .wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.cbox{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:32px;display:grid;gap:18px;align-content:start}
+.cbox dt{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.cbox dd{margin:4px 0 0;font-size:18px;font-weight:500}
+.cbox dl{margin:0;display:grid;gap:18px}
+.map{border-radius:28px;overflow:hidden;position:relative;min-height:340px;background:var(--accent-soft);border:1px solid var(--line)}
+.map canvas{width:100%;height:100%;display:block;position:absolute;inset:0}
+.pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);background:var(--ink);color:var(--enamel);padding:10px 14px;border-radius:14px;font-weight:600;font-size:14px;white-space:nowrap;box-shadow:var(--shadow)}
+.pin::after{content:"";position:absolute;left:50%;bottom:-7px;width:14px;height:14px;background:var(--ink);transform:translateX(-50%) rotate(45deg)}
+.map .btn{position:absolute;left:20px;bottom:20px;padding:12px 16px;font-size:14px;background:var(--card);color:var(--ink)}
+@media (max-width:800px){.contacts .wrap{grid-template-columns:1fr}}
+footer{padding-block:36px 110px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px}
+
+/* mobile bottom bar */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mbar .btn{flex:1;justify-content:center;padding:14px}
+}
+
+/* drawer */
+.drawer{position:fixed;inset:0;z-index:50;display:grid;place-items:end center;background:rgba(10,16,40,.45);opacity:0;pointer-events:none;transition:opacity .3s}
+.drawer.open{opacity:1;pointer-events:auto}
+.drawer .panel{background:var(--card);width:min(560px,100%);border-radius:28px 28px 0 0;padding:28px max(24px,env(safe-area-inset-left,0px)) calc(28px + env(safe-area-inset-bottom,0px));transform:translateY(40px);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.drawer.open .panel{transform:none}
+.drawer h3{font-size:22px;margin:8px 0 10px}
+.drawer p{color:var(--muted);margin:0 0 20px}
+.drawer .x{float:right;background:var(--enamel);border:0;width:36px;height:36px;border-radius:50%;cursor:pointer;color:var(--ink);font-size:18px}
+
+/* reveal: visible at rest, gentle lift when JS marks it */
+.rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .rv.pre{opacity:0;transform:translateY(24px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Миро-Дент, на главную">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="12" fill="var(--ink)"/><path d="M13 12c-3 0-4.5 2.6-4.5 5.6 0 3.6 1.6 5.4 2.4 9.4.5 2.6 1.1 4 2.4 4 1.6 0 1.7-3 2.3-5.4.4-1.5 1.1-2.2 2.4-2.2s2 .7 2.4 2.2c.6 2.4.7 5.4 2.3 5.4 1.3 0 1.9-1.4 2.4-4 .8-4 2.4-5.8 2.4-9.4 0-3-1.5-5.6-4.5-5.6-2.3 0-3.2 1.2-5 1.2s-2.7-1.2-5-1.2Z" fill="var(--accent)" transform="translate(2 -1)"/></svg>
+      <span>Миро-Дент<small>стоматология · Ногинск</small></span>
+    </a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#services">Услуги</a><a href="#doctors">Врачи</a><a href="#prices">Цены</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="phone" href="tel:+74965199838">+7 (496) 519-98-38</a>
+    <a class="btn btn-primary" href="#booking" data-book>Записаться</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">Семейная стоматология в Ногинске</div>
+      <h1 style="margin-top:14px">Спокойное лечение зубов <em>для всей семьи</em></h1>
+      <p class="lead">Терапия, хирургия, протезирование и гигиена в одной клинике на ул. Текстилей. Работаем без выходных, первая консультация бесплатно.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#booking" data-book>Записаться онлайн
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="tel:+79251914101">+7 (925) 191-41-01</a>
+      </div>
+      <div class="facts">
+        <div><b>7 дней</b>в неделю, 9:00–18:00</div>
+        <div><b>4 врача</b>с высшим образованием</div>
+        <div><b>0 ₽</b>консультация стоматолога</div>
+      </div>
+    </div>
+    <div class="arch-card rv">
+      <span class="promo-chip">Акция: −15% на чистку</span>
+      <div class="hint"><span>Где беспокоит? Нажмите на зону</span><span>верхняя челюсть</span></div>
+      <svg id="arch" viewBox="0 0 440 250" role="img" aria-label="Схема зубного ряда: выберите зону"></svg>
+      <div class="zone-info" id="zoneInfo" aria-live="polite">
+        <h3>Выберите зуб на схеме</h3>
+        <p>Подскажем, какой специалист нужен и сколько примерно займёт приём.</p>
+        <a class="btn btn-primary" href="#booking" data-book>Записаться</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="promo">
+  <div class="wrap">
+    <div class="box rv">
+      <div style="position:relative;z-index:1">
+        <div class="eyebrow">Действует сейчас</div>
+        <h2 style="margin-top:10px">Бесплатный диагностический осмотр и профгигиена со скидкой 15%</h2>
+        <a class="btn btn-primary" href="#booking" data-book data-svc="Профессиональная чистка">Записаться на гигиену</a>
+      </div>
+      <ul>
+        <li>Ультразвуковой скейлинг</li>
+        <li>Снятие налёта курильщика</li>
+        <li>AIR-FLOW</li>
+        <li>Фторирование, укрепление эмали</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="eyebrow">Услуги</div><h2 style="margin-top:10px">Всё для здоровья зубов<br>в одном кабинете</h2></div>
+      <p class="lead" style="margin:0">Нажмите на услугу, чтобы узнать, кто из врачей её ведёт, и сразу выбрать время.</p>
+    </div>
+    <div class="services" id="svcGrid"></div>
+  </div>
+</section>
+
+<section id="doctors" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="eyebrow">Врачи</div><h2 style="margin-top:10px">Команда клиники</h2></div>
+      <p class="lead" style="margin:0">График приёма виден сразу, в записи доступны только рабочие дни врача.</p>
+    </div>
+    <div class="doctors" id="docGrid"></div>
+    <p class="note">Фото врачей в прототипе заменены инициалами, в рабочей версии здесь будут портреты и стаж.</p>
+  </div>
+</section>
+
+<section id="booking" class="booking">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">Онлайн-запись</div>
+      <h2 style="margin-top:10px">Запись за&nbsp;30&nbsp;секунд, без звонка</h2>
+      <p class="lead" style="margin-top:16px">Выберите услугу, врача и удобное время. Администратор перезвонит, чтобы подтвердить визит.</p>
+      <span class="demo-tag">Демо: форма работает в браузере и никуда не отправляет данные</span>
+    </div>
+    <div class="book rv" id="book"></div>
+  </div>
+</section>
+
+<section id="prices">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="eyebrow">Цены</div><h2 style="margin-top:10px">Прайс, который удобно читать с телефона</h2></div>
+      <p class="lead" style="margin:0">Сейчас прайс на сайте опубликован сканом документа. Здесь он становится текстом с поиском по разделам.</p>
+    </div>
+    <div class="tabs" id="ptabs" role="tablist"></div>
+    <div class="price-list" id="plist"></div>
+    <p class="note">Суммы в прототипе скрыты: в рабочей версии клиника вносит актуальные цены сама, через простую админку.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="trust rv">
+      <div><b>Лицензия</b><p>Документы клиники открываются одним нажатием, без JavaScript-галерей.</p></div>
+      <div><b>Без выходных</b><p>Приём ежедневно с 9:00 до 18:00, включая воскресенье.</p></div>
+      <div><b>Для всей семьи</b><p>Терапевт, хирург и ортопеды принимают в одной клинике.</p></div>
+      <div><b>Рядом с домом</b><p>Ногинск, ул. Текстилей, 35. Схема проезда и маршрут в Яндекс Картах.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacts" class="contacts" style="padding-top:0">
+  <div class="wrap">
+    <div class="cbox rv">
+      <div class="eyebrow">Контакты</div>
+      <h2 style="font-size:clamp(24px,3vw,34px)">Ждём вас в Ногинске</h2>
+      <dl>
+        <div><dt>Адрес</dt><dd>Московская обл., г. Ногинск, ул. Текстилей, д. 35</dd></div>
+        <div><dt>Телефоны</dt><dd><a href="tel:+74965199838">+7 (496) 519-98-38</a><br><a href="tel:+79251914101">+7 (925) 191-41-01</a></dd></div>
+        <div><dt>Email</dt><dd>miro-dent@yandex.ru</dd></div>
+        <div><dt>Режим работы</dt><dd>Пн–Вс, 9:00–18:00</dd></div>
+      </dl>
+      <a class="btn btn-primary" href="#booking" data-book style="justify-self:start">Записаться на приём</a>
+    </div>
+    <div class="map rv">
+      <canvas id="mapc" aria-hidden="true"></canvas>
+      <div class="pin">Миро-Дент · Текстилей, 35</div>
+      <a class="btn" href="https://yandex.ru/maps/?text=%D0%9D%D0%BE%D0%B3%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D1%83%D0%BB.%20%D0%A2%D0%B5%D0%BA%D1%81%D1%82%D0%B8%D0%BB%D0%B5%D0%B9%2C%2035" target="_blank" rel="noopener">Построить маршрут ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© ООО «Миро-Дент», Ногинск</span>
+    <span>Концепция редизайна сайта · демонстрационный прототип</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-ghost" href="tel:+74965199838">Позвонить</a>
+  <a class="btn btn-primary" href="#booking" data-book>Записаться</a>
+</div>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+    <button class="x" id="dClose" aria-label="Закрыть">×</button>
+    <div class="eyebrow" id="dEyebrow">Услуга</div>
+    <h3 id="dTitle"></h3>
+    <p id="dText"></p>
+    <a class="btn btn-primary" href="#booking" id="dBook">Записаться на эту услугу</a>
+  </div>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+const qs = new URLSearchParams(location.search);
+const STATIC = qs.has('static');
+
+const ICONS = {
+  tooth:'<path d="M7 3c-2.5 0-4 2-4 5 0 3 1.4 4.7 2 8 .4 2.2 1 4 2.2 4 1.4 0 1.5-2.6 2-4.6.3-1.2.9-1.8 1.8-1.8s1.5.6 1.8 1.8c.5 2 .6 4.6 2 4.6 1.2 0 1.8-1.8 2.2-4 .6-3.3 2-5 2-8 0-3-1.5-5-4-5-2 0-2.8 1-4 1s-2-1-4-1Z"/>',
+  spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
+  xray:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9c0 4 1 6 2 6s1-2 2-2 1 2 2 2 2-2 2-6"/>',
+  crown:'<path d="M4 17h16M5 17 3.5 8l5 4L12 6l3.5 6 5-4L19 17"/>',
+  bite:'<path d="M3 9c3 2 6 3 9 3s6-1 9-3M3 15c3-2 6-3 9-3s6 1 9 3"/>',
+  drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/>'
+};
+const SERVICES = [
+  {n:'Лечение',ic:'tooth',d:'Кариес, пульпит, пломбы. Лечение под современной анестезией.',doc:'Гравчикова Е. М.',spec:'Стоматолог-терапевт'},
+  {n:'Реставрация',ic:'spark',d:'Восстановление формы и цвета зуба композитными материалами.',doc:'Гравчикова Е. М.',spec:'Стоматолог-терапевт'},
+  {n:'Рентген-исследование',ic:'xray',d:'Прицельные снимки прямо в клинике, чтобы точно поставить диагноз.',doc:'Любой врач клиники',spec:'Диагностика'},
+  {n:'Протезирование',ic:'crown',d:'Коронки, мосты и съёмные протезы. План лечения и смета до начала работ.',doc:'Аспанашвили М. Г., Горяинов Д. В.',spec:'Стоматолог-ортопед'},
+  {n:'Исправление прикуса',ic:'bite',d:'Консультация и подбор способа коррекции прикуса.',doc:'Гуторов Д. О.',spec:'Хирург-ортопед'},
+  {n:'Профессиональная чистка',ic:'drop',d:'Ультразвук, AIR-FLOW, фторирование. Сейчас скидка 15%.',doc:'Гравчикова Е. М.',spec:'Гигиена'},
+  {n:'Отбеливание',ic:'sun',d:'Безопасное осветление эмали после осмотра и чистки.',doc:'Гравчикова Е. М.',spec:'Эстетика'}
+];
+const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const DOCTORS = [
+  {n:'Гравчикова Елена Михайловна',r:'Стоматолог-терапевт',i:'ЕГ',w:[0,1,2,3,4,5,6],svc:['Лечение','Реставрация','Профессиональная чистка','Отбеливание','Рентген-исследование']},
+  {n:'Гуторов Денис Олегович',r:'Стоматолог-хирург, ортопед',i:'ДГ',w:[1,3,6],svc:['Исправление прикуса','Протезирование','Рентген-исследование']},
+  {n:'Аспанашвили Марина Гамлетовна',r:'Стоматолог-ортопед',i:'МА',w:[0,6],svc:['Протезирование','Рентген-исследование']},
+  {n:'Горяинов Дмитрий Владимирович',r:'Стоматолог-ортопед',i:'ДГ',w:[0,6],svc:['Протезирование','Рентген-исследование']}
+];
+const PRICES = {
+  'Терапия':['Консультация врача-стоматолога|бесплатно','Аппликационная анестезия','Инфильтрационная анестезия','Лечение кариеса, пломба','Снятие старой пломбы'],
+  'Гигиена':['Ультразвуковой скейлинг','AIR-FLOW','Снятие налёта курильщика','Фторирование зубов'],
+  'Ортопедия':['Консультация ортопеда','Металлокерамическая коронка','Съёмный протез'],
+  'Хирургия':['Удаление зуба простое','Удаление зуба сложное']
+};
+
+/* services grid */
+const svcGrid = document.getElementById('svcGrid');
+SERVICES.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='svc rv'; b.dataset.i=i;
+  b.innerHTML=`<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[s.ic]}</svg></span><h3>${s.n}</h3><p>${s.d}</p><span class="more">Подробнее →</span>`;
+  b.onclick=()=>openDrawer(i);
+  svcGrid.appendChild(b);
+});
+
+/* doctors */
+const docGrid=document.getElementById('docGrid');
+DOCTORS.forEach((d,i)=>{
+  const el=document.createElement('article'); el.className='doc rv';
+  el.innerHTML=`<div class="ava">${d.i}</div><div><h3>${d.n}</h3><div class="role">${d.r}</div></div>
+  <div class="days" aria-label="Дни приёма">${DAYS.map((x,k)=>`<span class="${d.w.includes(k)?'w':''}">${x}</span>`).join('')}</div>
+  <a class="btn btn-ghost" href="#booking" data-doc="${i}">Записаться к врачу</a>`;
+  docGrid.appendChild(el);
+});
+
+/* drawer */
+const drawer=document.getElementById('drawer');
+function openDrawer(i){
+  const s=SERVICES[i];
+  document.getElementById('dEyebrow').textContent=s.spec;
+  document.getElementById('dTitle').textContent=s.n;
+  document.getElementById('dText').textContent=s.d+' Ведёт приём: '+s.doc+'.';
+  document.getElementById('dBook').onclick=()=>{closeDrawer();pickService(s.n)};
+  drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false');
+}
+function closeDrawer(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true')}
+document.getElementById('dClose').onclick=closeDrawer;
+drawer.onclick=e=>{if(e.target===drawer)closeDrawer()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+
+/* dental arch */
+const ZONES=[
+  {from:0,to:2,t:'Жевательные зубы',p:'Кариес, пломбы, коронки. Терапевт или ортопед, приём 40–60 минут.',svc:'Лечение'},
+  {from:3,to:4,t:'Премоляры',p:'Лечение и реставрация. Обычно справляется терапевт за один визит.',svc:'Реставрация'},
+  {from:5,to:10,t:'Передние зубы',p:'Эстетическая реставрация, отбеливание и гигиена.',svc:'Отбеливание'},
+  {from:11,to:12,t:'Премоляры',p:'Лечение и реставрация. Обычно справляется терапевт за один визит.',svc:'Реставрация'},
+  {from:13,to:15,t:'Жевательные зубы',p:'Кариес, пломбы, коронки. Терапевт или ортопед, приём 40–60 минут.',svc:'Протезирование'}
+];
+const arch=document.getElementById('arch'); const NS='http://www.w3.org/2000/svg';
+const cx=220,cy=230,rx=185,ry=185;
+for(let k=0;k<16;k++){
+  const a=Math.PI*(1-(k+.5)/16);
+  const x=cx+rx*Math.cos(a), y=cy-ry*Math.sin(a)*0.98;
+  const front=k>=5&&k<=10, mid=(k>=3&&k<=4)||(k>=11&&k<=12);
+  const w=front?20:mid?24:30, h=front?34:mid?30:30;
+  const grp=document.createElementNS(NS,'g');
+  grp.setAttribute('transform',`translate(${x} ${y}) rotate(${90-a*180/Math.PI})`);
+  const r=document.createElementNS(NS,'rect');
+  r.setAttribute('x',-w/2);r.setAttribute('y',-h/2);r.setAttribute('width',w);r.setAttribute('height',h);
+  r.setAttribute('rx',front?9:11);r.setAttribute('class','tooth');
+  grp.appendChild(r);
+  r.dataset.k=k; r.setAttribute('tabindex','0'); r.setAttribute('role','button');
+  const num=k<8?18-k:21+(k-8); r.setAttribute('aria-label','Зуб '+num);
+  arch.appendChild(grp);
+  const t=document.createElementNS(NS,'text');
+  const tx=cx+(rx-42)*Math.cos(a), ty=cy-(ry-42)*Math.sin(a);
+  t.setAttribute('x',tx);t.setAttribute('y',ty+4);t.setAttribute('text-anchor','middle');t.textContent=num;
+  arch.appendChild(t);
+}
+function selectTooth(k){
+  const z=ZONES.find(z=>k>=z.from&&k<=z.to);
+  arch.querySelectorAll('.tooth').forEach(el=>el.classList.toggle('on',+el.dataset.k>=z.from&&+el.dataset.k<=z.to));
+  const info=document.getElementById('zoneInfo');
+  info.innerHTML=`<h3>${z.t}</h3><p>${z.p}</p><a class="btn btn-primary" href="#booking">Записаться: ${z.svc.toLowerCase()}</a>`;
+  info.querySelector('a').onclick=()=>pickService(z.svc);
+}
+arch.addEventListener('click',e=>{if(e.target.dataset.k!==undefined)selectTooth(+e.target.dataset.k)});
+arch.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset.k!==undefined){e.preventDefault();selectTooth(+e.target.dataset.k)}});
+
+/* booking wizard */
+const B={step:0,svc:null,doc:null,date:null,time:null,name:'',phone:''};
+const bookEl=document.getElementById('book');
+function docsFor(svc){return DOCTORS.map((d,i)=>({...d,i})).filter(d=>d.svc.includes(svc))}
+function nextDays(doc){
+  const out=[];const base=new Date();base.setHours(0,0,0,0);
+  for(let k=0;k<14&&out.length<8;k++){const d=new Date(base);d.setDate(base.getDate()+k);const wd=(d.getDay()+6)%7;
+    if(DOCTORS[doc].w.includes(wd))out.push(d)}
+  return out;
+}
+function seeded(n){let x=Math.sin(n)*10000;return x-Math.floor(x)}
+function fmtDate(d){return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
+function renderBook(){
+  const steps=`<div class="steps">${[0,1,2,3].map(k=>`<i class="${k<=B.step?'on':''}"></i>`).join('')}</div>`;
+  let body='';
+  if(B.step===0){
+    body=`<h3>Какая услуга нужна?</h3><div class="chips">${SERVICES.map(s=>`<button class="chip ${B.svc===s.n?'on':''}" data-svc="${s.n}">${s.n}</button>`).join('')}</div>`;
+  } else if(B.step===1){
+    body=`<h3>Выберите врача</h3><div class="chips">${docsFor(B.svc).map(d=>`<button class="chip ${B.doc===d.i?'on':''}" data-doc="${d.i}">${d.n.split(' ').slice(0,2).join(' ')}<small>${d.r} · ${d.w.map(k=>DAYS[k]).join(', ')}</small></button>`).join('')}</div>`;
+  } else if(B.step===2){
+    const days=nextDays(B.doc);
+    if(B.date===null)B.date=0;
+    const d=days[B.date];const key=d.getDate()+d.getMonth()*31;
+    const slots=[];for(let h=9;h<18;h++)for(const m of [0,30]){if(h===17&&m===30)continue;slots.push(`${h}:${m?'30':'00'}`)}
+    body=`<h3>Удобный день и время</h3><div class="chips" style="margin-bottom:16px">${days.map((x,k)=>`<button class="chip ${B.date===k?'on':''}" data-date="${k}">${DAYS[(x.getDay()+6)%7]}<small>${fmtDate(x)}</small></button>`).join('')}</div>
+    <div class="chips">${slots.map((s,k)=>{const busy=seeded(key*40+k)<.38;return `<button class="chip ${B.time===s?'on':''}" data-time="${s}" ${busy?'disabled':''}>${s}</button>`}).join('')}</div>`;
+  } else if(B.step===3){
+    const d=nextDays(B.doc)[B.date];
+    body=`<h3>Куда перезвонить?</h3><div class="summary"><span><b>${B.svc}</b></span><span>${DOCTORS[B.doc].n}</span><span>${DAYS[(d.getDay()+6)%7]}, ${fmtDate(d)} в ${B.time}</span></div>
+    <div class="field"><label for="bName">Имя</label><input id="bName" autocomplete="name" placeholder="Как к вам обращаться" value="${B.name}"></div>
+    <div class="field"><label for="bPhone">Телефон</label><input id="bPhone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" value="${B.phone}"></div>`;
+  } else {
+    const d=nextDays(B.doc)[B.date];
+    body=`<div class="done"><div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-10"/></svg></div>
+    <h3>Заявка принята</h3><p class="lead" style="margin:0 auto">${B.name||'Спасибо'}, ждём вас ${fmtDate(d)} в ${B.time}. Администратор перезвонит в течение 15 минут, чтобы подтвердить запись.</p>
+    <button class="btn btn-ghost" style="margin-top:20px" data-reset>Записаться ещё раз</button></div>`;
+  }
+  const can=[B.svc,B.doc!==null,B.time,B.phone.replace(/\D/g,'').length>=11][B.step];
+  const nav=B.step<4?`<div class="book-nav"><button class="btn btn-ghost" data-back ${B.step===0?'style="visibility:hidden"':''}>Назад</button><button class="btn btn-primary" data-next ${can?'':'disabled style="opacity:.45;cursor:not-allowed"'}>${B.step===3?'Отправить заявку':'Далее'}</button></div>`:'';
+  bookEl.innerHTML=steps+body+nav;
+  const ph=bookEl.querySelector('#bPhone'), nm=bookEl.querySelector('#bName');
+  if(nm)nm.oninput=e=>{B.name=e.target.value};
+  if(ph)ph.oninput=e=>{B.phone=maskPhone(e.target.value);e.target.value=B.phone;const nb=bookEl.querySelector('[data-next]');const ok=B.phone.replace(/\D/g,'').length>=11;nb.disabled=!ok;nb.style.opacity=ok?1:.45;nb.style.cursor=ok?'pointer':'not-allowed'};
+}
+function maskPhone(v){let d=v.replace(/\D/g,'');if(d[0]==='8')d='7'+d.slice(1);if(d[0]!=='7')d='7'+d;d=d.slice(0,11);
+  let o='+7';if(d.length>1)o+=' ('+d.slice(1,4);if(d.length>=4)o+=')';if(d.length>4)o+=' '+d.slice(4,7);if(d.length>7)o+='-'+d.slice(7,9);if(d.length>9)o+='-'+d.slice(9,11);return o}
+bookEl.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.svc){B.svc=t.dataset.svc;B.doc=null;B.date=null;B.time=null;const ds=docsFor(B.svc);if(ds.length===1)B.doc=ds[0].i}
+  else if(t.dataset.doc!==undefined){B.doc=+t.dataset.doc;B.date=null;B.time=null}
+  else if(t.dataset.date!==undefined){B.date=+t.dataset.date;B.time=null}
+  else if(t.dataset.time){B.time=t.dataset.time}
+  else if(t.hasAttribute('data-next')&&!t.disabled){B.step++}
+  else if(t.hasAttribute('data-back')){B.step--}
+  else if(t.hasAttribute('data-reset')){Object.assign(B,{step:0,svc:null,doc:null,date:null,time:null,name:'',phone:''})}
+  renderBook();
+});
+function pickService(n){Object.assign(B,{step:1,svc:n,doc:null,date:null,time:null});const ds=docsFor(n);if(ds.length===1){B.doc=ds[0].i;B.step=2}renderBook()}
+document.querySelectorAll('[data-book]').forEach(a=>a.addEventListener('click',()=>{if(a.dataset.svc)pickService(a.dataset.svc)}));
+docGrid.addEventListener('click',e=>{const a=e.target.closest('[data-doc]');if(!a)return;const d=DOCTORS[+a.dataset.doc];Object.assign(B,{svc:d.svc[0],doc:+a.dataset.doc,date:null,time:null,step:2});renderBook()});
+renderBook();
+
+/* prices */
+const ptabs=document.getElementById('ptabs'),plist=document.getElementById('plist');
+function showPrices(cat){
+  ptabs.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.cat===cat));
+  plist.innerHTML=PRICES[cat].map(r=>{const [n,p]=r.split('|');return `<div class="prow"><span>${n}</span><span class="${p?'':'ph'}">${p||'от … ₽'}</span></div>`}).join('');
+}
+Object.keys(PRICES).forEach(c=>{const b=document.createElement('button');b.className='chip';b.dataset.cat=c;b.textContent=c;b.setAttribute('role','tab');b.onclick=()=>showPrices(c);ptabs.appendChild(b)});
+showPrices('Терапия');
+
+/* stylised map */
+function drawMap(){
+  const c=document.getElementById('mapc');const r=c.getBoundingClientRect();const dpr=Math.min(2,devicePixelRatio||1);
+  c.width=r.width*dpr;c.height=r.height*dpr;const g=c.getContext('2d');g.scale(dpr,dpr);
+  const cs=getComputedStyle(document.documentElement);
+  g.fillStyle=cs.getPropertyValue('--accent-soft');g.fillRect(0,0,r.width,r.height);
+  g.strokeStyle=cs.getPropertyValue('--card');g.lineCap='round';
+  const roads=[[0,.3,1,.22,14],[0,.72,1,.8,10],[.25,0,.32,1,10],[.7,0,.62,1,16],[0,.5,1,.47,6],[.48,0,.5,1,6]];
+  roads.forEach(([x1,y1,x2,y2,w])=>{g.lineWidth=w;g.beginPath();g.moveTo(x1*r.width,y1*r.height);g.lineTo(x2*r.width,y2*r.height);g.stroke()});
+  g.fillStyle=cs.getPropertyValue('--line');
+  for(let i=0;i<26;i++){const x=seeded(i)*r.width,y=seeded(i+50)*r.height;g.globalAlpha=.55;g.fillRect(x,y,24+seeded(i+9)*30,18+seeded(i+3)*22)}
+  g.globalAlpha=1;
+}
+drawMap();addEventListener('resize',drawMap);
+
+/* reveal */
+if(!STATIC&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>{const r=el.getBoundingClientRect();if(r.top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+
+/* hooks used by the promo video renderer */
+window.demo={selectTooth,openDrawer,closeDrawer,pickService,state:B,render:renderBook,
+  set(o){Object.assign(B,o);renderBook()},type(field,v){B[field]=field==='phone'?maskPhone(v):v;renderBook()}};
+</script>
+
+</body></html>
