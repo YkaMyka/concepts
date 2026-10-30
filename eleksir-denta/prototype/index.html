@@ -1,0 +1,570 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>Элексир дента</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"></head><body>
+
+
+
+
+
+<style>
+/* Layout: sticky header → editorial hero with full dental formula (32 teeth, symptom → direction) and "today" card → directions with real sub-services → doctors with real photos → 3-step booking → price catalogue → contacts. Brand: the rose of the current header and the navy of the tooth logo, set on a warm "enamel" ground; serif headlines as the elixir/apothecary touch. */
+:root{
+  --bg:#fbf7f8; --paper:#ffffff; --ink:#1b2340; --ink-2:#424b6b; --muted:#6c7290; --line:#ece2e7;
+  --rose:#cf3b7a; --rose-ink:#ffffff; --rose-soft:#fbe5ee; --navy:#1d3466; --navy-soft:#e8edf7;
+  --shadow:0 24px 60px -32px rgba(29,52,102,.45);
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:22px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11131f;--paper:#1a1d2d;--ink:#f1eef5;--ink-2:#cdc9da;--muted:#9a98ad;--line:#2b2e44;
+  --rose:#ff6fa6;--rose-ink:#2a0716;--rose-soft:#3a1b2c;--navy:#a9c0f2;--navy-soft:#1f2742;--shadow:0 24px 60px -30px rgba(0,0,0,.75);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11131f;--paper:#1a1d2d;--ink:#f1eef5;--ink-2:#cdc9da;--muted:#9a98ad;--line:#2b2e44;
+  --rose:#ff6fa6;--rose-ink:#2a0716;--rose-soft:#3a1b2c;--navy:#a9c0f2;--navy-soft:#1f2742;--shadow:0 24px 60px -30px rgba(0,0,0,.75);color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;text-wrap:balance}
+h1,h2{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h2{font-size:clamp(30px,3.8vw,48px);line-height:1.08}
+h2 em,h1 em{font-style:italic;color:var(--rose)}
+h3{font-weight:700;letter-spacing:-.01em}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--navy)}
+.tag::before{content:"";width:22px;height:2px;background:var(--rose);border-radius:2px}
+.lead{color:var(--muted);font-size:18px;max-width:58ch;margin:0}
+section{padding-block:clamp(56px,8vw,100px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;font:700 15px/1 var(--sans);padding:16px 24px;border-radius:14px;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
+.btn-rose{background:var(--rose);color:var(--rose-ink);box-shadow:0 12px 28px -14px var(--rose)}
+.btn-rose:hover,.btn-rose.is-hover{transform:translateY(-2px);box-shadow:0 18px 34px -14px var(--rose)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-line:hover,.btn-line.is-hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:22px;height:70px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{width:36px;height:36px;flex:none}
+.logo b{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1;display:block}
+.logo small{display:block;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.04em;margin-top:3px}
+nav.menu{display:flex;gap:24px;margin-left:auto;font-weight:600;font-size:14px}
+nav.menu a{text-decoration:none;color:var(--ink-2)}
+nav.menu a:hover,nav.menu a.is-hover{color:var(--rose)}
+.top .phone{font-weight:700;text-decoration:none;white-space:nowrap;font-size:15px}
+.top .btn{padding:12px 18px;font-size:14px}
+.theme{width:40px;height:40px;border-radius:12px;border:1.5px solid var(--line);background:transparent;cursor:pointer;display:grid;place-items:center;flex:none}
+.theme:hover,.theme.is-hover{border-color:var(--ink)}
+@media (max-width:1020px){nav.menu,.top .phone{display:none}.theme{margin-left:auto}}
+@media (max-width:420px){.top .btn{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(24px,3vw,36px) clamp(48px,6vw,80px)}
+.hero-head{display:grid;grid-template-columns:1.3fr .7fr;align-items:end;gap:36px}
+@media (max-width:900px){.hero-head{grid-template-columns:1fr;gap:16px}}
+.hero h1{font-size:clamp(34px,4.1vw,56px);line-height:1.04;margin-top:12px}
+.hero .lead{max-width:46ch;font-size:16px}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px}
+.hero-grid{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:24px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow)}
+.formula{padding:20px 24px 20px;display:grid;gap:12px}
+.formula .ttl{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
+.formula .ttl h3{font-size:17px}
+.formula .ttl span{font-size:12px;color:var(--muted);font-weight:600}
+#jaw{width:100%;max-height:215px;display:block;touch-action:manipulation}
+#jaw .tooth{fill:var(--bg);stroke:color-mix(in srgb,var(--navy) 35%,var(--line));stroke-width:1.6;cursor:pointer;transition:fill .2s,stroke .2s}
+#jaw .tooth:hover,#jaw .tooth.is-hover{fill:var(--rose-soft);stroke:var(--rose)}
+#jaw .tooth.on{fill:var(--rose);stroke:var(--rose)}
+#jaw text{fill:var(--muted);font:600 9px var(--sans)}
+#jaw .mid{stroke:var(--line);stroke-dasharray:3 4}
+#jaw .lbl{font:700 10px var(--sans);fill:var(--navy);letter-spacing:.08em}
+.ask{border-top:1px solid var(--line);padding-top:14px;display:grid;grid-template-columns:1fr 280px;gap:8px 20px;align-items:start}
+.ask .q{grid-column:1}.ask .syms{grid-column:1}.ask .rec{grid-column:2;grid-row:1/3}
+.ask .q{font-weight:700;font-size:15px}
+.ask .q small{display:block;font-weight:500;color:var(--muted);font-size:13px;margin-top:2px}
+.syms{display:flex;flex-wrap:wrap;gap:6px}
+.sym{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.sym:hover,.sym.is-hover{border-color:var(--rose);color:var(--rose)}
+.sym.on{background:var(--navy);border-color:var(--navy);color:var(--paper)}
+.rec{background:var(--navy-soft);border-radius:16px;padding:14px;display:grid;gap:6px;min-height:112px;align-content:start}
+.rec b{font-size:15px}
+.rec p{margin:0;font-size:13px;color:var(--ink-2)}
+.rec .btn{padding:11px 14px;font-size:13px;justify-self:start;margin-top:4px}
+.today{padding:22px;display:flex;flex-direction:column;gap:16px}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
+.status i{width:10px;height:10px;border-radius:50%;background:#2fb36d;box-shadow:0 0 0 4px color-mix(in srgb,#2fb36d 22%,transparent)}
+.status.closed i{background:var(--muted);box-shadow:0 0 0 4px color-mix(in srgb,var(--muted) 22%,transparent)}
+.today dl{margin:0;display:grid;gap:12px}
+.today dt{font-size:12px;color:var(--muted);font-weight:600}
+.today dd{margin:2px 0 0;font-weight:600}
+.today dd a{text-decoration:none}
+.today .btn{margin-top:auto}
+@media (max-width:1080px){.hero-grid{grid-template-columns:1fr}.today{display:grid;grid-template-columns:1fr 1fr;align-items:start}.today .status,.today .btn{grid-column:1/-1}}
+@media (max-width:760px){.formula{padding:18px 16px}.ask{grid-template-columns:1fr}.ask .rec{grid-column:1;grid-row:auto}.today{grid-template-columns:1fr}}
+
+/* directions */
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.head h2{margin-top:10px}
+.dirs{display:grid;grid-template-columns:320px 1fr;gap:20px}
+.dlist{display:grid;gap:6px;align-content:start}
+.dbtn{display:flex;align-items:center;gap:14px;text-align:left;background:transparent;border:1.5px solid transparent;border-radius:16px;padding:14px 16px;cursor:pointer;transition:all .2s}
+.dbtn .n{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--rose);width:28px;flex:none}
+.dbtn b{font-size:16px}
+.dbtn small{display:block;color:var(--muted);font-size:13px;font-weight:500}
+.dbtn:hover,.dbtn.is-hover{background:var(--paper);border-color:var(--line)}
+.dbtn.on{background:var(--paper);border-color:var(--rose);box-shadow:var(--shadow)}
+.dpane{padding:28px}
+.dpane h3{font-family:var(--serif);font-weight:500;font-size:30px}
+.dpane > p{color:var(--muted);margin:8px 0 18px;max-width:60ch}
+.srows{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.srow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:var(--bg);text-decoration:none;font-weight:600;font-size:15px;transition:all .2s;border:1.5px solid transparent}
+.srow span:last-child{color:var(--rose);font-size:13px;white-space:nowrap;opacity:.0;transition:opacity .2s}
+.srow:hover,.srow.is-hover{border-color:var(--rose);background:var(--paper)}
+.srow:hover span:last-child,.srow.is-hover span:last-child{opacity:1}
+.dpane .who{margin-top:18px;font-size:14px;color:var(--muted)}
+.dpane .who b{color:var(--ink)}
+@media (max-width:900px){.dirs{grid-template-columns:1fr}.dlist{grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}.dbtn small{display:none}.srows{grid-template-columns:1fr}.dpane{padding:20px}.srow span:last-child{opacity:1}}
+
+/* doctors */
+.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.doc{overflow:hidden;display:flex;flex-direction:column}
+.doc .ph{aspect-ratio:4/4.2;background:var(--navy-soft);overflow:hidden}
+.doc .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block;filter:saturate(.92)}
+.doc .bd{padding:18px 20px 20px;display:grid;gap:4px;flex:1}
+.doc h3{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.15}
+.doc .role{color:var(--rose);font-weight:700;font-size:14px}
+.doc .what{color:var(--muted);font-size:14px;margin:4px 0 12px}
+.doc .btn{margin-top:auto;padding:12px 16px;font-size:14px}
+.note{font-size:13px;color:var(--muted);margin-top:18px}
+@media (max-width:860px){.docs{grid-template-columns:1fr}.doc{flex-direction:row}.doc .ph{width:38%;aspect-ratio:auto;min-height:200px;flex:none}}
+
+/* booking */
+.booking{background:var(--navy);color:#fff}
+:root[data-theme="dark"] .booking{background:#171c33}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .booking{background:#171c33}}
+.booking .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:start}
+.booking h2{color:#fff}
+.booking h2 em{color:#ff8fbb}
+.booking .lead{color:rgba(255,255,255,.75);margin-top:16px}
+.booking .tag{color:#fff}
+.bfacts{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:10px}
+.bfacts li{display:flex;gap:10px;align-items:center;color:rgba(255,255,255,.88);font-weight:500}
+.bfacts li::before{content:"";width:18px;height:18px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 35%,#ffb3d0,#cf3b7a)}
+.demo-tag{display:inline-block;font-size:12px;border:1px dashed currentColor;border-radius:8px;padding:5px 9px;margin-top:22px;opacity:.75}
+.book{background:var(--paper);color:var(--ink);border-radius:28px;padding:clamp(20px,3vw,32px);box-shadow:0 40px 80px -40px rgba(0,0,0,.6)}
+.steps{display:flex;gap:8px;margin-bottom:22px;font-size:13px;font-weight:700;color:var(--muted)}
+.steps span{display:flex;align-items:center;gap:8px;flex:1;padding-bottom:10px;border-bottom:3px solid var(--line)}
+.steps span i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--line);color:var(--ink);font-size:12px;flex:none}
+.steps span.on{color:var(--ink);border-color:var(--rose)}
+.steps span.on i{background:var(--rose);color:var(--rose-ink)}
+.book h3{font-size:20px;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--paper);padding:10px 14px;border-radius:12px;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;text-align:left}
+.chip small{display:block;font-size:11px;color:var(--muted);font-weight:600}
+.chip:hover,.chip.is-hover{border-color:var(--rose)}
+.chip.on{background:var(--rose);border-color:var(--rose);color:var(--rose-ink)}
+.chip.on small{color:inherit;opacity:.8}
+.chip:disabled{opacity:.35;cursor:not-allowed}
+.sub{font-size:13px;color:var(--muted);font-weight:700;margin:18px 0 8px}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;color:var(--muted);font-weight:600}
+.field input{font:600 16px var(--sans);padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.field input:focus{border-color:var(--rose);outline:none}
+.summary{background:var(--bg);border-radius:14px;padding:12px 16px;font-size:14px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:4px 16px}
+.book-nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.done{text-align:center;padding:16px 0}
+.done .ok{width:76px;height:76px;margin:0 auto 16px;display:grid;place-items:center;color:var(--rose)}
+.done p{color:var(--muted);margin:8px auto 0;max-width:42ch}
+@media (max-width:900px){.booking .wrap{grid-template-columns:1fr;gap:28px}}
+
+/* prices */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-items:start}
+details.pc{padding:0;overflow:hidden;box-shadow:none}
+details.pc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px;font-weight:700;font-size:17px}
+details.pc summary::-webkit-details-marker{display:none}
+details.pc summary::after{content:"+";font-size:22px;color:var(--rose);font-weight:500;transition:transform .2s}
+details.pc[open] summary::after{transform:rotate(45deg)}
+details.pc summary small{color:var(--muted);font-weight:600;font-size:13px;margin-left:8px}
+details.pc summary:hover,details.pc summary.is-hover{color:var(--rose)}
+.prow{display:flex;justify-content:space-between;gap:16px;padding:12px 22px;border-top:1px solid var(--line);font-size:15px}
+.prow span:last-child{color:var(--muted);font-weight:600;white-space:nowrap}
+@media (max-width:800px){.pgrid{grid-template-columns:1fr}}
+
+/* contacts */
+.contacts .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:20px}
+.cbox{padding:30px;display:grid;gap:18px;align-content:start}
+.cbox dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cbox dt{font-size:12px;color:var(--muted);font-weight:700}
+.cbox dd{margin:4px 0 0;font-weight:600;font-size:16px}
+.cbox dd a{text-decoration:none}
+.cbox .req{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.map{position:relative;min-height:360px;overflow:hidden;background:var(--navy-soft)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map .street{stroke:var(--paper);fill:none;stroke-linecap:round}
+.map .blk{fill:color-mix(in srgb,var(--navy) 10%,var(--navy-soft))}
+.map .park{fill:color-mix(in srgb,#3fae74 22%,var(--navy-soft))}
+.map .sname{font:700 11px var(--sans);fill:var(--muted);letter-spacing:.04em}
+.pin{position:absolute;left:52%;top:44%;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;gap:6px}
+.pin span{background:var(--ink);color:var(--bg);padding:9px 13px;border-radius:12px;font-weight:700;font-size:13px;white-space:nowrap;box-shadow:var(--shadow)}
+.map .btn{position:absolute;left:18px;bottom:18px;background:var(--paper);color:var(--ink);padding:12px 16px;font-size:14px}
+@media (max-width:860px){.contacts .wrap{grid-template-columns:1fr}.cbox dl{grid-template-columns:1fr}}
+footer{padding-block:30px 110px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+
+/* mobile bar */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mbar .btn{flex:1;padding:14px}
+}
+
+.rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .rv.pre{opacity:0;transform:translateY(22px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Элексир дента, на главную">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2.5C20 2.5 34 17 34 25.5a14 14 0 0 1-28 0C6 17 20 2.5 20 2.5Z" fill="var(--rose)"/><path d="M15.2 19.5c-2 0-3 1.7-3 3.7 0 2.4 1 3.6 1.6 6.2.3 1.7.7 2.6 1.6 2.6 1 0 1.1-2 1.5-3.6.3-1 .7-1.4 1.6-1.4s1.3.4 1.6 1.4c.4 1.6.5 3.6 1.5 3.6.9 0 1.3-.9 1.6-2.6.6-2.6 1.6-3.8 1.6-6.2 0-2-1-3.7-3-3.7-1.5 0-2.1.8-3.3.8s-1.8-.8-3.3-.8Z" fill="#fff" transform="translate(1.3 -1)"/></svg>
+      <span><b>Элексир дента</b><small>стоматология · Балашиха</small></span>
+    </a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#services">Направления</a><a href="#doctors">Врачи</a><a href="#prices">Цены</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="phone" href="tel:+74955215087">+7 (495) 521-50-87</a>
+    <button class="theme" id="themeBtn" aria-label="Сменить тему"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 13.5A8.5 8.5 0 1 1 10.5 3a7 7 0 0 0 10.5 10.5Z"/></svg></button>
+    <a class="btn btn-rose" href="#booking">Записаться</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-head rv">
+      <div>
+        <span class="tag">Стоматологическая клиника в Балашихе</span>
+        <h1>Лечим и бережём зубы&nbsp;— <em>каждый день до&nbsp;21:00</em></h1>
+      </div>
+      <div>
+        <p class="lead">Терапия, гигиена, протезирование, эстетика, хирургия и исправление прикуса в одной клинике на ул. Карбышева, 1. Без выходных и без обеда.</p>
+        <div class="cta-row" style="margin-top:18px">
+          <a class="btn btn-rose" href="#booking">Записаться онлайн</a>
+          <a class="btn btn-line" href="tel:+79262718488">+7 (926) 271-84-88</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-grid">
+      <div class="panel formula rv" id="formula">
+        <div>
+          <div class="ttl"><h3>Покажите, какой зуб беспокоит</h3><span>нажмите на зуб</span></div>
+          <svg id="jaw" viewBox="0 0 640 250" role="group" aria-label="Зубная формула: выберите зуб"></svg>
+        </div>
+        <div class="ask" id="ask" aria-live="polite"></div>
+      </div>
+      <aside class="panel today rv" aria-label="Клиника сегодня">
+        <span class="status" id="status"><i></i><span>Открыто ежедневно</span></span>
+        <dl>
+          <div><dt>Режим работы</dt><dd>Пн–Вс, 9:00–21:00, без обеда</dd></div>
+          <div><dt>Адрес</dt><dd>Балашиха, ул. Карбышева, 1</dd></div>
+          <div><dt>Телефоны</dt><dd><a href="tel:+74955215087">+7 (495) 521-50-87</a><br><a href="tel:+79262718488">+7 (926) 271-84-88</a></dd></div>
+        </dl>
+        <a class="btn btn-line" href="#contacts">Как добраться</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="padding-top:20px">
+  <div class="wrap">
+    <div class="head rv">
+      <div><span class="tag">Направления</span><h2>Семь направлений, <em>одна клиника</em></h2></div>
+      <p class="lead">Все услуги из текущего меню сайта, собранные по направлениям. Нажмите на услугу, чтобы сразу перейти к записи.</p>
+    </div>
+    <div class="dirs">
+      <div class="dlist rv" id="dlist" role="tablist"></div>
+      <div class="panel dpane rv" id="dpane" role="tabpanel"></div>
+    </div>
+  </div>
+</section>
+
+<section id="doctors" style="padding-top:0">
+  <div class="wrap">
+    <div class="head rv">
+      <div><span class="tag">Специалисты</span><h2>Кто будет <em>вас лечить</em></h2></div>
+      <p class="lead">Врачи и специализации — со страницы «Специалисты». В рабочей версии добавим образование, сертификаты и дни приёма.</p>
+    </div>
+    <div class="docs" id="docs"></div>
+  </div>
+</section>
+
+<section id="booking" class="booking">
+  <div class="wrap">
+    <div class="rv">
+      <span class="tag">Онлайн-запись</span>
+      <h2 style="margin-top:12px">Три шага — <em>и&nbsp;администратор перезвонит</em></h2>
+      <p class="lead">Выберите направление и удобное время. Клиника работает до 21:00, поэтому вечерние часы тоже доступны.</p>
+      <ul class="bfacts">
+        <li>Без выходных, 9:00–21:00</li>
+        <li>Подтверждение звонком администратора</li>
+        <li>Можно записаться, даже когда клиника закрыта</li>
+      </ul>
+      <span class="demo-tag">Демо: форма никуда не отправляет данные</span>
+    </div>
+    <div class="book rv" id="book"></div>
+  </div>
+</section>
+
+<section id="prices">
+  <div class="wrap">
+    <div class="head rv">
+      <div><span class="tag">Цены</span><h2>Прайс по разделам, <em>а не 14 таблиц подряд</em></h2></div>
+      <p class="lead">Раскройте нужный раздел. Позиции взяты из текущего прайса на сайте.</p>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+    <p class="note">Суммы в прототипе скрыты («от … ₽»): в рабочей версии клиника вносит актуальные цены сама, и файл для скачивания обновляется автоматически.</p>
+  </div>
+</section>
+
+<section id="contacts" class="contacts" style="padding-top:0">
+  <div class="wrap">
+    <div class="panel cbox rv">
+      <span class="tag">Контакты</span>
+      <h2 style="font-size:clamp(28px,3vw,38px)">Ждём вас <em>на Карбышева</em></h2>
+      <dl>
+        <div><dt>Адрес</dt><dd>Московская обл., г. Балашиха, ул. Карбышева, д. 1</dd></div>
+        <div><dt>Режим работы</dt><dd>Ежедневно 9:00–21:00, без обеда</dd></div>
+        <div><dt>Телефоны</dt><dd><a href="tel:+74955215087">+7 (495) 521-50-87</a><br><a href="tel:+79262718488">+7 (926) 271-84-88</a></dd></div>
+        <div><dt>Почта</dt><dd><a href="mailto:5215087@mail.ru">5215087@mail.ru</a></dd></div>
+      </dl>
+      <a class="btn btn-rose" href="#booking" style="justify-self:start">Записаться на приём</a>
+      <div class="req">ООО «Элексир дента» · ИНН 5001073057 · ОГРН 1095001002249</div>
+    </div>
+    <div class="panel map rv">
+      <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect class="park" x="380" y="250" width="240" height="170" rx="18"/>
+        <g class="blk">
+          <rect x="30" y="30" width="130" height="90" rx="10"/><rect x="200" y="30" width="110" height="90" rx="10"/><rect x="350" y="20" width="150" height="100" rx="10"/>
+          <rect x="30" y="170" width="130" height="110" rx="10"/><rect x="200" y="170" width="70" height="60" rx="8"/><rect x="350" y="170" width="90" height="60" rx="8"/>
+          <rect x="30" y="320" width="130" height="80" rx="10"/><rect x="200" y="290" width="140" height="110" rx="10"/><rect x="470" y="160" width="120" height="70" rx="10"/>
+        </g>
+        <path class="street" stroke-width="18" d="M-20 145 L620 145"/>
+        <path class="street" stroke-width="12" d="M180 -20 L180 420"/>
+        <path class="street" stroke-width="14" d="M330 -20 C330 120 330 200 300 260 S 260 360 270 420"/>
+        <path class="street" stroke-width="8" d="M-20 300 L370 250 L620 245"/>
+        <text class="sname" x="20" y="137">УЛ. КАРБЫШЕВА</text>
+      </svg>
+      <div class="pin"><span>Элексир дента · Карбышева, 1</span>
+        <svg width="30" height="38" viewBox="0 0 40 50" aria-hidden="true"><path d="M20 2C20 2 36 19 36 30a16 16 0 0 1-32 0C4 19 20 2 20 2Z" fill="var(--rose)" stroke="#fff" stroke-width="3"/></svg></div>
+      <a class="btn" href="https://yandex.ru/maps/?text=%D0%91%D0%B0%D0%BB%D0%B0%D1%88%D0%B8%D1%85%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9A%D0%B0%D1%80%D0%B1%D1%8B%D1%88%D0%B5%D0%B2%D0%B0%2C%201" target="_blank" rel="noopener">Маршрут в Яндекс Картах ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© ООО «Элексир дента», Балашиха</span>
+    <span>Концепция редизайна сайта · демонстрационный прототип</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-line" href="tel:+74955215087">Позвонить</a>
+  <a class="btn btn-rose" href="#booking">Записаться</a>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+const STATIC=new URLSearchParams(location.search).has('static');
+const $=s=>document.querySelector(s);
+
+/* data: only facts from eleksirdenta.ru */
+const DIRS=[
+  {n:'Лечение зубов',s:'терапия и каналы',d:'Лечение кариеса, пульпита и периодонтита, работа с корневыми каналами, лечение молочных зубов.',items:['Лечение кариеса','Лечение пульпита','Лечение периодонтита','Пломбирование корневых каналов','Перелечивание «сложных» каналов','Лечение кисты зуба','Лечение пародонта лазером','Лечение молочных зубов','Герметизация фиссур'],who:'Карпова Виктория Викторовна, врач общей практики'},
+  {n:'Гигиена и профилактика',s:'чистка и фторирование',d:'Профессиональная чистка и укрепление эмали. Регулярная гигиена помогает избежать лечения.',items:['Профессиональная чистка зубов','Глубокое фторирование зубов'],who:'Карпова Виктория Викторовна, врач общей практики'},
+  {n:'Протезирование',s:'несъёмное и съёмное',d:'Восстановление утраченных зубов: коронки и мосты, съёмные конструкции.',items:['Металлокерамика','Несъёмное протезирование','Бюгельное протезирование','Нейлоновое протезирование','Съёмное протезирование'],who:'Ступин Алексей Юрьевич, стоматолог-ортопед'},
+  {n:'Эстетика зубов',s:'виниры, отбеливание',d:'Форма, цвет и блеск: отбеливание, реставрации и виниры.',items:['Отбеливание ZOOM 3','Керамические виниры','Композитные виниры','Художественная реставрация','Эстетическое восстановление','Установка страз на зубы'],who:'Карпова Виктория Викторовна, врач общей практики'},
+  {n:'Хирургия',s:'удаление и имплантация',d:'Удаление зубов, имплантация, костная пластика и малые операции в полости рта.',items:['Удаление зубов','Имплантаты','Подсадка костной ткани','Резекция верхушки корня','Хирургическое лечение пародонтита','Лечение альвеолита','Пластика уздечки языка и губ','Пластика преддверия полости рта'],who:'Специалист уточняется у администратора'},
+  {n:'Исправление прикуса',s:'ортодонтия',d:'Консультация ортодонта и подбор способа коррекции прикуса для детей и взрослых.',items:['Консультация ортодонта','Исправление прикуса'],who:'Спрогис Анастасия Ивановна, стоматолог-ортодонт'},
+  {n:'Компьютерная диагностика',s:'визиограмма',d:'Цифровые снимки прямо в клинике, чтобы точно спланировать лечение.',items:['Визиограмма'],who:'Выполняется в клинике перед лечением'}
+];
+const SYMS=[
+  {t:'Болит, реагирует на холодное',dir:0,r:'Похоже на кариес или пульпит. Нужен осмотр и, скорее всего, лечение зуба.'},
+  {t:'Скол или трещина',dir:3,r:'Восстановим форму реставрацией или виниром — после осмотра врач предложит вариант.'},
+  {t:'Зуба нет',dir:2,r:'Подойдёт протезирование или имплантация. Начнём с консультации ортопеда.'},
+  {t:'Кровоточит десна',dir:0,r:'Признак воспаления дёсен. В клинике есть лечение пародонта лазером.'},
+  {t:'Неровно растёт',dir:5,r:'Вопрос к ортодонту: оценит прикус и предложит способ коррекции.'},
+  {t:'Хочу белее',dir:1,r:'Начнём с профессиональной чистки, затем — отбеливание ZOOM 3, если нужно.'}
+];
+const DOCS=[
+  {n:'Ступин Алексей Юрьевич',r:'Стоматолог-ортопед',img:'assets/stupin.jpg',what:'Протезирование: коронки, мосты, съёмные конструкции.',dir:2},
+  {n:'Карпова Виктория Викторовна',r:'Врач общей практики',img:'assets/karpova.jpg',what:'Лечение зубов, реставрации, эстетика, отбеливание.',dir:0},
+  {n:'Спрогис Анастасия Ивановна',r:'Стоматолог-ортодонт',img:'assets/sprogis.jpg',what:'Диагностика и исправление прикуса.',dir:5}
+];
+const PRICES={
+  'Терапевтическая стоматология':['Консультация, осмотр','Консультация и план лечения','Анестезия инфильтрационная','Рентген','Применение бинокуляров Q-Optics'],
+  'Лечение кариеса':['Пломба Filtek, I класс','Пломба Filtek, II класс','Жевательные зубы, Estelite','Фронтальные зубы, Estelite','Использование раббердама'],
+  'Детская стоматология':['Установление контакта с ребёнком','Пломба из стеклоиономера Fuji IX','Серебрение зуба (Saforide)','Снятие мягкого налёта'],
+  'Гигиена и пародонтология':['Снятие налёта Air Flow (1 зуб)','Удаление камня ультразвуком (1 зуб)','Физиолечение','Френулопластика'],
+  'Имплантация':['Установка имплантата OSSTEM','Установка мини-имплантата','Установка формирователя десны','Костный заменитель Bio-Oss'],
+  'Протезирование':['Безметалловая коронка (диоксид циркония)','Индивидуальный абатмент','Съёмный протез частичный','Съёмный полный протез'],
+  'Хирургия':['Удаление зуба','Кюретаж лунки','Перевязка при лечении альвеолита','Снятие швов'],
+  'Ортодонтия':['Анализ ТРГ','Аппарат Хаулея','Ортоэластопозиционер','Аппарат Гербста']
+};
+
+/* theme */
+$('#themeBtn').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark'};
+
+/* open status, Moscow time */
+(function(){
+  const now=new Date(Date.now()+(new Date().getTimezoneOffset()+180)*60000);const h=now.getHours()+now.getMinutes()/60;
+  const st=$('#status');const open=h>=9&&h<21;
+  st.classList.toggle('closed',!open);
+  st.querySelector('span').textContent=open?'Сейчас открыто · до 21:00':'Сейчас закрыто · откроемся в 9:00';
+})();
+
+/* dental formula */
+const jaw=$('#jaw'),NS='http://www.w3.org/2000/svg';
+const UP=[18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28], LO=[48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+function kind(n){const d=n%10;return d<=2?'i':d===3?'c':d<=5?'p':'m'}
+function toothPath(k,w,h,up){
+  // crown at the occlusal side (towards the middle line), roots away from it
+  const cw=w, ch=h*.55, rh=h-ch; let p;
+  if(k==='m') p=`M0 ${rh} C0 ${rh-6} 2 0 ${cw*.22} 0 C${cw*.34} 0 ${cw*.4} ${rh*.5} ${cw*.5} ${rh*.55} C${cw*.6} ${rh*.5} ${cw*.66} 0 ${cw*.78} 0 C${cw-2} 0 ${cw} ${rh-6} ${cw} ${rh} L${cw} ${h-8} C${cw} ${h-2} ${cw*.8} ${h} ${cw*.66} ${h-3} C${cw*.56} ${h} ${cw*.44} ${h} ${cw*.34} ${h-3} C${cw*.2} ${h} 0 ${h-2} 0 ${h-8}Z`;
+  else if(k==='p') p=`M${cw*.12} ${rh} C${cw*.12} ${rh*.4} ${cw*.3} 0 ${cw*.5} 0 C${cw*.7} 0 ${cw*.88} ${rh*.4} ${cw*.88} ${rh} L${cw} ${h-9} C${cw} ${h-2} ${cw*.75} ${h} ${cw*.5} ${h-3} C${cw*.25} ${h} 0 ${h-2} 0 ${h-9}Z`;
+  else if(k==='c') p=`M${cw*.2} ${rh} C${cw*.2} ${rh*.3} ${cw*.38} -4 ${cw*.5} -4 C${cw*.62} -4 ${cw*.8} ${rh*.3} ${cw*.8} ${rh} L${cw} ${h-12} C${cw*.9} ${h-6} ${cw*.65} ${h} ${cw*.5} ${h+2} C${cw*.35} ${h} ${cw*.1} ${h-6} 0 ${h-12}Z`;
+  else p=`M${cw*.22} ${rh} C${cw*.22} ${rh*.3} ${cw*.4} 0 ${cw*.5} 0 C${cw*.6} 0 ${cw*.78} ${rh*.3} ${cw*.78} ${rh} L${cw} ${h-5} C${cw} ${h-1} ${cw*.8} ${h} ${cw*.5} ${h} C${cw*.2} ${h} 0 ${h-1} 0 ${h-5}Z`;
+  return p;
+}
+function buildJaw(){
+  const gap=3,xs=[];const widths=n=>({m:40,p:31,c:30,i:27})[kind(n)];
+  const total=UP.reduce((a,n)=>a+widths(n)+gap,0)+10;let x=(640-total)/2;
+  const mid=document.createElementNS(NS,'line');mid.setAttribute('x1',320);mid.setAttribute('x2',320);mid.setAttribute('y1',8);mid.setAttribute('y2',242);mid.setAttribute('class','mid');jaw.appendChild(mid);
+  const hl=document.createElementNS(NS,'line');hl.setAttribute('x1',10);hl.setAttribute('x2',630);hl.setAttribute('y1',125);hl.setAttribute('y2',125);hl.setAttribute('class','mid');jaw.appendChild(hl);
+  UP.forEach((n,i)=>{if(i===8)x+=10;const w=widths(n);xs.push([x,w]);x+=w+gap});
+  [[UP,true],[LO,false]].forEach(([row,up])=>{
+    row.forEach((n,i)=>{
+      const [x0,w]=xs[i];const h=kind(n)==='m'?84:kind(n)==='c'?92:86;
+      const g=document.createElementNS(NS,'g');
+      const y0=up?118-h:132;
+      g.setAttribute('transform',up?`translate(${x0} ${y0})`:`translate(${x0} ${y0+h}) scale(1 -1)`);
+      const p=document.createElementNS(NS,'path');p.setAttribute('d',toothPath(kind(n),w,h,up));
+      p.setAttribute('class','tooth');p.dataset.n=n;p.setAttribute('tabindex','0');p.setAttribute('role','button');p.setAttribute('aria-label','Зуб '+n);
+      g.appendChild(p);jaw.appendChild(g);
+      const t=document.createElementNS(NS,'text');t.setAttribute('x',x0+w/2);t.setAttribute('y',up?y0-4:y0+h+12);t.setAttribute('text-anchor','middle');t.textContent=n;jaw.appendChild(t);
+    });
+  });
+}
+buildJaw();
+// order teeth in DOM-friendly reading order for video (upper row first)
+const TEETH=[...jaw.querySelectorAll('.tooth')];
+let SEL={tooth:null,sym:null};
+function renderAsk(){
+  const ask=$('#ask');
+  if(SEL.tooth===null){
+    ask.innerHTML=`<div class="q">Что беспокоит?<small>Сначала выберите зуб на схеме — подскажем, к какому специалисту записаться.</small></div>
+    <div class="syms">${SYMS.map((s,i)=>`<button class="sym" data-sym="${i}">${s.t}</button>`).join('')}</div>
+    <div class="rec"><b>Не знаете, что выбрать?</b><p>Первичный осмотр поможет: врач объяснит, что происходит, и составит план лечения.</p></div>`;
+  }else{
+    const s=SEL.sym!==null?SYMS[SEL.sym]:null;const d=s?DIRS[s.dir]:null;
+    ask.innerHTML=`<div class="q">Зуб ${SEL.tooth}: что беспокоит?<small>${kindName(SEL.tooth)}</small></div>
+    <div class="syms">${SYMS.map((x,i)=>`<button class="sym ${SEL.sym===i?'on':''}" data-sym="${i}">${x.t}</button>`).join('')}</div>
+    <div class="rec">${s?`<b>${d.n}</b><p>${s.r}</p><a class="btn btn-rose" href="#booking" data-godir="${s.dir}">Записаться</a>`:`<b>Выберите симптом</b><p>Это поможет администратору сразу записать к нужному специалисту.</p>`}</div>`;
+  }
+}
+function kindName(n){return {i:'резец',c:'клык',p:'премоляр',m:'моляр'}[kind(n)]+', '+(String(n)[0]<3?'верхняя':'нижняя')+' челюсть'}
+function pickTooth(n){SEL.tooth=n;TEETH.forEach(t=>t.classList.toggle('on',+t.dataset.n===n));renderAsk()}
+jaw.addEventListener('click',e=>{if(e.target.dataset.n)pickTooth(+e.target.dataset.n)});
+jaw.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset.n){e.preventDefault();pickTooth(+e.target.dataset.n)}});
+$('#ask').addEventListener('click',e=>{
+  const b=e.target.closest('[data-sym]');if(b){if(SEL.tooth===null)pickTooth(TEETH[11].dataset.n*1);SEL.sym=+b.dataset.sym;renderAsk();return}
+  const g=e.target.closest('[data-godir]');if(g)preDir(+g.dataset.godir);
+});
+renderAsk();
+
+/* directions */
+const dlist=$('#dlist'),dpane=$('#dpane');let DIR=0;
+DIRS.forEach((d,i)=>{const b=document.createElement('button');b.className='dbtn';b.dataset.dir=i;b.setAttribute('role','tab');
+  b.innerHTML=`<span class="n">${String(i+1).padStart(2,'0')}</span><span><b>${d.n}</b><small>${d.s}</small></span>`;b.onclick=()=>showDir(i);dlist.appendChild(b)});
+function showDir(i){DIR=i;const d=DIRS[i];
+  dlist.querySelectorAll('.dbtn').forEach(b=>{b.classList.toggle('on',+b.dataset.dir===i);b.setAttribute('aria-selected',+b.dataset.dir===i)});
+  dpane.innerHTML=`<h3>${d.n}</h3><p>${d.d}</p><div class="srows">${d.items.map(x=>`<a class="srow" href="#booking" data-godir="${i}"><span>${x}</span><span>Записаться →</span></a>`).join('')}</div><div class="who">Ведёт приём: <b>${d.who}</b></div>`;
+}
+dpane.addEventListener('click',e=>{const a=e.target.closest('[data-godir]');if(a)preDir(+a.dataset.godir)});
+showDir(0);
+
+/* doctors */
+$('#docs').innerHTML=DOCS.map((d,i)=>`<article class="panel doc rv"><div class="ph"><img src="${d.img}" alt="${d.n}"></div><div class="bd"><span class="role">${d.r}</span><h3>${d.n}</h3><p class="what">${d.what}</p><a class="btn btn-line" href="#booking" data-godir="${d.dir}">Записаться к врачу</a></div></article>`).join('');
+$('#docs').addEventListener('click',e=>{const a=e.target.closest('[data-godir]');if(a)preDir(+a.dataset.godir)});
+
+/* booking */
+const B={step:0,dir:null,day:null,part:null,name:'',phone:''};
+const PARTS=[['Утро','9:00–12:00',9,12],['День','12:00–17:00',12,17],['Вечер','17:00–21:00',17,21]];
+const WD=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+function days(){const out=[],b=new Date();b.setHours(0,0,0,0);for(let k=0;k<7;k++){const d=new Date(b);d.setDate(b.getDate()+k);out.push(d)}return out}
+const fmt=d=>d.toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+const bookEl=$('#book');
+function renderBook(){
+  const labels=['Направление','Время','Контакты'];
+  const steps=`<div class="steps">${labels.map((l,k)=>`<span class="${k<=Math.min(B.step,2)?'on':''}"><i>${k+1}</i>${l}</span>`).join('')}</div>`;
+  let body='';const ds=days();
+  if(B.step===0){
+    body=`<h3>С чем нужна помощь?</h3><div class="chips">${DIRS.map((d,i)=>`<button class="chip ${B.dir===i?'on':''}" data-dir="${i}">${d.n}</button>`).join('')}<button class="chip ${B.dir===-1?'on':''}" data-dir="-1">Не знаю, нужен осмотр</button></div>`;
+  }else if(B.step===1){
+    if(B.day===null)B.day=0;
+    const now=new Date();
+    body=`<h3>Когда вам удобно?</h3><div class="chips">${ds.map((d,k)=>`<button class="chip ${B.day===k?'on':''}" data-day="${k}">${k===0?'Сегодня':k===1?'Завтра':WD[d.getDay()]}<small>${fmt(d)}</small></button>`).join('')}</div>
+    <div class="sub">Время дня</div><div class="chips">${PARTS.map((p,k)=>{const past=B.day===0&&now.getHours()>=p[3]-1;return `<button class="chip ${B.part===k?'on':''}" data-part="${k}" ${past?'disabled':''}>${p[0]}<small>${p[1]}</small></button>`}).join('')}</div>`;
+  }else if(B.step===2){
+    const d=ds[B.day];
+    body=`<h3>Куда перезвонить?</h3><div class="summary"><b>${B.dir===-1?'Осмотр и консультация':DIRS[B.dir].n}</b><span>${fmt(d)}, ${PARTS[B.part][0].toLowerCase()} (${PARTS[B.part][1]})</span></div>
+    <div class="field"><label for="bName">Имя</label><input id="bName" autocomplete="name" placeholder="Как к вам обращаться" value="${B.name}"></div>
+    <div class="field"><label for="bPhone">Телефон</label><input id="bPhone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" value="${B.phone}"></div>`;
+  }else{
+    const d=ds[B.day];
+    body=`<div class="done"><div class="ok"><svg width="76" height="76" viewBox="0 0 40 40"><path d="M20 2.5C20 2.5 34 17 34 25.5a14 14 0 0 1-28 0C6 17 20 2.5 20 2.5Z" fill="var(--rose-soft)" stroke="var(--rose)" stroke-width="1.5"/><path d="m13.5 25 4.5 4.5 8.5-9" fill="none" stroke="var(--rose)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <h3 style="margin:0">Заявка принята</h3><p>${B.name?B.name+', спасибо!':'Спасибо!'} Администратор перезвонит на ${B.phone}, чтобы подобрать точное время ${fmt(d)}.</p>
+    <button class="btn btn-line" style="margin-top:20px" data-reset>Новая заявка</button></div>`;
+  }
+  const can=[B.dir!==null,B.part!==null,ok()][B.step];
+  const nav=B.step<3?`<div class="book-nav"><button class="btn btn-line" data-back ${B.step===0?'style="visibility:hidden"':''}>Назад</button><button class="btn btn-rose" data-next ${can?'':'disabled'}>${B.step===2?'Отправить заявку':'Далее'}</button></div>`:'';
+  bookEl.innerHTML=steps+body+nav;
+  const nm=bookEl.querySelector('#bName'),ph=bookEl.querySelector('#bPhone');
+  if(nm)nm.addEventListener('input',e=>{B.name=e.target.value.trim()});
+  if(ph)ph.addEventListener('input',e=>{B.phone=mask(e.target.value);e.target.value=B.phone;bookEl.querySelector('[data-next]').disabled=!ok()});
+}
+const ok=()=>B.phone.replace(/\D/g,'').length===11;
+function mask(v){let d=v.replace(/\D/g,'');if(!d)return '';if(d[0]==='8')d='7'+d.slice(1);if(d[0]!=='7')d='7'+d;d=d.slice(0,11);
+  let o='+7';if(d.length>1)o+=' ('+d.slice(1,4);if(d.length>=4)o+=')';if(d.length>4)o+=' '+d.slice(4,7);if(d.length>7)o+='-'+d.slice(7,9);if(d.length>9)o+='-'+d.slice(9,11);return o}
+bookEl.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t||t.disabled)return;
+  if(t.dataset.dir!==undefined)B.dir=+t.dataset.dir;
+  else if(t.dataset.day!==undefined){B.day=+t.dataset.day;B.part=null}
+  else if(t.dataset.part!==undefined)B.part=+t.dataset.part;
+  else if(t.hasAttribute('data-next'))B.step++;
+  else if(t.hasAttribute('data-back'))B.step--;
+  else if(t.hasAttribute('data-reset'))Object.assign(B,{step:0,dir:null,day:null,part:null,name:'',phone:''});
+  else return;
+  renderBook();
+});
+function preDir(i){Object.assign(B,{step:1,dir:i,day:null,part:null});renderBook()}
+renderBook();
+
+/* prices */
+$('#pgrid').innerHTML=Object.entries(PRICES).map(([c,rows],k)=>`<details class="panel pc rv" ${k===0?'open':''}><summary>${c}<small>${rows.length} поз.</small></summary>${rows.map(r=>`<div class="prow"><span>${r}</span><span>от … ₽</span></div>`).join('')}</details>`).join('');
+
+/* reveal */
+if(!STATIC&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+window.demo={pickTooth,showDir,preDir,state:B,render:renderBook};
+</script>
+
+</body></html>
