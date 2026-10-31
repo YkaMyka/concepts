@@ -457,7 +457,7 @@ const B={step:0,svc:null,brand:null,date:null,part:null,name:'',phone:''};
 const bookEl=document.getElementById('book');
 const WD=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 function days(){const out=[];const b=new Date();b.setHours(0,0,0,0);for(let k=1;out.length<6;k++){const d=new Date(b);d.setDate(b.getDate()+k);out.push(d)}return out}
-function fmt(d){return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
+function fmt(d){return d.toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}
 function renderBook(){
   const steps=`<div class="steps">${[0,1,2,3].map(k=>`<i class="${k<=B.step?'on':''}"></i>`).join('')}</div>`;
   let body='';const parts=pickedNames();
