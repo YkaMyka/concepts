@@ -1,0 +1,595 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>НикрасоФФ</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Commissioner:wght@400;500;600;700&display=swap"></head><body>
+
+
+
+
+
+<style>
+/* Concept: the PDR "line board". A glossy panel reflects stripes that bend around a dent; one tap straightens them.
+   Brand navy + signal yellow from the current logo and buttons. */
+:root{
+  --navy:#0b3a5a;        /* logo navy */
+  --ink:#0f2233;
+  --ink-2:#3c5266;
+  --paper:#f3f5f7;
+  --card:#ffffff;
+  --line:#dbe2e8;
+  --muted:#62778a;
+  --sun:#ffc400;         /* brand yellow */
+  --sun-ink:#1b1400;
+  --sun-soft:#fff4c7;
+  --ok:#1f9d6a;--ok-soft:#e1f5ec;
+  --warn:#c9771a;--warn-soft:#fdf0de;
+  --panel-a:#0e2c44;--panel-b:#071827;
+  --shadow:0 22px 50px -28px rgba(11,58,90,.45);
+  --display:"Dela Gothic One","Commissioner",system-ui,sans-serif;
+  --body:"Commissioner",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:16px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#e9eff5;--ink-2:#b5c4d2;--paper:#08131d;--card:#0f1f2d;--line:#21364a;--muted:#8ea3b6;--navy:#9cc6e6;
+  --sun-soft:#3a3108;--ok-soft:#0f3326;--warn-soft:#3a2810;--panel-a:#0c2133;--panel-b:#040b12;
+  --shadow:0 22px 50px -28px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#e9eff5;--ink-2:#b5c4d2;--paper:#08131d;--card:#0f1f2d;--line:#21364a;--muted:#8ea3b6;--navy:#9cc6e6;
+  --sun-soft:#3a3108;--ok-soft:#0f3326;--warn-soft:#3a2810;--panel-a:#0c2133;--panel-b:#040b12;
+  --shadow:0 22px 50px -28px rgba(0,0,0,.8);color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.01em;text-wrap:balance;margin:0;line-height:1.08}
+h2{font-size:clamp(28px,3.4vw,42px)}
+h3{font-family:var(--body);font-weight:700;letter-spacing:0}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.tag::before{content:"";width:22px;height:6px;border-radius:3px;background:repeating-linear-gradient(90deg,var(--sun) 0 6px,transparent 6px 9px)}
+.lead{color:var(--muted);font-size:18px;max-width:58ch}
+section{padding-block:clamp(56px,8vw,100px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;font:700 16px/1 var(--body);padding:16px 22px;border-radius:12px;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
+.btn-sun{background:var(--sun);color:var(--sun-ink);box-shadow:0 10px 26px -12px rgba(255,196,0,.9)}
+.btn-sun:hover,.btn-sun.is-hover{transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(255,196,0,1)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn-line:hover,.btn-line.is-hover{box-shadow:inset 0 0 0 2px var(--ink)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:22px;height:70px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo .mark{font-family:var(--display);font-size:22px;color:var(--navy);line-height:1;position:relative;padding-bottom:5px}
+.logo .mark::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;border-radius:2px;background:var(--sun)}
+.logo small{display:block;font-size:11.5px;color:var(--muted);font-weight:500;line-height:1.25}
+nav.menu{display:flex;gap:24px;margin-left:auto;font-weight:600;font-size:15px}
+nav.menu a{text-decoration:none;color:var(--ink-2)}
+nav.menu a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--sun);text-decoration-thickness:3px;text-underline-offset:6px}
+.top .phone{font-weight:700;text-decoration:none;white-space:nowrap}
+.top .btn{padding:12px 16px;font-size:15px}
+@media (max-width:1020px){nav.menu,.top .phone{display:none}.top .btn{margin-left:auto}}
+@media (max-width:420px){.logo small{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(32px,5vw,64px) clamp(48px,6vw,80px)}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(30px,4vw,54px)}
+.hero h1 span{background:linear-gradient(transparent 62%,var(--sun) 62% 90%,transparent 90%);padding-inline:2px}
+.hero .lead{margin:20px 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.meta span{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:500}
+.meta svg{width:16px;height:16px;color:var(--navy)}
+.board{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:18px}
+.board-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;font-size:13px;color:var(--muted);font-weight:500}
+.board-top b{color:var(--ink)}
+#panel{display:block;width:100%;height:auto;border-radius:16px;touch-action:manipulation}
+.board-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+.board-ctl .lbl{font-size:13px;color:var(--muted);font-weight:600;margin-right:4px}
+.seg{display:flex;background:var(--paper);border-radius:12px;padding:4px;gap:2px}
+.seg button{border:0;background:transparent;color:var(--ink-2);font:600 14px var(--body);padding:9px 12px;border-radius:9px;cursor:pointer;transition:background .2s,color .2s}
+.seg button:hover,.seg button.is-hover{color:var(--ink);background:var(--card)}
+.seg button.on{background:var(--navy);color:#fff}
+:root[data-theme="dark"] .seg button.on{color:#06121c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button.on{color:#06121c}}
+#fixBtn{margin-left:auto;padding:12px 16px;font-size:14px}
+.board-note{font-size:13px;color:var(--muted);margin:12px 2px 0;min-height:20px}
+@media (max-width:940px){.hero .wrap{grid-template-columns:1fr;gap:28px}#fixBtn{margin-left:0;width:100%}}
+@media (max-width:700px){.hero .lead{font-size:16px;margin:14px 0 18px}.meta,.hero .cta .btn-line{display:none}.board{padding:12px}.board-top{font-size:12px}.seg button{padding:9px 9px}}
+
+/* strip */
+.strip{padding-block:0}
+.strip .row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:20px;background:var(--card);overflow:hidden}
+.strip .row div{padding:22px 24px;border-right:1px solid var(--line)}
+.strip .row div:last-child{border-right:0}
+.strip b{display:block;font-size:16px;margin-bottom:4px}
+.strip p{margin:0;color:var(--muted);font-size:14px}
+@media (max-width:860px){.strip .row{grid-template-columns:1fr 1fr}.strip .row div:nth-child(2){border-right:0}.strip .row div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:480px){.strip .row{grid-template-columns:1fr}.strip .row div{border-right:0;border-bottom:1px solid var(--line)}.strip .row div:last-child{border-bottom:0}}
+
+/* checker */
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.head .lead{margin:0}
+.check{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:start}
+.qs{display:grid;gap:14px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
+.q h3{font-size:16px;margin-bottom:12px;display:flex;gap:10px;align-items:center}
+.q h3 i{font-style:normal;width:26px;height:26px;border-radius:8px;background:var(--sun-soft);color:var(--ink);display:grid;place-items:center;font-size:13px;flex:none}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;border-radius:10px;font:500 14px var(--body);cursor:pointer;text-align:left;transition:border-color .2s,background .2s}
+.opt:hover,.opt.is-hover{border-color:var(--navy)}
+.opt.on{border-color:var(--sun);background:var(--sun-soft);font-weight:600}
+.verdict{position:sticky;top:90px;border-radius:20px;padding:24px;background:var(--panel-b);color:#eef4f9;display:grid;gap:14px;overflow:hidden}
+.verdict .badge{justify-self:start;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:8px;background:#244056;color:#cfe0ee}
+.verdict .badge.ok{background:#1f9d6a;color:#fff}.verdict .badge.warn{background:#ffc400;color:#1b1400}.verdict .badge.no{background:#e0533d;color:#fff}
+.verdict h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.15}
+.verdict p{margin:0;color:#b9cad8;font-size:14.5px}
+.verdict ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14px;color:#dbe6ef}
+.verdict li{display:flex;gap:10px}
+.verdict li::before{content:"";flex:none;width:6px;height:6px;margin-top:8px;border-radius:2px;background:var(--sun)}
+.verdict .price{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #23394c;padding-top:14px;font-size:14px;color:#b9cad8}
+.verdict .price b{font-size:22px;color:#fff;font-variant-numeric:tabular-nums}
+.verdict .btn{width:100%}
+.small{font-size:12.5px;color:var(--muted)}
+.verdict .small{color:#8aa0b3}
+@media (max-width:900px){.check{grid-template-columns:1fr}.verdict{position:static}}
+
+/* services */
+#services{background:var(--card);border-block:1px solid var(--line)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tab{border:0;background:var(--paper);color:var(--ink-2);font:600 15px var(--body);padding:11px 16px;border-radius:10px;cursor:pointer}
+.tab:hover,.tab.is-hover{color:var(--ink)}
+.tab.on{background:var(--ink);color:var(--paper)}
+.tab small{opacity:.6;font-weight:500;margin-left:4px}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.svc{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border-radius:14px;border:1px solid var(--line);background:var(--paper);font-weight:600;text-decoration:none;transition:border-color .2s,transform .2s}
+.svc:hover,.svc.is-hover{border-color:var(--sun);transform:translateY(-2px)}
+.svc span{color:var(--muted);font-size:20px;line-height:1}
+.svc.lead-svc{background:var(--sun-soft);border-color:transparent}
+
+/* cases */
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.case{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.case svg{display:block;width:100%;height:auto;background:var(--panel-b)}
+.case .body{padding:20px 22px 22px;display:grid;gap:10px}
+.case h3{font-size:17px}
+.case p{margin:0;color:var(--muted);font-size:14.5px}
+.case .facts{display:flex;flex-wrap:wrap;gap:6px}
+.case .facts span{font-size:12.5px;font-weight:600;padding:5px 9px;border-radius:8px;background:var(--paper);color:var(--ink-2)}
+@media (max-width:900px){.cases{grid-template-columns:1fr}}
+
+/* booking */
+#booking .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:start}
+.book{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:clamp(20px,3vw,32px)}
+.steps{display:flex;gap:6px;margin-bottom:20px}
+.steps i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.steps i.on{background:repeating-linear-gradient(90deg,var(--sun) 0 10px,color-mix(in srgb,var(--sun) 70%,var(--ink)) 10px 12px)}
+.book h3{font-size:20px;margin-bottom:14px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:14px 16px;border-radius:12px;font:600 15px var(--body);cursor:pointer;text-align:left;transition:border-color .2s,background .2s}
+.chip small{display:block;font-weight:500;font-size:12.5px;color:var(--muted);margin-top:3px}
+.chip:hover,.chip.is-hover{border-color:var(--navy)}
+.chip.on{border-color:var(--sun);background:var(--sun-soft)}
+@media (max-width:520px){.chips{grid-template-columns:1fr}}
+.photo{margin-top:16px;display:flex;align-items:center;gap:14px;border:1.5px dashed var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;background:var(--paper);width:100%;font:inherit;color:inherit;text-align:left}
+.photo:hover,.photo.is-hover{border-color:var(--navy)}
+.photo .th{width:54px;height:54px;border-radius:10px;flex:none;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);color:var(--muted)}
+.photo.on{border-style:solid;border-color:var(--ok)}
+.photo.on .th{background:linear-gradient(135deg,#0e2c44,#1d4a6c);border:0}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;color:var(--muted);font-weight:600}
+.field input{font:500 16px var(--body);padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%}
+.field input:focus{border-color:var(--sun);outline:none}
+.summary{background:var(--paper);border-radius:12px;padding:12px 16px;font-size:14px;display:grid;gap:2px;margin-bottom:16px}
+.book-nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.done{text-align:center;padding:16px 0}
+.done .ok{width:76px;height:76px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;margin:0 auto 16px}
+.done h3{font-family:var(--display);font-weight:400;font-size:26px}
+.demo-tag{display:inline-block;font-size:12.5px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:5px 9px;margin-top:16px}
+.how{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.how li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;font-size:15px}
+.how li b{width:34px;height:34px;border-radius:10px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-size:14px}
+@media (max-width:900px){#booking .wrap{grid-template-columns:1fr}}
+
+/* training + promo */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tile{border-radius:20px;padding:28px;border:1px solid var(--line);background:var(--card);display:grid;gap:10px;align-content:start}
+.tile.dark{background:var(--ink);color:var(--paper);border-color:transparent}
+.tile.dark p{color:color-mix(in srgb,var(--paper) 75%,transparent)}
+.tile h3{font-family:var(--display);font-weight:400;font-size:24px}
+.tile p{margin:0;color:var(--muted)}
+@media (max-width:800px){.duo{grid-template-columns:1fr}}
+
+/* contacts */
+.contacts .wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cbox{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px;display:grid;gap:18px;align-content:start}
+.cbox dl{margin:0;display:grid;gap:16px}
+.cbox dt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.cbox dd{margin:4px 0 0;font-size:18px;font-weight:600}
+.cbox dd a{text-decoration:none}
+.cbox dd a:hover{text-decoration:underline}
+.map{border-radius:24px;overflow:hidden;position:relative;min-height:360px;background:var(--panel-b)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;left:52%;top:44%;transform:translate(-50%,-100%);background:var(--sun);color:var(--sun-ink);padding:10px 14px;border-radius:12px;font-weight:700;font-size:14px;white-space:nowrap}
+.pin::after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;background:var(--sun);transform:translateX(-50%) rotate(45deg)}
+.map .btn{position:absolute;left:18px;bottom:18px;padding:12px 16px;font-size:14px;background:#fff;color:#0f2233}
+.areas{font-size:14px;color:var(--muted);margin:0}
+@media (max-width:800px){.contacts .wrap{grid-template-columns:1fr}}
+footer{padding-block:32px 110px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mbar .btn{flex:1;padding:14px}
+}
+
+.rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .rv.pre{opacity:0;transform:translateY(22px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="НикрасоФФ, на главную">
+      <span class="mark">НикрасоФФ</span>
+      <small>локальный кузовной ремонт<br>Северное Бутово</small>
+    </a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#check">Без покраски?</a><a href="#services">Услуги</a><a href="#cases">Работы</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="phone" href="tel:+74957784657">+7 (495) 778-46-57</a>
+    <a class="btn btn-sun" href="#booking">Оценка по фото</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="rv">
+      <div class="tag">Удаление вмятин без покраски</div>
+      <h1 style="margin-top:16px">Вмятину выправим, <span>заводская краска</span> останется</h1>
+      <p class="lead">Большую часть вмятин на металлических деталях можно убрать без рихтовки, шпаклёвки и покраски. Если нужен классический ремонт, сделаем локальный окрас здесь же, на Куликовской.</p>
+      <div class="cta">
+        <a class="btn btn-sun" href="#booking">Прислать фото вмятины
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-line" href="tel:+79165882957">+7 (916) 588-29-57</a>
+      </div>
+      <div class="meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>10:00–21:00 без выходных</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>ул. Куликовская, 12</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h13l3 4h2v-5l-3-5H8l-5 6Z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Выезд мастера</span>
+      </div>
+    </div>
+    <div class="board rv" id="board">
+      <div class="board-top"><span>Так мастер видит вмятину: <b>линии отражения</b></span><span id="boardState">до ремонта</span></div>
+      <svg id="panel" viewBox="0 0 560 360" role="img" aria-label="Отражение полос на кузове с вмятиной"></svg>
+      <div class="board-ctl">
+        <span class="lbl">Размер</span>
+        <div class="seg" id="sizeSeg" role="group" aria-label="Размер вмятины"></div>
+        <button class="btn btn-sun" id="fixBtn">Выправить</button>
+      </div>
+      <p class="board-note" id="boardNote">Выберите размер вмятины и нажмите «Выправить».</p>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap">
+    <div class="row rv">
+      <div><b>Заводское ЛКП</b><p>Деталь не перекрашивается, после ремонта нет ограничений по мойке.</p></div>
+      <div><b>Любые металлические детали</b><p>Двери, крылья, капот, крыша, багажник, пороги, в том числе алюминий.</p></div>
+      <div><b>Без разборки</b><p>Изнутри специальным инструментом или снаружи клеевой системой.</p></div>
+      <div><b>Вмятины от града</b><p>Клеевая система, вакуум, PDR-инструмент и индуктор.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="check">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="tag">Проверка за минуту</div><h2 style="margin-top:12px">Подойдёт ли ремонт без покраски?</h2></div>
+      <p class="lead">Пять вопросов по правилам, которые мастера описали на сайте. Точный ответ даст осмотр или фото.</p>
+    </div>
+    <div class="check">
+      <div class="qs" id="qs"></div>
+      <aside class="verdict rv" id="verdict" aria-live="polite"></aside>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="tag">Услуги</div><h2 style="margin-top:12px">Больше сорока услуг, разложенных по полкам</h2></div>
+      <p class="lead">Сейчас все услуги идут одним списком. Здесь они сгруппированы, чтобы с телефона нужная находилась в два касания.</p>
+    </div>
+    <div class="tabs rv" id="tabs" role="tablist"></div>
+    <div class="svc-grid" id="svcGrid"></div>
+  </div>
+</section>
+
+<section id="cases">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="tag">Из примеров работ</div><h2 style="margin-top:12px">Сложные вмятины, которые обошлись без окраса</h2></div>
+      <p class="lead">Описания взяты со страницы услуги. В рабочей версии здесь будут фото «до» и «после» из архива сервиса.</p>
+    </div>
+    <div class="cases" id="caseGrid"></div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="wrap">
+    <div class="rv">
+      <div class="tag">Оценка по фото</div>
+      <h2 style="margin-top:12px">Покажите вмятину, не выходя из дома</h2>
+      <p class="lead" style="margin-top:16px">Сейчас фото нужно отправлять в WhatsApp, Viber или на почту. Здесь заявка собирается на одной странице и сразу уходит мастеру.</p>
+      <ol class="how">
+        <li><b>1</b><span>Отметьте, что случилось с машиной</span></li>
+        <li><b>2</b><span>Выберите: приедете в сервис или нужен выезд мастера</span></li>
+        <li><b>3</b><span>Приложите фото и оставьте телефон, мастер перезвонит с оценкой</span></li>
+      </ol>
+      <span class="demo-tag">Демо: форма никуда не отправляет данные</span>
+    </div>
+    <div class="book rv" id="book"></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap duo">
+    <div class="tile dark rv">
+      <div class="tag" style="color:inherit">Акция</div>
+      <h3>Оставьте отзыв и выберите подарок</h3>
+      <p>Антидождь, полировка фар, освежитель воздуха или бесплатная замена масла.</p>
+    </div>
+    <div class="tile rv">
+      <div class="tag">Обучение</div>
+      <h3>Курсы ремонта вмятин без покраски</h3>
+      <p>Занятия индивидуально или в группе до 3 человек: курс на 5 дней и расширенный на 2 недели. Также есть обучение тонировке и полировке.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contacts" class="contacts" style="padding-top:0">
+  <div class="wrap">
+    <div class="cbox rv">
+      <div class="tag">Контакты</div>
+      <h2 style="font-size:clamp(24px,3vw,34px)">Никрасофф Юг, Северное Бутово</h2>
+      <dl>
+        <div><dt>Адрес</dt><dd>Москва, ул. Куликовская, 12</dd></div>
+        <div><dt>Телефоны</dt><dd><a href="tel:+74957784657">+7 (495) 778-46-57</a><br><a href="tel:+79165882957">+7 (916) 588-29-57</a><br><a href="tel:+79194107001">+7 (919) 410-70-01</a></dd></div>
+        <div><dt>Почта</dt><dd><a href="mailto:nickrasoff@mail.ru">nickrasoff@mail.ru</a></dd></div>
+        <div><dt>Режим работы</dt><dd>Ежедневно, 10:00–21:00</dd></div>
+      </dl>
+      <p class="areas">Удобно добираться из Ясенева, Чертанова, Бирюлёва, Тёплого Стана, Коньково, Южного Бутова, Щербинки, Подольска, Троицка, Климовска и Видного.</p>
+    </div>
+    <div class="map rv">
+      <svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="600" height="420" fill="var(--panel-b)"/>
+        <g stroke="#1c3a52" stroke-linecap="round" fill="none">
+          <path d="M-20 90 C150 120 320 70 640 110" stroke-width="16"/>
+          <path d="M-20 300 C200 270 380 340 640 290" stroke-width="12"/>
+          <path d="M160 -20 C190 140 140 280 200 440" stroke-width="10"/>
+          <path d="M420 -20 C400 120 470 260 430 440" stroke-width="18"/>
+          <path d="M-20 200 L640 215" stroke-width="6"/>
+          <path d="M300 -20 L320 440" stroke-width="6"/>
+        </g>
+        <g fill="#132c40">
+          <rect x="40" y="130" width="70" height="46" rx="6"/><rect x="220" y="128" width="60" height="60" rx="6"/><rect x="340" y="140" width="56" height="50" rx="6"/>
+          <rect x="480" y="140" width="90" height="56" rx="6"/><rect x="40" y="230" width="90" height="44" rx="6"/><rect x="220" y="235" width="70" height="40" rx="6"/>
+          <rect x="480" y="230" width="80" height="44" rx="6"/><rect x="40" y="20" width="80" height="50" rx="6"/><rect x="480" y="330" width="90" height="70" rx="6"/>
+        </g>
+        <circle cx="312" cy="185" r="60" fill="none" stroke="#ffc400" stroke-opacity=".25" stroke-width="2" stroke-dasharray="4 6"/>
+      </svg>
+      <div class="pin">НикрасоФФ · Куликовская, 12</div>
+      <a class="btn" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB.%20%D0%9A%D1%83%D0%BB%D0%B8%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%2C%2012" target="_blank" rel="noopener">Построить маршрут ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© НикрасоФФ, сервис локального кузовного ремонта, Москва</span>
+    <span>Концепция редизайна сайта · демонстрационный прототип</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-line" href="tel:+74957784657">Позвонить</a>
+  <a class="btn btn-sun" href="#booking">Оценка по фото</a>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+const STATIC = new URLSearchParams(location.search).has('static');
+const NS='http://www.w3.org/2000/svg';
+
+/* ---------- line board (hero) ---------- */
+const SIZES=[{k:'3',t:'≈3 см',s:22},{k:'5',t:'≈5 см',s:34},{k:'8',t:'≈8 см',s:50},{k:'8+',t:'больше 8',s:70}];
+const P={size:1,amp:1,fixed:false,raf:0};
+const panel=document.getElementById('panel');
+const W=560,H=360,CX=300,CY=176,BANDS=15;
+panel.innerHTML=`<defs>
+  <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--panel-a)"/><stop offset="1" stop-color="var(--panel-b)"/></linearGradient>
+  <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".14"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".05"/></linearGradient>
+  <clipPath id="pc"><rect width="${W}" height="${H}" rx="16"/></clipPath></defs>
+  <g clip-path="url(#pc)"><rect width="${W}" height="${H}" fill="url(#pg)"/><g id="bands"></g>
+  <path d="M0 64 C180 54 380 54 ${W} 66" stroke="#000" stroke-opacity=".25" stroke-width="3" fill="none"/>
+  <rect width="${W}" height="${H}" fill="url(#gloss)"/></g>
+  <circle id="ring" cx="${CX}" cy="${CY}" r="60" fill="none" stroke="#ffc400" stroke-width="2" stroke-dasharray="5 7"/>
+  <g id="ringLbl"><rect x="${CX+10}" y="${CY-16}" width="86" height="28" rx="8" fill="#ffc400"/><text x="${CX+53}" y="${CY+3}" text-anchor="middle" font-family="Commissioner,sans-serif" font-weight="700" font-size="13" fill="#1b1400"></text></g>
+  <g id="okLbl" opacity="0"><rect x="${W-170}" y="${H-46}" width="152" height="30" rx="8" fill="#1f9d6a"/><text x="${W-94}" y="${H-26}" text-anchor="middle" font-family="Commissioner,sans-serif" font-weight="700" font-size="13" fill="#fff">Линии снова ровные</text></g>`;
+const bandsG=panel.querySelector('#bands');
+function lineY(y0,x,sig,amp){
+  const dx=x-CX,dy=y0-CY,d2=dx*dx+dy*dy;
+  const g=Math.exp(-d2/(2*sig*sig));
+  return y0+amp*1.15*dy*g + amp*sig*.18*g;
+}
+function drawPanel(){
+  const sig=SIZES[P.size].s, amp=P.amp, step=H/BANDS;
+  let out='';
+  for(let b=-1;b<BANDS+1;b+=2){
+    const y0=b*step+step*.5, y1=y0+step*.92;
+    let top='',bot=[];
+    for(let x=-10;x<=W+10;x+=8){top+=(x===-10?'M':'L')+x+' '+lineY(y0,x,sig,amp).toFixed(1)+' ';bot.push(x+' '+lineY(y1,x,sig,amp).toFixed(1))}
+    out+=`<path d="${top}L${bot.reverse().join(' L')} Z" fill="${b%4===1?'#ffc400':'#e8eef4'}" fill-opacity="${b%4===1?.78:.62}"/>`;
+  }
+  bandsG.innerHTML=out;
+  const ring=panel.querySelector('#ring');ring.setAttribute('r',sig*1.55);ring.style.opacity=amp;
+  const lbl=panel.querySelector('#ringLbl');lbl.style.opacity=amp;lbl.setAttribute('transform',`translate(${sig*1.55-6} ${-sig*1.2})`);
+  lbl.querySelector('text').textContent=SIZES[P.size].t;
+  panel.querySelector('#okLbl').setAttribute('opacity',1-amp);
+}
+function animateAmp(to){
+  cancelAnimationFrame(P.raf);const from=P.amp,t0=performance.now(),dur=900;
+  const step=now=>{const k=Math.min(1,(now-t0)/dur);const e=1-Math.pow(1-k,3);P.amp=from+(to-from)*e;drawPanel();if(k<1)P.raf=requestAnimationFrame(step)};
+  P.raf=requestAnimationFrame(step);
+}
+const sizeSeg=document.getElementById('sizeSeg');
+SIZES.forEach((s,i)=>{const b=document.createElement('button');b.className='size-chip';b.textContent=s.t;b.dataset.i=i;sizeSeg.appendChild(b)});
+function setSize(i){
+  P.size=i;sizeSeg.querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+  if(P.fixed){P.fixed=false;P.amp=0;animateAmp(1)}else drawPanel();
+  updateFixUI();C.size=i;renderCheck();
+}
+function updateFixUI(){
+  document.getElementById('fixBtn').textContent=P.fixed?'Показать вмятину':'Выправить';
+  document.getElementById('boardState').textContent=P.fixed?'после ремонта':'до ремонта';
+  document.getElementById('boardNote').textContent=P.fixed
+    ?'Полосы снова идут ровно: так мастер проверяет, что геометрия детали восстановлена.'
+    :`Вмятина ${SIZES[P.size].t.replace('≈','около ')}: полосы отражения изгибаются вокруг повреждения.`;
+}
+sizeSeg.addEventListener('click',e=>{const b=e.target.closest('button');if(b)setSize(+b.dataset.i)});
+document.getElementById('fixBtn').onclick=()=>{P.fixed=!P.fixed;animateAmp(P.fixed?0:1);updateFixUI()};
+
+/* ---------- checker ---------- */
+const QS=[
+  {k:'part',t:'Какая деталь пострадала?',o:['Дверь или крыло','Капот или крыша','Крышка багажника','Порог','Бампер (пластик)']},
+  {k:'paint',t:'Что с краской?',o:['Краска цела','Есть ссадины, мелкие царапины','Скол, трещина, краска отошла']},
+  {k:'place',t:'Где вмятина?',o:['На ровной части','На ребре жёсткости','Под усилителем','На крыше']},
+  {k:'size',t:'Примерный размер',o:SIZES.map(s=>s.t)},
+  {k:'cls',t:'Класс автомобиля',o:['Малый класс','Бизнес-класс','S-класс, внедорожник']}
+];
+const C={part:0,paint:0,place:0,size:1,cls:0};
+const qsEl=document.getElementById('qs');
+function renderQs(){
+  qsEl.innerHTML=QS.map((q,n)=>`<div class="q"><h3><i>${n+1}</i>${q.t}</h3><div class="opts">${q.o.map((o,i)=>`<button class="opt ${C[q.k]===i?'on':''}" data-k="${q.k}" data-i="${i}">${o}</button>`).join('')}</div></div>`).join('');
+}
+qsEl.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;C[b.dataset.k]=+b.dataset.i;
+  if(b.dataset.k==='size'){P.size=C.size;sizeSeg.querySelectorAll('button').forEach(x=>x.classList.toggle('on',+x.dataset.i===P.size));drawPanel();updateFixUI()}
+  renderQs();renderCheck()});
+function verdict(){
+  if(C.part===4)return{c:'no',b:'Нужна покраска',h:'Ремонт пластикового бампера',p:'Повреждения бампера исправляют ремонтом с локальной покраской: пайка трещин, восстановление, окрас.',svc:'Ремонт бампера'};
+  if(C.paint===2)return{c:'no',b:'Нужна покраска',h:'Локальный кузовной ремонт и окрас',p:'Без покраски выправляют вмятины, где краска не нарушена. При сколах и трещинах ЛКП деталь восстанавливают и красят локально.',svc:'Кузовной ремонт и покраска'};
+  if(C.place>0||C.size===3)return{c:'warn',b:'Скорее да, нужен осмотр',h:'Без покраски, но работа сложнее',p:'Ребро жёсткости, усилитель или крыша, а также крупный размер влияют на стоимость. Мастер оценит по фото.',svc:'Ремонт вмятин без покраски'};
+  return{c:'ok',b:'Подходит',h:'Удаление вмятины без покраски',p:C.paint===1?'Ссадины и мелкие царапины не мешают: после выправления место полируют.':'Краска цела, вмятина на ровной части. Это классический случай для беспокрасочного ремонта.',svc:'Ремонт вмятин без покраски'};
+}
+const vEl=document.getElementById('verdict');
+function renderCheck(){
+  const v=verdict();
+  vEl.innerHTML=`<span class="badge ${v.c}">${v.b}</span><h3>${v.h}</h3><p>${v.p}</p>
+  <ul><li>${QS[0].o[C.part]}, ${QS[2].o[C.place].toLowerCase()}</li><li>Размер ${SIZES[C.size].t}, ${QS[4].o[C.cls].toLowerCase()}</li><li>На цену также влияет форма вмятины: острая или плоская</li></ul>
+  <div class="price"><span>Ориентир по прайсу</span><b>от … ₽</b></div>
+  <a class="btn btn-sun" href="#booking" id="toBook">Отправить фото мастеру</a>
+  <span class="small">Цены в прототипе скрыты: в рабочей версии сервис сам ведёт таблицу «размер × класс» в админке.</span>`;
+  vEl.querySelector('#toBook').onclick=()=>{B.kind=v.svc;B.step=1;B.fromCheck=`${QS[0].o[C.part]}, ${SIZES[C.size].t}`;renderBook()};
+}
+
+/* ---------- services ---------- */
+const SVC={
+  'Кузов':['Ремонт вмятин без покраски','Ремонт вмятин от града','Кузовной ремонт и покраска','Локальная покраска автомобиля','Покраска капота','Покраска бампера','Полная покраска кузова','Ремонт пластиковых бамперов','Пайка бамперов','Ремонт порогов автомобиля'],
+  'Защита и блеск':['Полировка кузова','Абразивная полировка кузова','Нанокерамика','Жидкое стекло','Антигравийная плёнка','Бронирование фар','Защита радиатора','Детейлинг','Химчистка','Предпродажная подготовка'],
+  'Стёкла':['Ремонт лобового стекла','Замена лобового стекла','Установка и замена автостёкол','Тонировка стёкол','Обработка стекла «антидождь»'],
+  'Тишина и оборудование':['Шумоизоляция автомобиля','Шумоизоляция дверей','Шумоизоляция колёсных арок','Установка сигнализации','Установка парктроников','Установка ксенона'],
+  'Механика':['Компьютерная диагностика','Диагностика автомобиля на СТО','Техобслуживание','Слесарный ремонт','Ремонт дизельной топливной аппаратуры','Ремонт Common Rail','Контрактные двигатели','Шиномонтаж'],
+  'Мото':['Ремонт мотобаков','Покраска мотоцикла']
+};
+const tabs=document.getElementById('tabs'),svcGrid=document.getElementById('svcGrid');
+function showCat(c){
+  tabs.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.c===c));
+  svcGrid.innerHTML=SVC[c].map((s,i)=>`<a class="svc ${c==='Кузов'&&i<2?'lead-svc':''}" href="#booking" data-svc="${s}">${s}<span>→</span></a>`).join('');
+}
+Object.keys(SVC).forEach(c=>{const b=document.createElement('button');b.className='tab';b.dataset.c=c;b.setAttribute('role','tab');b.innerHTML=`${c}<small>${SVC[c].length}</small>`;b.onclick=()=>showCat(c);tabs.appendChild(b)});
+svcGrid.addEventListener('click',e=>{const a=e.target.closest('[data-svc]');if(!a)return;B.kind=a.dataset.svc;B.step=1;B.fromCheck='';renderBook()});
+showCat('Кузов');
+
+/* ---------- cases ---------- */
+const CASES=[
+  {h:'Дверь BMW',p:'Вмятина под внутренним усилителем двери, больше 30% поверхности, мешал молдинг.',f:['Под усилителем','1 рабочий день'],dx:.42,dy:.55,s:.32},
+  {h:'Капот Mazda',p:'Вмятина от упавшего с крыши снега, больше 30 см, деформировано ребро жёсткости.',f:['Ребро жёсткости','6 часов'],dx:.55,dy:.45,s:.36},
+  {h:'Крышка багажника Toyota',p:'Затронуто несколько плоскостей и рёбер, жёсткий металл, снималась обшивка.',f:['Несколько плоскостей','6 часов'],dx:.5,dy:.5,s:.26}
+];
+document.getElementById('caseGrid').innerHTML=CASES.map((c,n)=>{
+  const w=400,h=200,cx=w*c.dx,cy=h*c.dy,sg=h*c.s*.5;let d='';
+  for(let b=0;b<12;b+=2){const y0=b*h/11,y1=y0+h/11*.9;let t='',bt=[];
+    for(let x=-8;x<=w+8;x+=10){const f=(y)=>{const dx=x-cx,dy=y-cy,g=Math.exp(-(dx*dx+dy*dy)/(2*sg*sg));return y+1.1*dy*g+sg*.2*g};t+=(x===-8?'M':'L')+x+' '+f(y0).toFixed(1)+' ';bt.push(x+' '+f(y1).toFixed(1))}
+    d+=`<path d="${t}L${bt.reverse().join(' L')} Z" fill="${b%4===0?'#ffc400':'#e8eef4'}" fill-opacity=".7"/>`}
+  return `<article class="case rv"><svg viewBox="0 0 ${w} ${h}" aria-hidden="true">${d}</svg><div class="body"><h3>${c.h}</h3><p>${c.p}</p><div class="facts">${c.f.map(x=>`<span>${x}</span>`).join('')}<span>без окраса</span></div></div></article>`;
+}).join('');
+
+/* ---------- booking wizard ---------- */
+const KINDS=[
+  {n:'Ремонт вмятин без покраски',d:'вмятина, краска цела'},
+  {n:'Кузовной ремонт и покраска',d:'скол, царапина, замена детали'},
+  {n:'Ремонт бампера',d:'трещина, разлом, потёртость'},
+  {n:'Полировка и защита',d:'полировка, керамика, плёнка'}
+];
+const B={step:0,kind:null,where:null,photo:false,name:'',phone:'',fromCheck:''};
+const bookEl=document.getElementById('book');
+function renderBook(){
+  const steps=`<div class="steps">${[0,1,2].map(k=>`<i class="${k<=B.step?'on':''}"></i>`).join('')}</div>`;
+  let body='';
+  if(B.step===0){
+    body=`<h3>Что случилось с машиной?</h3><div class="chips">${KINDS.map(k=>`<button class="chip ${B.kind===k.n?'on':''}" data-kind="${k.n}">${k.n}<small>${k.d}</small></button>`).join('')}</div>`;
+  } else if(B.step===1){
+    body=`<h3>Где удобнее ремонтировать?</h3>
+    ${B.kind?`<div class="summary"><span><b>${B.kind}</b></span>${B.fromCheck?`<span>${B.fromCheck}</span>`:''}</div>`:''}
+    <div class="chips">
+      <button class="chip ${B.where==='service'?'on':''}" data-where="service">Приеду в сервис<small>ул. Куликовская, 12 · 10:00–21:00</small></button>
+      <button class="chip ${B.where==='visit'?'on':''}" data-where="visit">Нужен выезд мастера<small>условия выезда уточнит мастер</small></button>
+    </div>
+    <button class="photo ${B.photo?'on':''}" id="bPhoto" type="button"><span class="th">${B.photo?'':'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>'}</span>
+      <span><b>${B.photo?'dent_door.jpg добавлено':'Добавить фото повреждения'}</b><br><span class="small">${B.photo?'Можно добавить ещё 2–3 снимка с разных углов':'Снимите вмятину под углом, чтобы были видны блики'}</span></span></button>`;
+  } else if(B.step===2){
+    body=`<h3>Куда прислать оценку?</h3><div class="summary"><span><b>${B.kind}</b></span><span>${B.where==='visit'?'Выезд мастера':'В сервисе на Куликовской'}${B.photo?' · фото приложено':''}</span></div>
+    <div class="field"><label for="bName">Имя</label><input id="bName" autocomplete="name" placeholder="Как к вам обращаться" value="${B.name}"></div>
+    <div class="field"><label for="bPhone">Телефон</label><input id="bPhone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" value="${B.phone}"></div>`;
+  } else {
+    body=`<div class="done"><div class="ok"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="m5 12 5 5 9-10"/></svg></div>
+    <h3>Заявка у мастера</h3><p class="lead" style="margin:10px auto 0">${B.name||'Спасибо'}, мастер посмотрит ${B.photo?'фото':'описание'} и перезвонит на ${B.phone} в рабочее время, с 10:00 до 21:00.</p>
+    <button class="btn btn-line" style="margin-top:20px" data-reset>Новая заявка</button></div>`;
+  }
+  const can=[B.kind,B.where,B.phone.replace(/\D/g,'').length>=11][B.step];
+  const nav=B.step<3?`<div class="book-nav"><button class="btn btn-line" data-back ${B.step===0?'style="visibility:hidden"':''}>Назад</button><button class="btn btn-sun" data-next ${can?'':'disabled style="opacity:.45;cursor:not-allowed"'}>${B.step===2?'Отправить заявку':'Далее'}</button></div>`:'';
+  bookEl.innerHTML=steps+body+nav;
+  const nm=bookEl.querySelector('#bName'),ph=bookEl.querySelector('#bPhone');
+  if(nm)nm.oninput=e=>{B.name=e.target.value};
+  if(ph)ph.oninput=e=>{B.phone=maskPhone(e.target.value);e.target.value=B.phone;const nb=bookEl.querySelector('[data-next]');const ok=B.phone.replace(/\D/g,'').length>=11;nb.disabled=!ok;nb.style.opacity=ok?1:.45;nb.style.cursor=ok?'pointer':'not-allowed'};
+}
+function maskPhone(v){let d=v.replace(/\D/g,'');if(!d)return'';if(d[0]==='8')d='7'+d.slice(1);if(d[0]!=='7')d='7'+d;d=d.slice(0,11);
+  let o='+7';if(d.length>1)o+=' ('+d.slice(1,4);if(d.length>=4)o+=')';if(d.length>4)o+=' '+d.slice(4,7);if(d.length>7)o+='-'+d.slice(7,9);if(d.length>9)o+='-'+d.slice(9,11);return o}
+bookEl.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.kind){B.kind=t.dataset.kind;B.fromCheck=''}
+  else if(t.dataset.where){B.where=t.dataset.where}
+  else if(t.id==='bPhoto'){B.photo=!B.photo}
+  else if(t.hasAttribute('data-next')&&!t.disabled){B.step++}
+  else if(t.hasAttribute('data-back')){B.step--}
+  else if(t.hasAttribute('data-reset')){Object.assign(B,{step:0,kind:null,where:null,photo:false,name:'',phone:'',fromCheck:''})}
+  else return;
+  renderBook();
+});
+
+renderQs();setSize(1);renderBook();
+
+/* ---------- reveal ---------- */
+if(!STATIC&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>{const r=el.getBoundingClientRect();if(r.top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+window.demo={setSize,state:B,check:C,render:renderBook};
+</script>
+
+</body></html>

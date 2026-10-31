@@ -1,0 +1,550 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>MitinoGlass — автостекла в Митино</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"></head><body>
+
+
+
+
+
+<style>
+/* MitinoGlass: dark "glass bay" hero with an interactive car profile (tap a window → price & service),
+   chip/crack estimator built from the published price list, text price table, real work photos,
+   brand → service → time booking. Brand teal + navy ring from the current logo are kept. */
+:root{
+  --bg:#f3f6f8;
+  --surface:#ffffff;
+  --ink:#0f2230;
+  --ink-2:#36505f;
+  --muted:#667c89;
+  --line:#dbe4ea;
+  --accent:#0f9fc6;          /* logo teal */
+  --accent-2:#0b7fa0;
+  --accent-ink:#ffffff;
+  --accent-soft:#e1f3f9;
+  --navy:#0e2433;            /* logo ring */
+  --navy-2:#173749;
+  --on-navy:#e9f4f8;
+  --glass:rgba(150,220,245,.62);
+  --hi:#5fd3f2;
+  --warn:#f2a33a;
+  --shadow:0 22px 50px -28px rgba(14,36,51,.45);
+  --display:"Jost","IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#08151e;--surface:#0f202b;--ink:#e6f1f6;--ink-2:#b7cad4;--muted:#8aa2af;--line:#1f3644;
+  --accent:#35c2e6;--accent-2:#6fd6f0;--accent-ink:#04202b;--accent-soft:#0f3342;--navy:#06111a;--navy-2:#0f2633;
+  --glass:rgba(120,210,240,.5);--shadow:0 22px 50px -28px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#08151e;--surface:#0f202b;--ink:#e6f1f6;--ink-2:#b7cad4;--muted:#8aa2af;--line:#1f3644;
+  --accent:#35c2e6;--accent-2:#6fd6f0;--accent-ink:#04202b;--accent-soft:#0f3342;--navy:#06111a;--navy-2:#0f2633;
+  --glass:rgba(120,210,240,.5);--shadow:0 22px 50px -28px rgba(0,0,0,.8);color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--navy)}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.01em;line-height:1.08;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,3.8vw,48px)}
+.tag{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--muted);font-size:18px;max-width:58ch;margin:0}
+section{padding-block:clamp(56px,8vw,104px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;font:600 16px/1 var(--body);padding:16px 22px;border-radius:10px;text-decoration:none;transition:transform .2s,background .2s,box-shadow .2s,color .2s}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover,.btn-primary.is-hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:0 14px 30px -14px var(--accent)}
+.btn-line{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn-line:hover,.btn-line.is-hover{box-shadow:inset 0 0 0 1.5px var(--accent);color:var(--accent)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--navy) 92%,transparent);backdrop-filter:blur(12px);color:var(--on-navy);border-bottom:1px solid rgba(255,255,255,.08)}
+.top .wrap{display:flex;align-items:center;gap:22px;height:70px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{width:40px;height:40px;flex:none}
+.logo b{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em;display:block;line-height:1}
+.logo small{display:block;font-size:11px;opacity:.65;margin-top:4px;letter-spacing:.04em}
+nav.menu{display:flex;gap:24px;margin-left:auto;font-size:15px}
+nav.menu a{text-decoration:none;opacity:.8}
+nav.menu a:hover,nav.menu a.is-hover{opacity:1;color:var(--accent-2)}
+.top .phone{font-family:var(--mono);font-size:15px;text-decoration:none;white-space:nowrap}
+.top .btn{padding:12px 16px;font-size:15px}
+@media (max-width:1000px){nav.menu,.top .phone{display:none}.top .btn{margin-left:auto}}
+
+/* hero */
+.hero{background:radial-gradient(1000px 500px at 80% -10%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 60%),linear-gradient(180deg,var(--navy),var(--navy-2));color:var(--on-navy);padding-block:clamp(36px,5vw,72px) clamp(44px,6vw,88px);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 120px,rgba(255,255,255,.025) 120px 122px);pointer-events:none}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;position:relative;z-index:1}
+.hero h1{font-size:clamp(36px,4.5vw,60px);line-height:1.02}
+.hero h1 span{color:var(--hi)}
+.hero .lead{color:color-mix(in srgb,var(--on-navy) 72%,transparent);margin:20px 0 28px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.hero .btn-line{color:var(--on-navy)}
+.kpis{display:grid;grid-template-columns:repeat(3,auto);gap:12px 32px;margin-top:36px;justify-content:start}
+.kpis div{border-left:2px solid var(--accent);padding-left:12px;font-size:13px;color:color-mix(in srgb,var(--on-navy) 70%,transparent)}
+.kpis b{display:block;font-family:var(--display);font-size:24px;color:var(--on-navy);font-weight:600}
+@media (max-width:960px){.hero .wrap{grid-template-columns:1fr}}
+@media (max-width:520px){.kpis{grid-template-columns:1fr 1fr}}
+
+/* car picker */
+.picker{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:20px 20px 18px;backdrop-filter:blur(6px)}
+.picker .ph{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:color-mix(in srgb,var(--on-navy) 65%,transparent)}
+#car{width:100%;height:auto;display:block;margin:6px 0 2px}
+#car .body{fill:#d9e6ed}
+#car .trim{fill:#b5c7d1}
+#car .tyre{fill:#0a1720}
+#car .rim{fill:#5d7482}
+#car .glass{fill:var(--glass);stroke:rgba(255,255,255,.55);stroke-width:1.5;cursor:pointer;transition:fill .25s,stroke .25s}
+#car .glass:hover,#car .glass.is-hover{fill:var(--hi)}
+#car .glass.on{fill:var(--accent);stroke:#fff;stroke-width:2.5}
+#car .shadow{fill:rgba(0,0,0,.35)}
+.gchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.gchip{background:transparent;border:1px solid rgba(255,255,255,.22);color:var(--on-navy);font:500 14px var(--body);padding:9px 13px;border-radius:999px;cursor:pointer;transition:all .2s}
+.gchip:hover,.gchip.is-hover{border-color:var(--hi)}
+.gchip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ginfo{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:center;min-height:104px}
+.ginfo h3{font-size:22px}
+.ginfo p{margin:0;font-size:14px;color:color-mix(in srgb,var(--on-navy) 70%,transparent);grid-column:1}
+.ginfo .price{font-family:var(--mono);font-size:15px;color:var(--hi)}
+.ginfo .btn{grid-column:2;grid-row:1/4;padding:13px 16px;font-size:15px}
+@media (max-width:560px){.ginfo{grid-template-columns:1fr}.ginfo .btn{grid-column:1;grid-row:auto;justify-self:start;margin-top:8px}}
+
+/* services */
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.head h2{margin-top:10px}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px 22px;display:flex;flex-direction:column;gap:12px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.svc:hover,.svc.is-hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--shadow)}
+.svc .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.svc h3{font-size:21px}
+.svc ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--ink-2);flex:1}
+.svc li{display:flex;gap:8px}
+.svc li::before{content:"";width:6px;height:6px;margin-top:8px;border-radius:2px;background:var(--accent);flex:none}
+.svc .from{font-family:var(--mono);font-size:14px;color:var(--accent-2);border-top:1px dashed var(--line);padding-top:12px}
+@media (max-width:1000px){.svc-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+/* estimator */
+.est{background:var(--surface);border-block:1px solid var(--line)}
+.est .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.est-card{background:var(--navy);color:var(--on-navy);border-radius:22px;padding:clamp(20px,3vw,32px);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.seg{display:inline-flex;background:rgba(255,255,255,.06);border-radius:10px;padding:4px;gap:4px}
+.seg button{background:transparent;border:0;color:var(--on-navy);font:600 15px var(--body);padding:10px 18px;border-radius:8px;cursor:pointer}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+.seg button:hover,.seg button.is-hover{background:rgba(255,255,255,.1)}
+.seg button.on:hover,.seg button.on.is-hover{background:var(--accent)}
+.glassbox{position:relative;height:150px;margin:20px 0;border-radius:14px;background:linear-gradient(160deg,rgba(140,215,240,.25),rgba(140,215,240,.06));border:1px solid rgba(255,255,255,.12);overflow:hidden}
+.glassbox svg{position:absolute;inset:0;width:100%;height:100%}
+.glassbox .crack{stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+.lens{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.lens button{background:transparent;border:1px solid rgba(255,255,255,.22);color:var(--on-navy);font:500 14px var(--mono);padding:8px 12px;border-radius:8px;cursor:pointer}
+.lens button.on{background:var(--on-navy);color:var(--navy);border-color:var(--on-navy)}
+.lens button:hover,.lens button.is-hover{border-color:var(--hi)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.result{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12)}
+.result .sum{font-family:var(--display);font-size:clamp(34px,4vw,46px);font-weight:600;line-height:1}
+.result small{display:block;font-size:13px;color:color-mix(in srgb,var(--on-navy) 65%,transparent);margin-top:6px;max-width:34ch}
+.tips{display:grid;gap:14px;margin-top:26px}
+.tips div{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
+.tips i{width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent-2);display:grid;place-items:center;font:600 14px var(--mono);font-style:normal}
+.tips p{margin:0;color:var(--ink-2);font-size:15px}
+@media (max-width:960px){.est .wrap{grid-template-columns:1fr}}
+
+/* prices */
+.ptable{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pgroup{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pgroup h3{font-size:18px;padding:18px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
+.pgroup h3 span{font:500 12px var(--mono);color:var(--muted);align-self:center}
+.prow{display:flex;justify-content:space-between;gap:16px;padding:14px 22px;border-bottom:1px solid var(--line);font-size:15px}
+.prow:last-child{border-bottom:0}
+.prow b{font-family:var(--mono);font-weight:500;white-space:nowrap;color:var(--accent-2)}
+.prow em{font-style:normal;color:var(--muted);font-size:13px;display:block}
+.note{font-size:13px;color:var(--muted);margin-top:16px}
+@media (max-width:800px){.ptable{grid-template-columns:1fr}}
+
+/* works */
+.works{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:250px 250px;gap:14px}
+.works figure{margin:0;position:relative;border-radius:var(--r);overflow:hidden;background:var(--line)}
+.works figure:first-child{grid-row:1/3}
+.works img{width:100%;height:100%;object-fit:cover}
+.works figcaption{position:absolute;left:12px;bottom:12px;background:rgba(8,21,30,.78);color:#fff;font-size:13px;padding:7px 11px;border-radius:8px;backdrop-filter:blur(6px)}
+.makers{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.makers span{font-family:var(--display);font-weight:600;font-size:20px;color:var(--ink-2);letter-spacing:.02em}
+.makers small{color:var(--muted);font-size:13px;flex-basis:100%}
+@media (max-width:800px){.works{grid-template-columns:1fr;grid-template-rows:auto}.works figure{aspect-ratio:4/3}.works figure:first-child{grid-row:auto}}
+
+/* booking */
+.booking{background:linear-gradient(180deg,var(--bg),var(--accent-soft))}
+.booking .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+.book{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:clamp(20px,3vw,32px)}
+.steps{display:flex;gap:6px;margin-bottom:20px;font:500 12px var(--mono);color:var(--muted)}
+.steps span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-top:3px solid var(--line);padding-top:8px;transition:border-color .3s,color .3s}
+.steps span.on{border-color:var(--accent);color:var(--ink)}
+.book h3{font-size:22px;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 14px;border-radius:10px;font:500 15px var(--body);cursor:pointer;transition:all .2s;text-align:left}
+.chip:hover,.chip.is-hover{border-color:var(--accent)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.chip small{display:block;font-size:12px;opacity:.75;font-family:var(--mono)}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;color:var(--muted);font-weight:500}
+.field input{font:500 16px var(--body);padding:14px 16px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.field input:focus{border-color:var(--accent);outline:none}
+.book-nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.summary{background:var(--bg);border-radius:12px;padding:14px 16px;font-size:14px;display:grid;gap:4px;margin-bottom:16px}
+.done{text-align:center;padding:16px 0}
+.done .ok{width:72px;height:72px;border-radius:50%;background:var(--accent-soft);color:var(--accent-2);display:grid;place-items:center;margin:0 auto 16px}
+.demo-tag{display:inline-block;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:5px 9px;margin-top:16px}
+.bullets{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:10px;color:var(--ink-2)}
+.bullets li{display:flex;gap:10px}
+.bullets li::before{content:"✓";color:var(--accent-2);font-weight:700}
+@media (max-width:900px){.booking .wrap{grid-template-columns:1fr}}
+
+/* contacts */
+.contacts .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:20px}
+.cbox{background:var(--navy);color:var(--on-navy);border-radius:22px;padding:clamp(24px,3vw,36px);display:grid;gap:20px;align-content:start}
+.cbox dl{margin:0;display:grid;gap:16px}
+.cbox dt{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+.cbox dd{margin:4px 0 0;font-size:18px;font-weight:500}
+.cbox a{text-decoration:none}
+.cbox .btn-line{color:var(--on-navy)}
+.map{border-radius:22px;overflow:hidden;position:relative;min-height:360px;background:var(--accent-soft);border:1px solid var(--line)}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;left:52%;top:48%;transform:translate(-50%,-100%);background:var(--navy);color:var(--on-navy);padding:10px 14px;border-radius:12px;font-weight:600;font-size:14px;white-space:nowrap;box-shadow:var(--shadow)}
+.pin::after{content:"";position:absolute;left:50%;bottom:-7px;width:14px;height:14px;background:var(--navy);transform:translateX(-50%) rotate(45deg)}
+.map .btn{position:absolute;left:18px;bottom:18px;background:var(--surface);color:var(--ink);padding:12px 16px;font-size:14px}
+@media (max-width:860px){.contacts .wrap{grid-template-columns:1fr}}
+footer{padding-block:32px 110px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+
+.mbar{display:none}
+@media (max-width:720px){
+  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:35;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mbar .btn{flex:1;padding:14px}
+  .mbar .btn-line{color:var(--ink)}
+}
+
+.rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .rv.pre{opacity:0;transform:translateY(24px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="MitinoGlass, на главную">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#3fb7dc" stroke-width="3" stroke-dasharray="70 8 14 8"/><circle cx="20" cy="20" r="12" fill="none" stroke="#e9f4f8" stroke-width="2" stroke-dasharray="44 6 12 6" transform="rotate(40 20 20)"/><path d="M14 23l4-8h6l2 8z" fill="#3fb7dc" opacity=".85"/></svg>
+      <span><b>MitinoGlass</b><small>автостекла · Митино</small></span>
+    </a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#services">Услуги</a><a href="#repair">Сколы</a><a href="#prices">Цены</a><a href="#works">Работы</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="phone" href="tel:+79337772770">+7 (933) 777-27-70</a>
+    <a class="btn btn-primary" href="#booking" data-book>Записаться</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="rv">
+      <div class="tag" style="color:var(--hi)">Москва · Митино · 2-й Митинский пер., 2</div>
+      <h1 style="margin-top:16px">Замена и ремонт автостекла <span>в день обращения</span></h1>
+      <p class="lead">Лобовые, боковые и задние стёкла для иномарок, ремонт сколов и трещин, заправка автокондиционеров. Рядом с Тушино, Строгино, Путилково и Красногорском.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#booking" data-book>Записаться на замену
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-line" href="tel:+79337772770">+7 (933) 777-27-70</a>
+      </div>
+      <div class="kpis">
+        <div><b>~2 часа</b>и машина с новым стеклом</div>
+        <div><b>5 лет</b>гарантия на установку лобового</div>
+        <div><b>7 дней</b>в неделю, с 9 или 10 до 19</div>
+      </div>
+    </div>
+    <div class="picker rv" id="picker">
+      <div class="ph"><span>Какое стекло нужно? Нажмите на окно</span><span>цены с сайта</span></div>
+      <svg id="car" viewBox="0 0 620 250" role="group" aria-label="Схема автомобиля: выберите стекло">
+        <ellipse class="shadow" cx="314" cy="224" rx="276" ry="9"/>
+        <path class="body" d="M40 182V142q2-20 22-24l86-3 52-53q6-6 18-6h174q12 0 20 7l66 53 78 10q28 6 30 30l2 26q0 12-12 12H52q-12 0-12-12z"/>
+        <path class="trim" d="M44 168h542v9H44z" opacity=".6"/>
+        <path d="M332 62v128M256 62v128" stroke="#a9bcc7" stroke-width="2" fill="none"/>
+        <rect x="300" y="128" width="18" height="4" rx="2" fill="#a9bcc7"/><rect x="376" y="128" width="18" height="4" rx="2" fill="#a9bcc7"/>
+        <polygon class="glass" data-g="rear"  points="156,113 202,65 214,62 184,113"/>
+        <polygon class="glass" data-g="quarter" points="192,113 220,63 250,63 250,113"/>
+        <polygon class="glass" data-g="side"  points="262,113 262,63 326,63 326,113"/>
+        <polygon class="glass" data-g="side"  points="338,113 338,63 390,63 400,67 444,113"/>
+        <polygon class="glass" data-g="front" points="404,64 418,63 478,114 452,114"/>
+        <path d="M560 136l22 4" stroke="#f2a33a" stroke-width="5" stroke-linecap="round"/><path d="M44 134h14" stroke="#e05a4a" stroke-width="5" stroke-linecap="round"/>
+        <g><circle class="tyre" cx="150" cy="190" r="36"/><circle class="rim" cx="150" cy="190" r="19"/><circle class="tyre" cx="482" cy="190" r="36"/><circle class="rim" cx="482" cy="190" r="19"/></g>
+      </svg>
+      <div class="gchips" id="gchips" role="tablist"></div>
+      <div class="ginfo" id="ginfo" aria-live="polite">
+        <h3>Выберите стекло на схеме</h3>
+        <p>Покажем стоимость установки по прайсу и что входит в работу.</p>
+        <a class="btn btn-primary" href="#booking" data-book>Записаться</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="tag">Услуги</div><h2>Всё, что связано со стеклом автомобиля</h2></div>
+      <p class="lead">Стёкла для любого автомобиля в наличии и на заказ. По договорённости подберём стекло для автобуса или грузовика.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc rv"><span class="n">01</span><h3>Замена автостекла</h3><ul><li>Лобовые, боковые и задние</li><li>Вклейка лобовых стёкол</li><li>Профессиональный инструмент</li><li>Гарантия на работу 5 лет</li></ul><span class="from">установка от 3 500 ₽</span></article>
+      <article class="svc rv"><span class="n">02</span><h3>Ремонт сколов и трещин</h3><ul><li>Скол — до того, как пойдёт трещина</li><li>Остановка трещины</li><li>Видимость повреждения снижается на 60–90%</li></ul><span class="from">скол от 2 000 ₽</span></article>
+      <article class="svc rv"><span class="n">03</span><h3>Подбор и продажа стёкол</h3><ul><li>Fuyao, AGS, Benson, Pilkington, Nord Glass, KMK</li><li>Легковые и коммерческие авто</li><li>Консультация по подбору</li></ul><span class="from">цена по марке и модели</span></article>
+      <article class="svc rv"><span class="n">04</span><h3>Заправка автокондиционеров</h3><ul><li>Диагностика системы</li><li>Вакуумирование от влаги и воздуха</li><li>Заправка R134A и R12, долив масла</li></ul><span class="from">от 1 200 ₽ + фреон</span></article>
+    </div>
+  </div>
+</section>
+
+<section id="repair" class="est">
+  <div class="wrap">
+    <div class="rv">
+      <div class="tag">Скол или трещина</div>
+      <h2 style="margin-top:10px">Сколько стоит ремонт, видно до звонка</h2>
+      <p class="lead" style="margin-top:16px">Ориентир по опубликованному прайсу. Точную стоимость мастер скажет после осмотра стекла.</p>
+      <div class="tips">
+        <div><i>1</i><p>Заклейте скол скотчем, чтобы внутрь не попала грязь — так ремонт пройдёт лучше.</p></div>
+        <div><i>2</i><p>Не откладывайте: при перепадах температур зимой скол быстро превращается в трещину.</p></div>
+        <div><i>3</i><p>Ремонт останавливает рост трещины, а видимость повреждения уменьшается на 60–90%.</p></div>
+      </div>
+    </div>
+    <div class="est-card rv" id="est">
+      <div class="seg" role="tablist" id="mode">
+        <button class="on" data-mode="chip">Скол</button>
+        <button data-mode="crack">Трещина</button>
+      </div>
+      <div class="glassbox"><svg viewBox="0 0 400 150" preserveAspectRatio="none" id="crackSvg"></svg></div>
+      <div id="lenWrap" hidden>
+        <div class="lens" id="lens"></div>
+        <input type="range" id="len" min="1" max="40" value="10" aria-label="Длина трещины, см">
+      </div>
+      <div class="result">
+        <div><div class="sum" id="sum">от 2 000 ₽</div><small id="sumNote">Ремонт скола. Стоимость зависит от размера и загрязнения.</small></div>
+        <a class="btn btn-primary" href="#booking" id="estBook">Записаться на ремонт</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prices">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="tag">Цены</div><h2>Прайс текстом, без звёздочек</h2></div>
+      <p class="lead">Расходные материалы включены в стоимость установки. Стекло подбирается и считается отдельно по марке и модели.</p>
+    </div>
+    <div class="ptable">
+      <div class="pgroup rv"><h3>Установка автостёкол <span>работа</span></h3>
+        <div class="prow"><span>Лобовое стекло</span><b>от 4 000 ₽</b></div>
+        <div class="prow"><span>Боковое стекло</span><b>от 3 500 ₽</b></div>
+        <div class="prow"><span>Заднее стекло</span><b>от 4 000 ₽</b></div>
+        <div class="prow"><span>Само стекло<em>эконом-класс и оригинал, в наличии и под заказ</em></span><b>по запросу</b></div>
+      </div>
+      <div class="pgroup rv"><h3>Ремонт стекла <span>и климат</span></h3>
+        <div class="prow"><span>Ремонт скола</span><b>от 2 000 ₽</b></div>
+        <div class="prow"><span>Остановка трещины<em>заливка 2 см трещины включена</em></span><b>2 000 ₽</b></div>
+        <div class="prow"><span>Ремонт трещины</span><b>200 ₽/см</b></div>
+        <div class="prow"><span>Заправка кондиционера<em>фреон оплачивается отдельно</em></span><b>от 1 200 ₽</b></div>
+      </div>
+    </div>
+    <p class="note">Цены взяты со страницы «Цены на услуги» текущего сайта. В рабочей версии их меняют в админке, и они совпадают на всех страницах.</p>
+  </div>
+</section>
+
+<section id="works" style="padding-top:0">
+  <div class="wrap">
+    <div class="head rv">
+      <div><div class="tag">Наши работы</div><h2>Свой бокс в Митино</h2></div>
+      <p class="lead">Фотографии из раздела «Фото работ» на сайте компании. Номера автомобилей скрыты.</p>
+    </div>
+    <div class="works rv">
+      <figure><img src="assets/work-skoda-glass.jpg" alt="Skoda Kodiaq в боксе, новое лобовое стекло на стойке"><figcaption>Замена лобового стекла · Skoda Kodiaq</figcaption></figure>
+      <figure><img src="assets/work-gls.jpg" alt="Mercedes-Benz GLS после замены стекла"><figcaption>Mercedes-Benz GLS</figcaption></figure>
+      <figure><img src="assets/work-kodiaq.jpg" alt="Skoda после установки лобового стекла"><figcaption>После установки</figcaption></figure>
+    </div>
+    <div class="makers rv"><small>Стёкла ведущих производителей</small><span>Fuyao</span><span>AGS</span><span>Benson</span><span>Pilkington</span><span>Nord Glass</span><span>KMK</span></div>
+  </div>
+</section>
+
+<section id="booking" class="booking">
+  <div class="wrap">
+    <div class="rv">
+      <div class="tag">Онлайн-заявка</div>
+      <h2 style="margin-top:10px">Марка, стекло, время — и всё</h2>
+      <p class="lead" style="margin-top:16px">Мастер перезвонит, уточнит модель и наличие стекла и подтвердит время приезда.</p>
+      <ul class="bullets"><li>Замена в день обращения</li><li>Пн–Пт 9:00–19:00, Сб–Вс 10:00–19:00</li><li>Можно оставить заявку вечером</li></ul>
+      <span class="demo-tag">Демо: форма никуда не отправляет данные</span>
+    </div>
+    <div class="book rv" id="book"></div>
+  </div>
+</section>
+
+<section id="contacts" class="contacts" style="padding-top:clamp(40px,5vw,64px)">
+  <div class="wrap">
+    <div class="cbox rv">
+      <div class="tag" style="color:var(--hi)">Контакты</div>
+      <h2 style="font-size:clamp(26px,3vw,36px)">Приезжайте в Митино</h2>
+      <dl>
+        <div><dt>Адрес</dt><dd>Москва, 2-й Митинский пер., 2</dd></div>
+        <div><dt>Телефон</dt><dd><a href="tel:+79337772770">+7 (933) 777-27-70</a></dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:mitinoglass@mail.ru">mitinoglass@mail.ru</a></dd></div>
+        <div><dt>Режим работы</dt><dd>Пн–Пт 9:00–19:00<br>Сб–Вс 10:00–19:00</dd></div>
+      </dl>
+      <div class="cta-row"><a class="btn btn-primary" href="#booking" data-book>Оставить заявку</a><a class="btn btn-line" href="tel:+79337772770">Позвонить</a></div>
+    </div>
+    <div class="map rv">
+      <canvas id="mapc" aria-hidden="true"></canvas>
+      <div class="pin">MitinoGlass</div>
+      <a class="btn" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%202-%D0%B9%20%D0%9C%D0%B8%D1%82%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BF%D0%B5%D1%80%D0%B5%D1%83%D0%BB%D0%BE%D0%BA%2C%202" target="_blank" rel="noopener">Построить маршрут ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© MitinoGlass · замена и ремонт автостекла в Митино</span>
+    <span>Концепция редизайна · демонстрационный прототип</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-line" href="tel:+79337772770">Позвонить</a>
+  <a class="btn btn-primary" href="#booking" data-book>Записаться</a>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+const STATIC=new URLSearchParams(location.search).has('static');
+const fmt=n=>n.toLocaleString('ru-RU').replace(/ /g,' ');
+
+/* glass picker */
+const GLASS={
+  front:{n:'Лобовое стекло',p:'Установка от 4 000 ₽',d:'Вклейка с расходными материалами. Гарантия на установку 5 лет. Скол можно отремонтировать от 2 000 ₽.',svc:'Замена лобового'},
+  side:{n:'Боковое стекло',p:'Установка от 3 500 ₽',d:'Опускные стёкла передних и задних дверей. Подберём по марке и модели.',svc:'Боковое стекло'},
+  quarter:{n:'Форточка',p:'Стоимость по марке',d:'Глухое боковое стекло за задней дверью. Подберём в наличии или под заказ.',svc:'Боковое стекло'},
+  rear:{n:'Заднее стекло',p:'Установка от 4 000 ₽',d:'С обогревом и без. Стекло подбирается по VIN или модели автомобиля.',svc:'Заднее стекло'}
+};
+const car=document.getElementById('car'),gchips=document.getElementById('gchips'),ginfo=document.getElementById('ginfo');
+['front','side','quarter','rear'].forEach(k=>{const b=document.createElement('button');b.className='gchip';b.dataset.g=k;b.textContent=GLASS[k].n.replace(' стекло','');gchips.appendChild(b)});
+function pickGlass(k){
+  const g=GLASS[k];
+  car.querySelectorAll('.glass').forEach(e=>e.classList.toggle('on',e.dataset.g===k));
+  gchips.querySelectorAll('.gchip').forEach(e=>e.classList.toggle('on',e.dataset.g===k));
+  ginfo.innerHTML=`<h3>${g.n}</h3><span class="price">${g.p}</span><p>${g.d}</p><a class="btn btn-primary" href="#booking">Записаться</a>`;
+  ginfo.querySelector('a').onclick=()=>preset({svc:g.svc});
+}
+car.addEventListener('click',e=>{const g=e.target.closest('.glass');if(g)pickGlass(g.dataset.g)});
+gchips.addEventListener('click',e=>{const b=e.target.closest('.gchip');if(b)pickGlass(b.dataset.g)});
+
+/* estimator */
+const est={mode:'chip',len:10};
+const lens=document.getElementById('lens'),len=document.getElementById('len'),crackSvg=document.getElementById('crackSvg');
+[2,5,10,20,30].forEach(v=>{const b=document.createElement('button');b.dataset.len=v;b.textContent=v+' см';lens.appendChild(b)});
+function drawCrack(){
+  const pts=[[200,75]];
+  if(est.mode==='crack'){let x=200,y=75;const step=Math.min(est.len,40)*4.4/8;
+    for(let i=0;i<8;i++){x+=step*(i%2?1:.9);y+=(i%2?-1:1)*(6+i*1.5);pts.push([x,y])}
+    let s=`<path class="crack" d="M${pts.map(p=>p.join(' ')).join(' L')}"/>`;
+    s+=`<path class="crack" d="M200 75 L${200-est.len*1.6} ${75+est.len*.9}" opacity=".7"/>`;
+    crackSvg.innerHTML=s+chipMark();
+  } else crackSvg.innerHTML=chipMark();
+}
+function chipMark(){return `<g transform="translate(200 75)"><circle r="9" fill="rgba(255,255,255,.85)"/><path d="M-16 0h-8M16 0h8M0-16v-8M0 16v8M-11-11l-6-6M11 11l6 6M-11 11l-6 6M11-11l6-6" stroke="#fff" stroke-width="2"/></g>`}
+function calc(){
+  const sum=document.getElementById('sum'),note=document.getElementById('sumNote');
+  document.querySelectorAll('#mode button').forEach(b=>b.classList.toggle('on',b.dataset.mode===est.mode));
+  document.getElementById('lenWrap').hidden=est.mode!=='crack';
+  lens.querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.len===est.len));
+  len.value=est.len;
+  if(est.mode==='chip'){sum.textContent='от 2 000 ₽';note.textContent='Ремонт скола. Стоимость зависит от размера и загрязнения.'}
+  else{const v=2000+Math.max(0,est.len-2)*200;sum.textContent='≈ '+fmt(v)+' ₽';note.textContent=`Остановка трещины 2 000 ₽ (2 см включены) + ${fmt(Math.max(0,est.len-2))} см × 200 ₽. Длинную трещину мастер может посоветовать не ремонтировать, а заменить стекло.`}
+  drawCrack();
+}
+document.getElementById('mode').addEventListener('click',e=>{const b=e.target.closest('button');if(b){est.mode=b.dataset.mode;calc()}});
+lens.addEventListener('click',e=>{const b=e.target.closest('button');if(b){est.len=+b.dataset.len;calc()}});
+len.addEventListener('input',()=>{est.len=+len.value;calc()});
+document.getElementById('estBook').onclick=()=>preset({svc:est.mode==='chip'?'Ремонт скола':'Ремонт трещины'});
+calc();
+
+/* booking */
+const MAKES=['Kia','Hyundai','Toyota','Volkswagen','Skoda','Renault','Nissan','Mercedes-Benz','BMW','Mazda','Ford','Другая марка'];
+const SVCS=[['Замена лобового','от 4 000 ₽'],['Боковое стекло','от 3 500 ₽'],['Заднее стекло','от 4 000 ₽'],['Ремонт скола','от 2 000 ₽'],['Ремонт трещины','200 ₽/см'],['Заправка кондиционера','от 1 200 ₽']];
+const WD=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const B={step:0,make:null,svc:null,day:null,time:null,name:'',phone:''};
+const bookEl=document.getElementById('book');
+function days(){const out=[];const b=new Date();b.setHours(0,0,0,0);for(let k=0;k<7;k++){const d=new Date(b);d.setDate(b.getDate()+k);out.push(d)}return out}
+function slots(d){const wd=(d.getDay()+6)%7;const s=wd>4?10:9;const o=[];for(let h=s;h<18;h++)o.push(h+':00');return o}
+function seeded(n){const x=Math.sin(n)*10000;return x-Math.floor(x)}
+const dfmt=d=>d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'}).replace('.','');
+const STEPS=['Марка','Услуга','Время','Контакты'];
+function renderBook(){
+  let h=`<div class="steps">${STEPS.map((s,k)=>`<span class="${k<=B.step?'on':''}">${k+1} · ${s}</span>`).join('')}</div>`;
+  if(B.step===0){h+=`<h3>Какой у вас автомобиль?</h3><div class="chips">${MAKES.map(m=>`<button class="chip ${B.make===m?'on':''}" data-make="${m}">${m}</button>`).join('')}</div>`}
+  else if(B.step===1){h+=`<h3>Что нужно сделать?</h3><div class="chips">${SVCS.map(([n,p])=>`<button class="chip ${B.svc===n?'on':''}" data-svc="${n}">${n}<small>${p}</small></button>`).join('')}</div>`}
+  else if(B.step===2){const ds=days();if(B.day===null)B.day=0;const d=ds[B.day];
+    h+=`<h3>Когда удобно приехать?</h3><div class="chips" style="margin-bottom:14px">${ds.map((x,k)=>`<button class="chip ${B.day===k?'on':''}" data-day="${k}">${k===0?'Сегодня':k===1?'Завтра':WD[(x.getDay()+6)%7]}<small>${dfmt(x)}</small></button>`).join('')}</div>
+    <div class="chips">${slots(d).map((t,k)=>{const busy=seeded(d.getDate()*31+k)<.3;return `<button class="chip ${B.time===t?'on':''}" data-time="${t}" ${busy?'disabled':''}>${t}</button>`}).join('')}</div>`}
+  else if(B.step===3){const d=days()[B.day];
+    h+=`<h3>Куда перезвонить?</h3><div class="summary"><span><b>${B.make}</b> · ${B.svc}</span><span>${dfmt(d)}, ${B.time}</span></div>
+    <div class="field"><label for="bName">Имя</label><input id="bName" autocomplete="name" placeholder="Как к вам обращаться" value="${B.name}"></div>
+    <div class="field"><label for="bPhone">Телефон</label><input id="bPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" value="${B.phone}"></div>`}
+  else {const d=days()[B.day];
+    h+=`<div class="done"><div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-10"/></svg></div>
+    <h3>Заявка принята</h3><p class="lead" style="margin:0 auto">${B.name||'Спасибо'}, ждём ваш ${B.make} ${dfmt(d)} в ${B.time}. Мастер перезвонит, уточнит модель и наличие стекла.</p>
+    <button class="btn btn-line" style="margin-top:20px" data-reset>Новая заявка</button></div>`}
+  const ok=[B.make,B.svc,B.time,B.phone.replace(/\D/g,'').length>=11][B.step];
+  if(B.step<4)h+=`<div class="book-nav"><button class="btn btn-line" data-back ${B.step===0?'style="visibility:hidden"':''}>Назад</button><button class="btn btn-primary" data-next ${ok?'':'disabled'}>${B.step===3?'Отправить заявку':'Далее'}</button></div>`;
+  bookEl.innerHTML=h;
+  const nm=bookEl.querySelector('#bName'),ph=bookEl.querySelector('#bPhone');
+  if(nm)nm.addEventListener('input',e=>{B.name=e.target.value});
+  if(ph)ph.addEventListener('input',e=>{B.phone=mask(e.target.value);e.target.value=B.phone;bookEl.querySelector('[data-next]').disabled=B.phone.replace(/\D/g,'').length<11});
+}
+function mask(v){let d=v.replace(/\D/g,'');if(!d)return '';if(d[0]==='8')d='7'+d.slice(1);if(d[0]!=='7')d='7'+d;d=d.slice(0,11);
+  let o='+7';if(d.length>1)o+=' ('+d.slice(1,4);if(d.length>=4)o+=')';if(d.length>4)o+=' '+d.slice(4,7);if(d.length>7)o+='-'+d.slice(7,9);if(d.length>9)o+='-'+d.slice(9,11);return o}
+bookEl.addEventListener('click',e=>{const t=e.target.closest('button');if(!t||t.disabled)return;
+  if(t.dataset.make)B.make=t.dataset.make;
+  else if(t.dataset.svc)B.svc=t.dataset.svc;
+  else if(t.dataset.day!==undefined){B.day=+t.dataset.day;B.time=null}
+  else if(t.dataset.time)B.time=t.dataset.time;
+  else if(t.hasAttribute('data-next'))B.step++;
+  else if(t.hasAttribute('data-back'))B.step--;
+  else if(t.hasAttribute('data-reset'))Object.assign(B,{step:0,make:null,svc:null,day:null,time:null,name:'',phone:''});
+  else return;
+  renderBook()});
+function preset(o){Object.assign(B,o);B.step=B.make?(B.svc?2:1):0;renderBook()}
+renderBook();
+
+/* stylised map */
+function drawMap(){
+  const c=document.getElementById('mapc');const r=c.getBoundingClientRect();if(!r.width)return;const dpr=Math.min(2,devicePixelRatio||1);
+  c.width=r.width*dpr;c.height=r.height*dpr;const g=c.getContext('2d');g.scale(dpr,dpr);
+  const cs=getComputedStyle(document.documentElement);
+  g.fillStyle=cs.getPropertyValue('--accent-soft');g.fillRect(0,0,r.width,r.height);
+  g.fillStyle=cs.getPropertyValue('--line');
+  for(let i=0;i<30;i++){g.globalAlpha=.7;g.fillRect(seeded(i+7)*r.width,seeded(i+70)*r.height,22+seeded(i+5)*36,16+seeded(i+2)*26)}
+  g.globalAlpha=1;g.strokeStyle=cs.getPropertyValue('--surface');g.lineCap='round';
+  [[0,.18,1,.62,18],[.2,1,.75,0,12],[0,.8,1,.92,8],[.6,1,1,.35,8],[0,.45,.5,.2,6]].forEach(([a,b,c2,d,w])=>{g.lineWidth=w;g.beginPath();g.moveTo(a*r.width,b*r.height);g.lineTo(c2*r.width,d*r.height);g.stroke()});
+  g.fillStyle=cs.getPropertyValue('--muted');g.font='600 12px IBM Plex Sans, sans-serif';
+  g.fillText('Митинская ул.',r.width*.08,r.height*.27);g.fillText('м. Митино',r.width*.62,r.height*.78);
+}
+drawMap();addEventListener('resize',drawMap);
+
+/* reveal */
+if(!STATIC&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+window.demo={pickGlass,state:B,render:renderBook,est,calc};
+</script>
+
+</body></html>
