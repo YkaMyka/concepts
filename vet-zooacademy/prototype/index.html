@@ -1,0 +1,504 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>ЗооАкадемия — круглосуточная ветклиника</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap"></head><body>
+
+
+
+
+
+<style>
+/* Layout: sticky header → hero (pet picker + clinic photo + 24/7 urgent card) → services filtered by pet → doctors filtered by pet → booking wizard with pet name → prices → contacts.
+   Brand: green from the current site, yellow from the logo, "academy" serif for headings. */
+:root{
+  --paper:#f6f4ec;
+  --card:#ffffff;
+  --ink:#16271f;
+  --ink-2:#3c5247;
+  --muted:#6a7a71;
+  --line:#e2e0d3;
+  --green:#258a55;
+  --green-ink:#ffffff;
+  --green-soft:#e3f1e8;
+  --sun:#f3c234;
+  --sun-soft:#fdf3d2;
+  --alarm:#d8462f;
+  --shadow:0 20px 50px -28px rgba(22,39,31,.45);
+  --serif:"Lora",Georgia,serif;
+  --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:20px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#101813;--card:#18231c;--ink:#ecf2ec;--ink-2:#bfd0c4;--muted:#8fa396;--line:#2a392f;
+  --green:#46b878;--green-ink:#06210f;--green-soft:#173826;--sun:#f5cd55;--sun-soft:#3a3214;--alarm:#f06a52;
+  --shadow:0 20px 50px -28px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#101813;--card:#18231c;--ink:#ecf2ec;--ink-2:#bfd0c4;--muted:#8fa396;--line:#2a392f;
+  --green:#46b878;--green-ink:#06210f;--green-soft:#173826;--sun:#f5cd55;--sun-soft:#3a3214;--alarm:#f06a52;
+  --shadow:0 20px 50px -28px rgba(0,0,0,.8);color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font-size:clamp(28px,3.4vw,42px);line-height:1.12}
+.kick{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+.kick::before{content:"";width:18px;height:2px;background:var(--sun)}
+.lead{color:var(--muted);font-size:18px;max-width:58ch}
+section{padding-block:clamp(56px,8vw,100px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;font:700 16px/1 var(--sans);padding:16px 24px;border-radius:14px;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
+.btn-green{background:var(--green);color:var(--green-ink);box-shadow:0 12px 26px -14px var(--green)}
+.btn-green:hover,.btn-green.is-hover{transform:translateY(-2px);box-shadow:0 18px 34px -14px var(--green)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-line:hover,.btn-line.is-hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn-alarm{background:var(--alarm);color:#fff}
+.btn-alarm:hover,.btn-alarm.is-hover{transform:translateY(-2px);filter:brightness(1.05)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+
+/* header */
+header.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:22px;height:74px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+.brand svg{width:44px;height:44px}
+.brand b{font-family:var(--serif);font-size:21px;font-weight:700;display:block;line-height:1.1}
+.brand small{font-size:12px;color:var(--muted);display:block}
+nav.menu{display:flex;gap:4px;margin-left:auto}
+nav.menu a{text-decoration:none;font-weight:600;font-size:15px;padding:10px 12px;border-radius:10px;color:var(--ink-2)}
+nav.menu a:hover,nav.menu a.is-hover{background:var(--green-soft);color:var(--ink)}
+.top-tel{font-weight:800;text-decoration:none;white-space:nowrap;font-size:17px}
+.top-tel span{display:block;font-size:12px;font-weight:600;color:var(--green)}
+.theme{width:42px;height:42px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;flex-shrink:0}
+.theme svg{width:20px;height:20px}
+@media (max-width:1020px){nav.menu{display:none}.top-tel{margin-left:auto}}
+@media (max-width:560px){.top .wrap{gap:10px;height:64px}.brand{gap:8px}.brand svg{width:38px;height:38px}.brand b{font-size:17px}.top-tel{font-size:14px}.top-tel span{display:none}.brand small{display:none}.top .btn{display:none}.theme{width:36px;height:36px}.status{font-size:13px}.pet{text-align:left}}
+
+/* hero */
+.hero{padding-block:clamp(28px,5vw,64px) clamp(48px,6vw,80px)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,56px);align-items:start}
+.status{display:inline-flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px 8px 10px;font-size:14px;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 color-mix(in srgb,var(--green) 60%,transparent);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.hero h1{font-size:clamp(36px,5.2vw,64px);line-height:1.04;margin:18px 0 16px}
+.hero h1 em{font-style:italic;color:var(--green)}
+.picker{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.picker h3{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--muted);margin-bottom:14px}
+.pets{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pet{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px 12px;border-radius:16px;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font:700 14px/1.2 var(--sans);color:var(--ink);transition:border-color .2s,background .2s,transform .2s}
+.pet svg{width:44px;height:44px;color:var(--green)}
+.pet:hover,.pet.is-hover{border-color:var(--green);transform:translateY(-2px)}
+.pet.on{background:var(--green);border-color:var(--green);color:var(--green-ink)}
+.pet.on svg{color:var(--sun)}
+.pet-note{margin:16px 0 0;font-size:15px;color:var(--ink-2);min-height:48px}
+.pet-note b{color:var(--ink)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.hero-side{display:grid;gap:16px}
+.photo{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3.4;box-shadow:var(--shadow);background:var(--green-soft)}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:46% 50%}
+.photo .cap{position:absolute;left:14px;right:14px;bottom:14px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(8px);border-radius:14px;padding:12px 14px;font-size:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.photo .cap b{font-family:var(--serif);font-size:17px}
+.urgent{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:var(--ink);color:var(--paper);border-radius:var(--r);padding:18px 20px}
+:root[data-theme="dark"] .urgent{background:#22140f;color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .urgent{background:#22140f;color:var(--ink)}}
+.siren{width:56px;height:56px;border-radius:50%;background:var(--alarm);display:grid;place-items:center;position:relative}
+.siren::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--alarm);opacity:.5;animation:ring 1.6s infinite}
+@keyframes ring{from{transform:scale(.9);opacity:.7}to{transform:scale(1.25);opacity:0}}
+.siren svg{width:26px;height:26px;color:#fff}
+.urgent b{font-family:var(--serif);font-size:19px;display:block}
+.urgent p{margin:4px 0 10px;font-size:14px;opacity:.8}
+.urgent a.btn{padding:12px 18px;font-size:15px}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.photo{aspect-ratio:16/10}}
+@media (max-width:420px){.pets{grid-template-columns:repeat(2,1fr)}.pet{flex-direction:row;justify-content:flex-start;padding:10px 12px}.pet svg{width:32px;height:32px}}
+
+/* facts strip */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:clamp(36px,5vw,56px)}
+.facts div{background:var(--card);padding:18px 20px}
+.facts b{font-family:var(--serif);font-size:22px;display:block}
+.facts span{font-size:14px;color:var(--muted)}
+@media (max-width:760px){.facts{grid-template-columns:1fr 1fr}}
+
+/* services */
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.filter{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 16px;font:600 14px/1 var(--sans);cursor:pointer;transition:all .2s}
+.chip:hover,.chip.is-hover{border-color:var(--green)}
+.chip.on{background:var(--green);border-color:var(--green);color:var(--green-ink)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:10px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.svc:hover,.svc.is-hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--green)}
+.svc .ic{width:46px;height:46px;border-radius:14px;background:var(--green-soft);display:grid;place-items:center;color:var(--green)}
+.svc .ic svg{width:24px;height:24px}
+.svc h3{font-size:20px}
+.svc p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.svc .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;font-weight:700}
+.svc .meta a{color:var(--green);text-decoration:none}
+.svc.hide{display:none}
+@media (max-width:900px){.svc-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.svc-grid{grid-template-columns:1fr}}
+
+/* doctors */
+.docs-sec{background:var(--card);border-block:1px solid var(--line)}
+.doc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.doc{border-radius:var(--r);border:1px solid var(--line);background:var(--paper);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.doc:hover,.doc.is-hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.doc img{aspect-ratio:1;object-fit:cover;width:100%}
+.doc div{padding:14px 14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.doc b{font-family:var(--serif);font-size:16px;line-height:1.25}
+.doc span{font-size:13px;color:var(--muted);line-height:1.4}
+.doc.dim{opacity:.28;filter:grayscale(1)}
+.doc.chief{border-color:var(--sun);box-shadow:inset 0 0 0 1.5px var(--sun)}
+.badge{align-self:flex-start;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--sun);color:#2a2207;border-radius:6px;padding:3px 7px}
+.doc-note{margin-top:18px;font-size:15px;color:var(--muted)}
+@media (max-width:1000px){.doc-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:600px){.doc-grid{grid-template-columns:1fr 1fr;gap:12px}}
+
+/* booking */
+.book-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,56px);align-items:start}
+.book-aside ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}
+.book-aside li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink-2)}
+.book-aside li::before{content:"";flex-shrink:0;width:10px;height:10px;margin-top:7px;border-radius:3px;background:var(--sun);transform:rotate(45deg)}
+#book{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,3vw,30px);box-shadow:var(--shadow);min-height:440px}
+.steps{display:flex;gap:6px;margin-bottom:22px}
+.steps i{flex:1;height:5px;border-radius:5px;background:var(--line)}
+.steps i.on{background:var(--green)}
+.bq{font-family:var(--serif);font-size:22px;margin-bottom:6px}
+.bs{color:var(--muted);font-size:14px;margin:0 0 16px}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.opts .chip{padding:12px 16px}
+label.f{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+.inp{width:100%;font:500 17px var(--sans);padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);margin-bottom:14px}
+.inp:focus{outline:none;border-color:var(--green)}
+.book-nav{display:flex;justify-content:space-between;gap:12px;margin-top:8px}
+.book-nav .btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.demo-note{font-size:12px;color:var(--muted);margin-top:16px;text-align:center}
+.done{text-align:center;padding:30px 6px}
+.done .ok{width:72px;height:72px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;margin:0 auto 18px}
+.done .ok svg{width:36px;height:36px}
+.sumry{display:grid;gap:6px;text-align:left;background:var(--paper);border-radius:14px;padding:14px 16px;margin:18px auto 0;max-width:420px;font-size:15px}
+.sumry span{color:var(--muted)}
+@media (max-width:900px){.book-grid{grid-template-columns:1fr}}
+
+/* prices */
+.price-box{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(16px,3vw,28px)}
+.prow{display:flex;justify-content:space-between;gap:16px;padding:14px 4px;border-bottom:1px dashed var(--line);font-size:16px}
+.prow:last-child{border-bottom:0}
+.prow b{white-space:nowrap}
+.price-note{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* contacts */
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.ct-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px}
+.ct-card h3{font-size:24px;margin-bottom:14px}
+.ct-row{display:grid;grid-template-columns:110px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.ct-row:last-child{border-bottom:0}
+.ct-row span{color:var(--muted)}
+.ct-row a{font-weight:700;text-decoration:none}
+.map{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);min-height:340px;background:var(--green-soft)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.map .pin{position:absolute;left:58%;top:44%;transform:translate(-50%,-100%);background:var(--card);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow);font-size:14px;font-weight:700;white-space:nowrap}
+.map .pin::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%) rotate(45deg);width:14px;height:14px;background:var(--card)}
+.map .btn{position:absolute;left:16px;bottom:16px}
+@media (max-width:820px){.ct-grid{grid-template-columns:1fr}.ct-row{grid-template-columns:90px 1fr}}
+
+footer{padding:34px 0 120px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* mobile bar */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;gap:10px;padding:10px max(12px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.mbar .btn{flex:1;padding:15px 10px}
+@media (max-width:760px){.mbar{display:flex}}
+
+/* reveal */
+.rv{transition:opacity .7s ease,transform .7s ease}
+.rv.pre{opacity:0;transform:translateY(24px)}
+@media (prefers-reduced-motion:reduce){.dot,.siren::after{animation:none}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="ЗооАкадемия, на главную">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="2" y="2" width="44" height="44" rx="14" fill="var(--green)"/><path d="M24 9 6 17l18 8 18-8z" fill="var(--sun)"/><path d="M13 21v6c0 3 5 5 11 5s11-2 11-5v-6l-11 5z" fill="#fff" opacity=".92"/><path d="M40 18v9" stroke="var(--sun)" stroke-width="2.4" stroke-linecap="round"/><circle cx="40" cy="29" r="2.4" fill="var(--sun)"/><g fill="var(--green)"><circle cx="20.5" cy="29.5" r="1.6"/><circle cx="24" cy="28.4" r="1.6"/><circle cx="27.5" cy="29.5" r="1.6"/></g></svg>
+      <span><b>ЗооАкадемия</b><small>ветклиника · м. Варшавская</small></span>
+    </a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#services">Услуги</a><a href="#doctors">Врачи</a><a href="#prices">Цены</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="top-tel" href="tel:+74952218190">+7 495 221-81-90<span>круглосуточно</span></a>
+    <a class="btn btn-green" href="#booking" style="padding:13px 18px">Записаться</a>
+    <button class="theme" id="themeBtn" aria-label="Сменить тему"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="rv">
+        <span class="status"><i class="dot"></i><span id="nowTxt">Открыто круглосуточно, без выходных</span></span>
+        <h1>Ветклиника на Ялтинской, <em>которая не закрывается</em></h1>
+        <p class="lead">Терапия, хирургия, кардиология, диагностика и стационар для кошек и собак, отдельный приём ратологов для грызунов и хорьков. Главный врач — профессор Ю. А. Ватников.</p>
+        <div class="picker" id="pets">
+          <h3>Кто у вас? Покажем подходящих врачей и услуги</h3>
+          <div class="pets" role="radiogroup" aria-label="Вид питомца">
+            <button class="pet" data-pet="cat" role="radio"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M10 8l6 9h16l6-9 2 18c0 9-7 15-16 15S8 35 8 26z"/><circle cx="18" cy="26" r="1.6" fill="currentColor"/><circle cx="30" cy="26" r="1.6" fill="currentColor"/><path d="M22 32h4l-2 2zM6 30h8M6 34l8-2M42 30h-8M42 34l-8-2"/></svg>Кошка</button>
+            <button class="pet" data-pet="dog" role="radio"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M14 12c-4 0-8 4-8 12l6 2 2-8M34 12c4 0 8 4 8 12l-6 2-2-8"/><path d="M14 12h20l2 14c0 9-5 14-12 14s-12-5-12-14z"/><circle cx="19" cy="24" r="1.6" fill="currentColor"/><circle cx="29" cy="24" r="1.6" fill="currentColor"/><path d="M21 31c1.5 1.5 4.5 1.5 6 0M24 28v3"/></svg>Собака</button>
+            <button class="pet" data-pet="rodent" role="radio"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><circle cx="13" cy="15" r="5"/><circle cx="35" cy="15" r="5"/><path d="M9 28c0-9 7-14 15-14s15 5 15 14c0 7-6 12-15 12S9 35 9 28z"/><circle cx="19" cy="26" r="1.6" fill="currentColor"/><circle cx="29" cy="26" r="1.6" fill="currentColor"/><path d="M22 31h4l-2 2z"/></svg>Грызун, хорёк</button>
+            <button class="pet" data-pet="bird" role="radio"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M30 8c-8 0-13 6-13 14v6c0 7 4 12 10 12h2l7 4-2-6c4-3 6-8 6-14V18c0-6-4-10-10-10z"/><path d="M17 16l-7 3 7 3"/><circle cx="24" cy="16" r="1.6" fill="currentColor"/></svg>Птица, экзотика</button>
+          </div>
+          <p class="pet-note" id="petNote">Выберите питомца — ниже останутся только подходящие направления и врачи.</p>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-green" href="#booking" id="heroBook">Записаться на приём</a>
+          <a class="btn btn-line" href="#services">Все услуги</a>
+        </div>
+      </div>
+      <div class="hero-side rv">
+        <div class="photo">
+          <img src="assets/clinic.jpg" alt="Вход в ветклинику ЗооАкадемия на Ялтинской улице">
+          <div class="cap"><span><b>ул. Ялтинская, 1Б</b><br>5–7 минут пешком от м. Варшавская</span><span style="align-self:end;font-weight:700;color:var(--green)">24 / 7</span></div>
+        </div>
+        <div class="urgent">
+          <div class="siren"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+          <div><b>Экстренный случай?</b><p>Не теряйте время: позвоните, врачи подскажут, что делать, пока вы едете. Приём ночью и в выходные.</p><a class="btn btn-alarm" href="tel:+74952218190" id="sos">Позвонить сейчас</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="facts rv">
+      <div><b>24/7</b><span>без выходных и праздников</span></div>
+      <div><b>Стационар</b><span>после операций и на время отъезда</span></div>
+      <div><b>УЗИ, ЭХО, рентген</b><span>и своя лаборатория</span></div>
+      <div><b>Ветаптека</b><span>рядом с клиникой</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="kick">Направления</span><h2 style="margin-top:10px">Чем поможем</h2></div>
+      <div class="filter" id="svcFilter"></div>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
+  </div>
+</section>
+
+<section id="doctors" class="docs-sec">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="kick">Команда</span><h2 style="margin-top:10px">Врачи клиники</h2></div>
+      <p class="lead" style="margin:0;max-width:44ch">Среди врачей — кандидаты ветеринарных наук. Узкие специалисты ведут приём по расписанию.</p>
+    </div>
+    <div class="doc-grid" id="docGrid"></div>
+    <p class="doc-note" id="docNote"></p>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="wrap book-grid">
+    <div class="book-aside rv">
+      <span class="kick">Онлайн-заявка</span>
+      <h2 style="margin-top:10px">Запишитесь, не дожидаясь ответа на звонок</h2>
+      <p class="lead">Укажите питомца, повод и удобное время. Администратор перезвонит и подберёт врача по расписанию.</p>
+      <ul>
+        <li>Кличка и вид питомца сразу видны врачу</li>
+        <li>Плановый приём не проводится с 9:15 до 9:45 — в это время пересменка</li>
+        <li>Срочно? Звоните: +7 495 221-81-90</li>
+      </ul>
+    </div>
+    <div id="book" class="rv" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="prices" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="kick">Прейскурант</span><h2 style="margin-top:10px">Цены на основные услуги</h2></div>
+      <div class="filter" id="ptabs" role="tablist"></div>
+    </div>
+    <div class="price-box rv"><div id="plist"></div>
+      <p class="price-note">Цены — из прейскуранта на сайте клиники. В сентябре 2026 клиника сообщала о повышении стоимости части услуг, точную цену уточняйте у администратора.</p></div>
+  </div>
+</section>
+
+<section id="contacts" style="padding-top:0">
+  <div class="wrap ct-grid">
+    <div class="ct-card rv">
+      <h3>Как нас найти</h3>
+      <div class="ct-row"><span>Адрес</span><div>Москва, ул. Ялтинская, 1Б<br><small style="color:var(--muted)">м. Варшавская, 5–7 минут пешком</small></div></div>
+      <div class="ct-row"><span>Режим</span><div>Круглосуточно, без выходных<br><small style="color:var(--muted)">9:15–9:45 — пересменка, плановый приём не ведётся</small></div></div>
+      <div class="ct-row"><span>Телефоны</span><div><a href="tel:+74952218190">+7 495 221-81-90</a><br><a href="tel:+74952218470">+7 495 221-84-70</a><br><a href="tel:+74991361918">+7 499 136-19-18</a></div></div>
+      <div class="ct-row"><span>Почта</span><div><a href="mailto:zooac@mail.ru">zooac@mail.ru</a><br><small style="color:var(--muted)">ратологи: <a href="mailto:zooac.exo@gmail.com" style="font-weight:600">zooac.exo@gmail.com</a></small></div></div>
+    </div>
+    <div class="map rv" aria-label="Схема расположения">
+      <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="var(--card)" opacity=".75"><rect x="30" y="30" width="120" height="80" rx="8"/><rect x="180" y="40" width="90" height="70" rx="8"/><rect x="420" y="30" width="150" height="90" rx="8"/><rect x="40" y="250" width="140" height="110" rx="8"/><rect x="230" y="260" width="110" height="100" rx="8"/><rect x="400" y="250" width="170" height="120" rx="8"/><rect x="40" y="150" width="100" height="60" rx="8"/></g>
+        <path d="M0 220 C150 210 300 235 600 215" stroke="var(--sun)" stroke-width="18" fill="none" opacity=".8"/>
+        <path d="M330 0 L360 400" stroke="var(--card)" stroke-width="14"/>
+        <path d="M160 0 L200 400" stroke="var(--card)" stroke-width="8"/>
+        <circle cx="240" cy="222" r="14" fill="var(--alarm)"/><text x="240" y="227" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="14" fill="#fff">М</text>
+        <path d="M254 222 C290 210 320 190 348 176" stroke="var(--green)" stroke-width="4" stroke-dasharray="2 8" stroke-linecap="round" fill="none"/>
+        <circle cx="348" cy="176" r="9" fill="var(--green)" stroke="var(--card)" stroke-width="4"/><g transform="translate(348 150)"><rect x="-66" y="-30" width="132" height="34" rx="10" fill="var(--card)"/><path d="M-7 3 0 11 7 3z" fill="var(--card)"/><text y="-8" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="800" font-size="15" fill="var(--ink)">ЗооАкадемия</text></g>
+      </svg>
+      <a class="btn btn-green" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%AF%D0%BB%D1%82%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%201%D0%91" target="_blank" rel="noopener">Маршрут в Яндекс Картах</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>ЗооАкадемия · ветеринарная клиника · Москва, ул. Ялтинская, 1Б</span><span>Концепция редизайна. Демо: форма никуда не отправляет данные</span></div></footer>
+
+<div class="mbar"><a class="btn btn-line" href="tel:+74952218190">Позвонить</a><a class="btn btn-green" href="#booking">Записаться</a></div>
+
+<script>
+const qs=new URLSearchParams(location.search);
+const STATIC=qs.has('static');
+const $=s=>document.querySelector(s);
+
+/* theme */
+$('#themeBtn').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark'};
+
+/* live status: 24/7 with 9:15–9:45 shift change */
+(function(){const d=new Date();const m=d.getHours()*60+d.getMinutes();
+  $('#nowTxt').textContent=(m>=555&&m<585)?'Сейчас пересменка до 9:45 — срочных принимаем':'Открыто сейчас · круглосуточно, без выходных'})();
+
+const ICON={
+  heart:'<path d="M12 21s-7-4.4-9.3-9A5.2 5.2 0 0 1 12 6.6 5.2 5.2 0 0 1 21.3 12C19 16.6 12 21 12 21z"/><path d="M3 12h4l2-3 3 6 2-3h7"/>',
+  cut:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/>',
+  scan:'<path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+  bed:'<path d="M2 18V6M2 14h20v4M22 14v-3a3 3 0 0 0-3-3h-8v6"/><circle cx="6.5" cy="10.5" r="2"/>',
+  tooth:'<path d="M7 3c-3 0-4 3-3.5 6 .5 2.5 1.5 4 2 7 .4 2.3 1 5 2.5 5 1.6 0 1.5-4 4-4s2.4 4 4 4c1.5 0 2.1-2.7 2.5-5 .5-3 1.5-4.5 2-7C21 6 20 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/>',
+  skin:'<circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="9" r="1"/><circle cx="14" cy="15" r="1"/><circle cx="9" cy="15" r="1"/>',
+  onco:'<path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="4"/>',
+  paw:'<circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><path d="M8 17c0-3 2-5 4-5s4 2 4 5c0 2-2 3-4 3s-4-1-4-3z"/>',
+  chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+  bird:'<path d="M16 7h.01M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.3-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/>',
+  mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
+  comb:'<path d="M3 7h18v4H3z"/><path d="M5 11v6M8 11v6M11 11v6M14 11v6M17 11v6M20 11v6"/>'
+};
+const ic=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICON[k]}</svg>`;
+
+/* services — all from zooacademy.ru (home page, /ceny, /kardiologiya, /chipirovanie-zhivotnyh) */
+const CD=['cat','dog'];
+const SERVICES=[
+  {t:'Приём и терапия',d:'Первичный и повторный приём, консультации по результатам анализов, диспансеризация. Врачи на месте круглосуточно.',p:'приём от 2 000 ₽',pets:CD,i:'paw',goal:'Осмотр / терапия'},
+  {t:'Кардиология',d:'Приём кардиолога, ЭХО и ЭКГ сердца, тонометрия, предоперационное кардиообследование.',p:'приём 4 000 ₽',pets:CD,i:'heart',goal:'Кардиология'},
+  {t:'Хирургия и травматология',d:'Абдоминальная, торакальная, гнойная хирургия, ортопедия, неврология. Стационар после операций.',p:'приём 4 000 ₽',pets:CD,i:'cut',goal:'Хирургия / травма'},
+  {t:'Диагностика',d:'УЗИ внутренних органов, рентген, экспресс-анализы крови в своей лаборатории.',p:'УЗИ от 3 200 ₽',pets:[...CD,'rodent'],i:'scan',goal:'Диагностика'},
+  {t:'Вакцинация и чипирование',d:'Плановые прививки и электронное мечение. После процедуры врач оформит паспорт с отметками.',p:'чип 2 500 ₽',pets:CD,i:'chip',goal:'Вакцинация / чип'},
+  {t:'Стерилизация и кастрация',d:'Плановые операции для кошек, собак и самцов хорьков с учётом препаратов.',p:'от 3 300 ₽',pets:[...CD,'rodent'],i:'shield',goal:'Стерилизация'},
+  {t:'Стоматология',d:'Приём ветеринарного стоматолога: осмотр и лечение зубов и полости рта.',p:'приём 4 000 ₽',pets:CD,i:'tooth',goal:'Стоматология'},
+  {t:'Дерматология и эндокринология',d:'Соскобы, цитология, люминесцентная диагностика, лечение кожных и гормональных болезней.',p:'приём 4 000 ₽',pets:CD,i:'skin',goal:'Кожа / эндокринология'},
+  {t:'Онкология',d:'Приём онко-гематолога, онкоцитология, консультации по результатам анализов без животного.',p:'приём 6 500 ₽',pets:CD,i:'onco',goal:'Онкология'},
+  {t:'Стационар и передержка',d:'Наблюдение после операций и травм. На время вашего отъезда — кошки и собаки до 15 кг.',p:'до 4 часов 400 ₽',pets:CD,i:'bed',goal:'Стационар'},
+  {t:'Ратология и ферретология',d:'Отдельный приём врачей-ратологов для грызунов и хорьков, УЗИ грызунов.',p:'приём 2 300 ₽',pets:['rodent'],i:'paw',goal:'Приём ратолога'},
+  {t:'Отдельная почта ратологов',d:'Вопросы по грызунам и хорькам можно написать врачам напрямую: zooac.exo@gmail.com.',p:'',pets:['rodent'],i:'mail',goal:'Приём ратолога'},
+  {t:'Птицы и экзотические животные',d:'Приём врача по болезням птиц и экзотических животных, консультации по кормлению и содержанию.',p:'приём 2 300 ₽',pets:['bird'],i:'bird',goal:'Приём орнитолога'},
+  {t:'Модельная стрижка',d:'Модельная стрижка в клинике — можно совместить с плановым визитом к врачу.',p:'',pets:CD,i:'comb',goal:'Стрижка'}
+];
+
+const DOCTORS=[
+  {n:'Ватников Юрий Анатольевич',r:'Главный ветеринарный врач, доктор ветеринарных наук, профессор',img:'vatnikov',pets:CD,chief:1},
+  {n:'Соколова Ольга Владимировна',r:'Хирург, травматолог, невролог, ортопед, рентгенолог',img:'sokolova',pets:CD},
+  {n:'Яровенко Евгения Михайловна',r:'Кардиология, ЭХО и ЭКГ сердца, абдоминальная хирургия, терапия',img:'yarovenko',pets:CD},
+  {n:'Белов Николай Павлович',r:'Терапия, анестезиология-реанимация, абдоминальная хирургия, рентген-диагностика',img:'belov',pets:CD},
+  {n:'Шморина Олеся Николаевна',r:'Кандидат вет. наук: урология, терапия, акушерство, репродукция',img:'shmorina',pets:CD},
+  {n:'Булаковская Оксана Андреевна',r:'Врач-онколог',img:'bulakovskaya',pets:CD},
+  {n:'Борисова Людмила Владимировна',r:'Стоматология, терапия, абдоминальная хирургия',img:'borisova',pets:CD},
+  {n:'Шнель Ольга Викторовна',r:'Дерматология, эндокринология',img:'shnel',pets:CD},
+  {n:'Мармоль-Ребуэльта Рамона Леонидовна',r:'Ветеринарный врач-ратолог',img:'marmol',pets:['rodent']},
+  {n:'Лопухова Дарья Александровна',r:'Ветеринарный врач-ратолог',img:'lopuhova',pets:['rodent']}
+];
+const PETS={cat:'Кошка',dog:'Собака',rodent:'Грызун или хорёк',bird:'Птица / экзотика'};
+const NOTES={
+  cat:'<b>Для кошек:</b> терапия и хирургия круглосуточно, кардиолог, дерматолог, онколог, стоматолог, стационар.',
+  dog:'<b>Для собак:</b> хирургия и травматология, кардиология, УЗИ и рентген, вакцинация с паспортом, стационар.',
+  rodent:'<b>Для грызунов и хорьков:</b> отдельный приём врачей-ратологов, УЗИ грызунов, кастрация хорьков.',
+  bird:'<b>Для птиц и экзотики:</b> приём врача по болезням птиц и экзотических животных — по расписанию.'
+};
+let PET=null;
+
+const svcGrid=$('#svcGrid'),docGrid=$('#docGrid'),svcFilter=$('#svcFilter');
+svcGrid.innerHTML=SERVICES.map((s,i)=>`<article class="svc" data-i="${i}"><div class="ic">${ic(s.i)}</div><h3>${s.t}</h3><p>${s.d}</p><div class="meta"><span>${s.p||'&nbsp;'}</span><a href="#booking" data-goal="${s.goal}">Записаться →</a></div></article>`).join('');
+docGrid.innerHTML=DOCTORS.map((d,i)=>`<article class="doc${d.chief?' chief':''}" data-i="${i}"><img src="assets/${d.img}.jpg" alt="${d.n}"><div>${d.chief?'<em class="badge">Главный врач</em>':''}<b>${d.n}</b><span>${d.r}</span></div></article>`).join('');
+svcFilter.innerHTML='<button class="chip on" data-f="">Все</button>'+Object.entries({cat:'Кошки',dog:'Собаки',rodent:'Грызуны и хорьки',bird:'Птицы'}).map(([k,v])=>`<button class="chip" data-f="${k}">${v}</button>`).join('');
+
+function setPet(p){
+  PET=p||null;
+  document.querySelectorAll('.pet').forEach(b=>{const on=b.dataset.pet===PET;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});
+  svcFilter.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',(c.dataset.f||null)===PET));
+  $('#petNote').innerHTML=PET?NOTES[PET]:'Выберите питомца — ниже останутся только подходящие направления и врачи.';
+  svcGrid.querySelectorAll('.svc').forEach(el=>{const s=SERVICES[+el.dataset.i];el.classList.toggle('hide',!!PET&&!s.pets.includes(PET))});
+  docGrid.querySelectorAll('.doc').forEach(el=>{const d=DOCTORS[+el.dataset.i];el.classList.toggle('dim',!!PET&&!d.pets.includes(PET))});
+  $('#docNote').textContent=PET==='bird'?'Врач по болезням птиц и экзотических животных принимает по расписанию — уточните день у администратора.':(PET==='rodent'?'Ратологи отвечают и по почте: zooac.exo@gmail.com.':'Также принимают: Инатуллаева Латофат Бахроновна (к. в. н., терапия, инфекционные болезни) и Алексеева Виктория Георгиевна (терапевт, УЗ-диагност, гастроэнтеролог).');
+  if(PET&&B.step===0&&!B.done){B.pet=PET;renderBook()}
+}
+document.querySelectorAll('.pet').forEach(b=>b.addEventListener('click',()=>setPet(PET===b.dataset.pet?null:b.dataset.pet)));
+svcFilter.addEventListener('click',e=>{const c=e.target.closest('.chip');if(c)setPet(c.dataset.f)});
+
+/* booking wizard: питомец+кличка → повод → когда → контакты → готово */
+const GOALS=['Осмотр / терапия','Вакцинация / чип','Хирургия / травма','Кардиология','Диагностика','Стерилизация','Кожа / эндокринология','Приём ратолога','Другое'];
+const WHEN=['Сегодня','Завтра','Послезавтра','На неделе'];
+const TIME=['Утро, после 10:00','День','Вечер','Ночь — срочно'];
+const B={step:0,pet:null,nick:'',goal:null,when:null,time:null,name:'',phone:''};
+const bookEl=$('#book');
+function maskPhone(v){let d=v.replace(/\D/g,'');if(!d)return'';if(d[0]==='8')d='7'+d.slice(1);if(d[0]!=='7')d='7'+d;d=d.slice(0,11);
+  let o='+7';if(d.length>1)o+=' ('+d.slice(1,4);if(d.length>=4)o+=')';if(d.length>4)o+=' '+d.slice(4,7);if(d.length>7)o+='-'+d.slice(7,9);if(d.length>9)o+='-'+d.slice(9,11);return o}
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function canNext(){return [!!B.pet,!!B.goal,!!(B.when&&B.time),B.phone.replace(/\D/g,'').length>=11][B.step]}
+function syncNext(){const nb=bookEl.querySelector('[data-next]');if(nb)nb.disabled=!canNext()}
+function chips(list,key){return list.map(v=>`<button class="chip${B[key]===v?' on':''}" data-k="${key}" data-v="${v}">${v}</button>`).join('')}
+function renderBook(){
+  if(B.done){
+    bookEl.innerHTML=`<div class="done"><div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></div>
+    <h3 style="font-size:26px">Заявка принята</h3><p class="bs" style="margin-top:8px">${esc(B.name||'Спасибо')}, администратор перезвонит и подберёт врача по расписанию.</p>
+    <div class="sumry"><div><span>Питомец:</span> ${PETS[B.pet]}${B.nick?' · '+esc(B.nick):''}</div><div><span>Повод:</span> ${B.goal}</div><div><span>Когда:</span> ${B.when}, ${B.time.toLowerCase()}</div><div><span>Телефон:</span> ${B.phone}</div></div>
+    <button class="btn btn-line" style="margin-top:20px" data-reset>Новая заявка</button><p class="demo-note">Демо: форма никуда не отправляет данные</p></div>`;return}
+  const steps='<div class="steps">'+[0,1,2,3].map(i=>`<i class="${i<=B.step?'on':''}"></i>`).join('')+'</div>';
+  let body='';
+  if(B.step===0)body=`<div class="bq">Кто придёт на приём?</div><p class="bs">Шаг 1 из 4</p><div class="opts">${Object.entries(PETS).map(([k,v])=>`<button class="chip${B.pet===k?' on':''}" data-k="pet" data-v="${k}">${v}</button>`).join('')}</div>
+    <label class="f" for="bPet">Кличка</label><input class="inp" id="bPet" autocomplete="off" placeholder="Например, Барсик" value="${esc(B.nick)}">`;
+  if(B.step===1)body=`<div class="bq">Что беспокоит${B.nick?' '+esc(B.nick):''}?</div><p class="bs">Шаг 2 из 4 · ${PETS[B.pet]}</p><div class="opts">${chips(GOALS,'goal')}</div>`;
+  if(B.step===2)body=`<div class="bq">Когда удобно прийти?</div><p class="bs">Шаг 3 из 4 · клиника открыта круглосуточно</p><div class="opts">${chips(WHEN,'when')}</div><label class="f">Время</label><div class="opts">${chips(TIME,'time')}</div>`;
+  if(B.step===3)body=`<div class="bq">Куда перезвонить?</div><p class="bs">Шаг 4 из 4 · ${PETS[B.pet]}${B.nick?' '+esc(B.nick):''} · ${B.goal} · ${B.when}</p>
+    <label class="f" for="bName">Ваше имя</label><input class="inp" id="bName" autocomplete="name" placeholder="Как к вам обращаться" value="${esc(B.name)}">
+    <label class="f" for="bPhone">Телефон</label><input class="inp" id="bPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" value="${B.phone}">`;
+  const nav=`<div class="book-nav"><button class="btn btn-line" data-back ${B.step===0?'style="visibility:hidden"':''}>Назад</button><button class="btn btn-green" data-next ${canNext()?'':'disabled'}>${B.step===3?'Отправить заявку':'Далее'}</button></div><p class="demo-note">Демо: форма никуда не отправляет данные</p>`;
+  bookEl.innerHTML=steps+body+nav;
+  const pet=bookEl.querySelector('#bPet'),nm=bookEl.querySelector('#bName'),ph=bookEl.querySelector('#bPhone');
+  if(pet)pet.addEventListener('input',e=>{B.nick=e.target.value});
+  if(nm)nm.addEventListener('input',e=>{B.name=e.target.value});
+  if(ph)ph.addEventListener('input',e=>{B.phone=maskPhone(e.target.value);e.target.value=B.phone;syncNext()});
+}
+bookEl.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.k){B[t.dataset.k]=t.dataset.v;renderBook();return}
+  if(t.hasAttribute('data-next')&&!t.disabled){if(B.step===3)B.done=true;else B.step++;renderBook()}
+  else if(t.hasAttribute('data-back')){B.step=Math.max(0,B.step-1);renderBook()}
+  else if(t.hasAttribute('data-reset')){Object.assign(B,{step:0,pet:PET,nick:'',goal:null,when:null,time:null,name:'',phone:'',done:false});renderBook()}
+});
+svcGrid.addEventListener('click',e=>{const a=e.target.closest('[data-goal]');if(!a)return;if(!B.done){B.goal=a.dataset.goal;if(B.pet)B.step=Math.max(B.step,2);renderBook()}});
+renderBook();
+
+/* prices — from zooacademy.ru/ceny */
+const PRICES={
+  'Приём':[['Приём ветеринарного врача (1 животное)','2 000 ₽'],['Приём терапевта по записи','2 500 ₽'],['Повторный приём (по результатам анализов)','1 500 ₽'],['Консультация без животного','1 500 ₽'],['Приём ратолога / орнитолога / ферретолога','2 300 ₽']],
+  'Специалисты':[['Приём кардиолога','4 000 ₽'],['Приём травматолога / невролога','4 000 ₽'],['Приём дерматолога','4 000 ₽'],['Приём стоматолога','4 000 ₽'],['Приём нефролога','4 500 ₽'],['Приём онко-гематолога','6 500 ₽']],
+  'Диагностика':[['УЗИ обзорное брюшной полости, с протоколом','3 200 ₽'],['Рентгенография одной области (1 проекция)','2 100 ₽'],['Первичное комплексное кардиообследование','6 500 ₽'],['Общий клинический анализ крови (cito)','1 200 ₽'],['УЗИ грызунов','1 500 ₽']],
+  'Операции':[['Кастрация кобелей до 5 кг','3 300 ₽'],['Кастрация котов','5 500 ₽'],['Кастрация самцов хорьков','5 500 ₽'],['Овариоэктомия кошек','9 500 ₽'],['Чипирование с учётом стоимости чипа','2 500 ₽']]
+};
+const ptabs=$('#ptabs'),plist=$('#plist');
+function showPrices(cat){ptabs.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.cat===cat));plist.innerHTML=PRICES[cat].map(([n,p])=>`<div class="prow"><span>${n}</span><b>${p}</b></div>`).join('')}
+Object.keys(PRICES).forEach(c=>{const b=document.createElement('button');b.className='chip';b.dataset.cat=c;b.textContent=c;b.setAttribute('role','tab');b.onclick=()=>showPrices(c);ptabs.appendChild(b)});
+showPrices('Приём');
+
+setPet(null);
+
+/* reveal */
+if(!STATIC&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+window.demo={setPet,state:B,render:renderBook};
+</script>
+
+</body></html>

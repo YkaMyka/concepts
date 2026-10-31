@@ -1,0 +1,607 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>Ветклиника «На Молодёжной»</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap"></head><body>
+
+
+
+
+
+<style>
+/* Ветклиника «На Молодёжной», Химки. Фирменный голубой из шапки сайта и линейные силуэты кошки и собаки из логотипа.
+   Фишка: «Кто у вас?» — выбор питомца показывает реальные услуги и цены из прейскуранта клиники. */
+:root{
+  --ground:#f7f4ee;      /* тёплый молочный */
+  --card:#ffffff;
+  --ink:#17313f;
+  --ink-2:#3d5664;
+  --muted:#6b7f89;
+  --line:#e4ded3;
+  --brand:#4f9dc6;       /* голубой шапки chemvet.ru */
+  --accent:#2a7aa8;      /* кнопки: тот же голубой, глубже для контраста */
+  --accent-ink:#ffffff;
+  --accent-soft:#e3f0f7;
+  --warm:#f0a14a;        /* абрикос: питомцы и метки */
+  --warm-soft:#fcefdc;
+  --shadow:0 22px 50px -28px rgba(23,49,63,.45);
+  --display:"Rubik",system-ui,sans-serif;
+  --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:22px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0f1c24;--card:#16272f;--ink:#e9f1f4;--ink-2:#bcd0d8;--muted:#8ea6b1;--line:#24404c;
+  --brand:#6db6dc;--accent:#5fb3e0;--accent-ink:#06202d;--accent-soft:#173746;--warm:#f3b066;--warm-soft:#3a2c1a;
+  --shadow:0 22px 50px -28px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#0f1c24;--card:#16272f;--ink:#e9f1f4;--ink-2:#bcd0d8;--muted:#8ea6b1;--line:#24404c;
+  --brand:#6db6dc;--accent:#5fb3e0;--accent-ink:#06202d;--accent-soft:#173746;--warm:#f3b066;--warm-soft:#3a2c1a;
+  --shadow:0 22px 50px -28px rgba(0,0,0,.8);color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.015em;margin:0;text-wrap:balance}
+h2{font-size:clamp(28px,3.4vw,42px);line-height:1.1}
+section{padding-block:clamp(56px,8vw,100px)}
+.kick{display:inline-flex;align-items:center;gap:8px;font:700 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.kick::before{content:"";width:18px;height:2px;background:var(--warm);border-radius:2px}
+.lead{color:var(--muted);font-size:18px;max-width:58ch;margin:14px 0 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;font:700 16px/1 var(--body);padding:16px 24px;border-radius:14px;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 12px 28px -14px var(--accent)}
+.btn-primary:hover,.btn-primary.is-hover{transform:translateY(-2px);box-shadow:0 18px 34px -14px var(--accent)}
+.btn-line{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-line:hover,.btn-line.is-hover{box-shadow:inset 0 0 0 1.5px var(--accent);color:var(--accent)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--warm);outline-offset:3px}
+svg.i{width:22px;height:22px;flex:none}
+
+/* header */
+header.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--ground) 86%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:22px;height:74px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex:none}
+.logo .mark{width:44px;height:44px;border-radius:14px;background:var(--brand);display:grid;place-items:center;color:#fff}
+.logo b{font:600 19px/1.05 var(--display);display:block}
+.logo small{display:block;font-size:12.5px;color:var(--muted);font-weight:600;margin-top:3px}
+nav.main{display:flex;gap:4px;margin-left:auto}
+nav.main a{text-decoration:none;font-weight:700;font-size:15px;padding:10px 12px;border-radius:10px;color:var(--ink-2)}
+nav.main a:hover{background:var(--accent-soft);color:var(--accent)}
+.top .tel{font:600 16px/1 var(--display);text-decoration:none;white-space:nowrap}
+.top .tel small{display:block;font:600 12px/1.2 var(--body);color:var(--muted);margin-top:4px}
+.theme{width:42px;height:42px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:grid;place-items:center;flex:none}
+
+/* hero */
+.hero{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(40px,6vw,72px)}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(24px,4vw,56px);align-items:start}
+.hero h1{font-size:clamp(34px,4.6vw,58px);line-height:1.04;margin-top:14px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.fact{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:700;font-size:14.5px}
+.fact i{width:8px;height:8px;border-radius:50%;background:var(--warm);flex:none}
+
+.picker{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.picker h3{font-size:19px}
+.pets{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.pet{border:1.5px solid var(--line);background:var(--ground);border-radius:16px;padding:12px 6px 10px;cursor:pointer;color:var(--ink);font:700 14.5px/1.15 var(--body);display:flex;flex-direction:column;align-items:center;gap:6px;transition:.2s}
+.pet svg{width:46px;height:46px;color:var(--ink-2)}
+.pet:hover,.pet.is-hover{border-color:var(--brand)}
+.pet.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.pet.on svg{color:var(--accent)}
+.panel{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+.panel ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.panel li{display:flex;justify-content:space-between;gap:12px;padding:8px 10px;border-radius:10px;font-size:15.5px}
+.panel li:nth-child(odd){background:var(--ground)}
+.panel li b{font-family:var(--display);font-weight:500;white-space:nowrap}
+.panel .note{font-size:13.5px;color:var(--muted);margin:10px 2px 0}
+.panel .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+
+.hero-photo{position:relative}
+.hero-photo .ph{border-radius:28px;overflow:hidden;aspect-ratio:4/5;background:var(--accent-soft);box-shadow:var(--shadow)}
+.hero-photo .ph img{width:100%;height:100%;object-fit:cover;object-position:28% 30%}
+.badge{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);font-size:14px;max-width:240px}
+.badge b{display:block;font:600 17px/1.2 var(--display);margin-bottom:2px}
+.badge.b1{left:-22px;bottom:34px}
+.badge.b2{right:-14px;top:26px;background:var(--warm-soft);border-color:transparent}
+.sil{position:absolute;right:18px;bottom:-26px;width:150px;color:var(--brand);opacity:.9}
+
+/* about strip */
+.strip{padding-block:0}
+.strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sitem{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.sitem b{display:block;font:600 18px/1.2 var(--display);margin-bottom:6px}
+.sitem span{color:var(--muted);font-size:14.5px}
+
+/* services */
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:30px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svc{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;cursor:pointer;color:var(--ink);font:inherit;display:flex;gap:16px;align-items:flex-start;transition:.2s}
+.svc .ic{width:48px;height:48px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.svc h3{font-size:18px}
+.svc p{margin:6px 0 0;color:var(--muted);font-size:14.5px}
+.svc .from{display:inline-block;margin-top:10px;font-weight:800;font-size:14px;color:var(--ink-2)}
+.svc:hover,.svc.is-hover{border-color:var(--brand);transform:translateY(-3px);box-shadow:var(--shadow)}
+.svc:hover .ic,.svc.is-hover .ic{background:var(--accent);color:var(--accent-ink)}
+
+/* drawer */
+.drawer{position:fixed;inset:0;z-index:60;display:flex;justify-content:flex-end;pointer-events:none}
+.drawer .veil{position:absolute;inset:0;background:rgba(10,24,32,.45);opacity:0;transition:opacity .3s}
+.drawer .sheet{position:relative;width:min(460px,100%);height:100%;background:var(--card);padding:28px;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);overflow:auto;display:flex;flex-direction:column;gap:16px}
+.drawer.open{pointer-events:auto}.drawer.open .veil{opacity:1}.drawer.open .sheet{transform:none}
+.drawer h3{font-size:26px}
+.drawer .x{align-self:flex-end;width:42px;height:42px;border-radius:12px;border:1.5px solid var(--line);background:var(--ground);cursor:pointer;color:var(--ink);font-size:22px;line-height:1}
+.drawer .x:hover,.drawer .x.is-hover{border-color:var(--accent)}
+.drawer ul{margin:0;padding:0;list-style:none}
+.drawer li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.drawer li b{white-space:nowrap;font-family:var(--display);font-weight:500}
+.drawer .who{background:var(--accent-soft);border-radius:14px;padding:12px 14px;font-size:14.5px}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-top:28px}
+.gal figure{margin:0;border-radius:22px;overflow:hidden;position:relative;background:var(--accent-soft)}
+.gal img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.gal figcaption{position:absolute;left:14px;bottom:14px;background:var(--card);border-radius:12px;padding:8px 12px;font-weight:700;font-size:14px}
+
+/* doctors */
+.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+.doc .ph{aspect-ratio:1/1;overflow:hidden;background:var(--accent-soft)}
+.doc .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.doc .bd{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.doc h3{font-size:19px}
+.doc .role{color:var(--accent);font-weight:800;font-size:14px}
+.doc p{margin:0;color:var(--muted);font-size:14.5px}
+.doc .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.doc .tags span{background:var(--ground);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700}
+.doc .btn{margin-top:auto;align-self:flex-start;padding:12px 18px;font-size:15px}
+
+/* booking */
+.booking{background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--brand) 12%,transparent))}
+.book-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,56px);align-items:start}
+.demo-tag{display:inline-block;margin-top:18px;font-size:13px;font-weight:700;color:var(--muted);border:1px dashed var(--line);border-radius:10px;padding:8px 12px}
+.book{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:clamp(18px,3vw,30px);box-shadow:var(--shadow)}
+.steps{display:flex;gap:6px;margin-bottom:20px}
+.steps span{flex:1;height:6px;border-radius:6px;background:var(--line);transition:background .3s}
+.steps span.on{background:var(--accent)}
+.pane{display:none}.pane.on{display:block}
+.pane h3{font-size:21px;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--ground);color:var(--ink);border-radius:12px;padding:11px 14px;font:700 15px/1 var(--body);cursor:pointer;transition:.15s}
+.chip:hover,.chip.is-hover{border-color:var(--brand)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip[disabled]{opacity:.38;cursor:not-allowed;text-decoration:line-through}
+.fld{display:block;margin-top:16px}
+.fld span{display:block;font-weight:800;font-size:14px;margin-bottom:6px}
+.fld input{width:100%;font:600 17px/1.2 var(--body);padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--ground);color:var(--ink)}
+.fld input:focus{outline:none;border-color:var(--accent);background:var(--card)}
+.dates{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.dates .chip{padding:10px 4px;text-align:center;line-height:1.2}
+.dates .chip small{display:block;font-size:12px;opacity:.75;margin-bottom:2px}
+.times{margin-top:14px;display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.times .chip{padding:10px 2px;text-align:center}
+.book-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px;flex-wrap:wrap}
+.book-foot .sum{font-size:14px;color:var(--muted);font-weight:700}
+.ok{text-align:center;padding:16px 4px}
+.ok .tick{width:72px;height:72px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 16px}
+.ok h3{font-size:26px}
+.ok p{color:var(--muted);margin:10px auto 0;max-width:42ch}
+.ok .card{margin:18px auto 0;max-width:380px;text-align:left;background:var(--ground);border-radius:14px;padding:14px 16px;font-size:15px;display:grid;gap:4px}
+
+/* prices */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:10px 16px;font:700 15px/1 var(--body);cursor:pointer}
+.tab.on{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.tab:hover,.tab.is-hover{border-color:var(--accent)}
+.plist{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:6px 22px}
+.plist div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.plist div:last-child{border-bottom:0}
+.plist b{font-family:var(--display);font-weight:500;white-space:nowrap}
+.pnote{color:var(--muted);font-size:14px;margin-top:12px}
+
+/* contacts */
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ct{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px}
+.ct h3{font-size:20px;margin-bottom:12px}
+.ct p{margin:6px 0;color:var(--ink-2)}
+.ct a.big{display:block;font:600 24px/1.25 var(--display);text-decoration:none}
+.ct .muted{color:var(--muted);font-size:14.5px}
+.route{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.route li{display:flex;gap:12px;font-size:15px}
+.route li i{flex:none;font-style:normal;font-weight:800;font-size:12px;background:var(--warm-soft);color:var(--ink);border-radius:8px;padding:4px 8px;height:fit-content;min-width:76px;text-align:center}
+footer{padding:30px 0 110px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+
+/* mobile bar */
+.mbar{display:none}
+@media (max-width:980px){
+  nav.main,.top .tel small{display:none}
+  .hero-grid,.book-grid,.ct-grid{grid-template-columns:1fr}
+  .hero-photo{max-width:520px}
+  .strip-grid{grid-template-columns:1fr 1fr}
+  .svc-grid,.docs{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .top .wrap{height:64px;gap:10px}
+  .top .tel,.top .btn-book{display:none}
+  .logo{margin-right:auto}
+  .logo .mark{width:40px;height:40px}
+  .pets{grid-template-columns:repeat(2,1fr)}
+  .badge.b1{left:10px;bottom:14px}.badge.b2{right:10px;top:12px}
+  .sil{display:none}
+  .svc-grid,.docs,.gal,.strip-grid{grid-template-columns:1fr}
+  .dates{grid-template-columns:repeat(4,1fr)}
+  .times{grid-template-columns:repeat(4,1fr)}
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px max(12px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mbar .btn{padding:15px 10px}
+  .plist{padding:4px 16px}
+  .plist div{font-size:15px}
+}
+
+/* reveal */
+.rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.pre{opacity:0;transform:translateY(22px)}
+@media (prefers-reduced-motion:reduce){.rv{transition:none}html{scroll-behavior:auto}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cat" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 18 10 8l7 6h14l7-6-2 10c2 3 3 6 3 9 0 9-7 15-15 15S9 36 9 27c0-3 1-6 3-9Z"/><circle cx="18.5" cy="25" r="1.8" fill="currentColor"/><circle cx="29.5" cy="25" r="1.8" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M22 31h4l-2 2zM24 33v2M6 29l8 1M6 34l8-1M42 29l-8 1M42 34l-8-1"/></symbol>
+    <symbol id="i-dog" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M14 12c-5 0-8 4-8 9 0 3 2 6 4 6l3-3v8c0 7 5 11 11 11s11-4 11-11v-8l3 3c2 0 4-3 4-6 0-5-3-9-8-9-3 0-5 1-7 2h-6c-2-1-4-2-7-2Z"/><circle cx="19" cy="25" r="1.8" fill="currentColor"/><circle cx="29" cy="25" r="1.8" fill="currentColor"/><path fill="currentColor" d="M21 32h6l-3 3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M24 35v2c0 1.5-2 2.5-3.5 2M24 37c0 1.5 2 2.5 3.5 2"/></symbol>
+    <symbol id="i-ferret" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M17 20c-1-6 1-12 3-12s3 5 3 10M31 20c1-6-1-12-3-12s-3 5-3 10M13 30c0-7 5-12 11-12s11 5 11 12-5 11-11 11-11-4-11-11Z"/><circle cx="19.5" cy="28" r="1.8" fill="currentColor"/><circle cx="28.5" cy="28" r="1.8" fill="currentColor"/><path fill="currentColor" d="M22 33h4l-2 2z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M8 32l7-1M8 36l7-2M40 32l-7-1M40 36l-7-2"/></symbol>
+    <symbol id="i-bird" viewBox="0 0 48 48"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M30 10c-6 0-10 4-10 10v4c-5 1-10 5-12 12 6 0 11-1 15-4 2 4 6 6 10 6 6 0 9-5 9-10 0-5-3-8-5-10l5-3-5-1c-1-2-3-4-7-4Z"/><circle cx="30" cy="16" r="1.8" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M27 38l-2 5M33 38l1 5"/></symbol>
+    <symbol id="i-paw" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="6" cy="10" rx="2.2" ry="2.8"/><ellipse cx="18" cy="10" rx="2.2" ry="2.8"/><ellipse cx="9.5" cy="5.5" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="5.5" rx="2.2" ry="2.8"/><path d="M12 11c-3.5 0-6 4-6 6.5 0 2 1.5 3 3 3 1.3 0 2-.7 3-.7s1.7.7 3 .7c1.5 0 3-1 3-3 0-2.5-2.5-6.5-6-6.5Z"/></g></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></g></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Ветклиника На Молодёжной">
+      <span class="mark"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M9.5 3h5v6.5H21v5h-6.5V21h-5v-6.5H3v-5h6.5z"/></svg></span>
+      <span><b>На Молодёжной</b><small>ветклиника · Химки, Куркино</small></span>
+    </a>
+    <nav class="main" aria-label="Разделы">
+      <a href="#services">Услуги</a><a href="#doctors">Врачи</a><a href="#prices">Цены</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="tel" href="tel:+74955717338">+7 495 571-73-38<small>ежедневно 9:00–21:00</small></a>
+    <button class="theme" id="theme" type="button" aria-label="Сменить тему"><svg class="i"><use href="#i-moon"/></svg></button>
+    <a class="btn btn-primary btn-book" href="#booking">Записаться</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kick">Ветеринарная клиника с 2003 года</span>
+      <h1>Лечим кошек, собак и&nbsp;мелких питомцев <em>рядом с домом</em> в&nbsp;Химках</h1>
+      <div class="facts">
+        <span class="fact"><i></i>Ежедневно 9:00–21:00</span>
+        <span class="fact"><i></i>Цифровой рентген и УЗИ</span>
+        <span class="fact"><i></i>Выезд на дом по Химкам и Куркино</span>
+      </div>
+
+      <div class="picker" id="picker">
+        <h3>Кто у вас?</h3>
+        <div class="pets" role="tablist" aria-label="Вид питомца">
+          <button class="pet on" type="button" data-pet="cat"><svg><use href="#i-cat"/></svg>Кошка</button>
+          <button class="pet" type="button" data-pet="dog"><svg><use href="#i-dog"/></svg>Собака</button>
+          <button class="pet" type="button" data-pet="ferret"><svg><use href="#i-ferret"/></svg>Хорёк, кролик</button>
+          <button class="pet" type="button" data-pet="small"><svg><use href="#i-bird"/></svg>Грызун, птица</button>
+        </div>
+        <div class="panel" id="petPanel" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <div class="ph"><img src="assets/malakhova.jpg" alt="Главный ветеринарный врач Малахова Юлия Юрьевна с догом" width="590" height="885"></div>
+      <div class="badge b2"><b>Обновлённая клиника</b>Ремонт закончили в сентябре 2025</div>
+      <div class="badge b1"><b>Малахова Юлия Юрьевна</b>главный ветеринарный врач: кардиология, УЗИ, хирургия</div>
+      <svg class="sil" viewBox="0 0 160 70" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 62c4-14 10-22 20-24 4-10 10-16 16-18l2-8 6 9c6 2 8 8 6 14-2 8-10 10-14 18-2 4-2 8 0 9"/><path d="M118 62c-4-10-2-20 6-26l-2-10 8 6 8-6-1 10c6 6 8 14 4 22-3 6-10 6-14 4"/><path d="M144 58c8 2 12-4 10-10"/></g></svg>
+    </div>
+  </div>
+</section>
+
+<section class="strip" aria-label="О клинике">
+  <div class="wrap strip-grid">
+    <div class="sitem rv"><b>Визуальная диагностика</b><span>УЗИ, ЭХО сердца с цветным допплером, ЭКГ и цифровой рентген на месте</span></div>
+    <div class="sitem rv"><b>Хирургия</b><span>Клиника сертифицирована на применение метода Илизарова в ветеринарной хирургии</span></div>
+    <div class="sitem rv"><b>Экстренный анализ крови</b><span>Критические показатели — в клинике, полный спектр — через лаборатории Арт-вет и Шанс-Био</span></div>
+    <div class="sitem rv"><b>Гемодиализ</b><span>Плазмаферез, гемосорбция и перитонеальный диализ для тяжёлых пациентов</span></div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="kick">Услуги</span><h2 style="margin-top:12px">Чем поможем</h2></div>
+      <p class="lead" style="margin:0">Нажмите на услугу, чтобы увидеть, что в неё входит и сколько стоит по прейскуранту клиники.</p>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
+
+    <div class="gal">
+      <figure class="rv"><img src="assets/room-uzi.jpg" alt="Кабинет УЗИ после ремонта" width="900" height="675"><figcaption>Кабинет УЗИ</figcaption></figure>
+      <figure class="rv"><img src="assets/room-surgery.jpg" alt="Операционная после ремонта" width="675" height="900"><figcaption>Операционная</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="doctors" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="kick">Врачи</span><h2 style="margin-top:12px">Кто будет лечить</h2></div>
+      <p class="lead" style="margin:0">Врачи принимают по графику: администратор подберёт ближайшее время к нужному специалисту.</p>
+    </div>
+    <div class="docs" id="docGrid"></div>
+  </div>
+</section>
+
+<section id="booking" class="booking">
+  <div class="wrap book-grid">
+    <div class="rv">
+      <span class="kick">Запись онлайн</span>
+      <h2 style="margin-top:12px">Запишите питомца, не дожидаясь ответа по телефону</h2>
+      <p class="lead">Укажите кличку и вид животного, повод визита и удобное время. Администратор перезвонит и подтвердит запись.</p>
+      <p class="lead" style="font-size:16px">Без очереди помогаем животным с острым кровотечением и травматическим шоком — в этих случаях сразу звоните: <a href="tel:+74955717338"><b>+7 495 571-73-38</b></a>.</p>
+      <span class="demo-tag">Демо: форма никуда не отправляет данные</span>
+    </div>
+    <div class="book rv" id="book">
+      <div class="steps"><span class="on"></span><span></span><span></span><span></span></div>
+      <div class="pane on" data-step="0">
+        <h3>Кто придёт на приём?</h3>
+        <div class="chips" id="bKind"></div>
+        <label class="fld"><span>Кличка</span><input id="bPet" autocomplete="off" placeholder="Например, Мурка"></label>
+      </div>
+      <div class="pane" data-step="1">
+        <h3>Повод визита</h3>
+        <div class="chips" id="bWhy"></div>
+      </div>
+      <div class="pane" data-step="2">
+        <h3>Удобный день и время</h3>
+        <div class="dates" id="bDates"></div>
+        <div class="times" id="bTimes"></div>
+      </div>
+      <div class="pane" data-step="3">
+        <h3>Как с вами связаться</h3>
+        <label class="fld"><span>Ваше имя</span><input id="bName" autocomplete="name" placeholder="Имя"></label>
+        <label class="fld"><span>Телефон</span><input id="bPhone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>
+      </div>
+      <div class="pane" data-step="4">
+        <div class="ok">
+          <div class="tick"><svg viewBox="0 0 24 24" width="36" height="36"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+          <h3>Заявка принята</h3>
+          <p>Администратор перезвонит, чтобы подтвердить время. Возьмите с собой ветпаспорт питомца.</p>
+          <div class="card" id="bSum"></div>
+        </div>
+      </div>
+      <div class="book-foot" id="bFoot">
+        <span class="sum" id="bHint">Шаг 1 из 4</span>
+        <button class="btn btn-primary" type="button" data-next id="bNext">Далее</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prices" style="padding-top:clamp(40px,6vw,72px)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="kick">Цены</span><h2 style="margin-top:12px">Прейскурант без скачивания</h2></div>
+      <p class="lead" style="margin:0">Основные позиции из прейскуранта клиники (январь 2026). Медикаменты, наркоз и расходные материалы оплачиваются отдельно, если не указано иное.</p>
+    </div>
+    <div class="tabs rv" id="pTabs"></div>
+    <div class="plist rv" id="pList"></div>
+    <p class="pnote">Полный прейскурант — у администратора. При вакцинации, кастрации и обрезке когтей плата за приём не взимается.</p>
+  </div>
+</section>
+
+<section id="contacts" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="kick">Контакты</span><h2 style="margin-top:12px">Как нас найти</h2></div></div>
+    <div class="ct-grid">
+      <div class="ct rv">
+        <h3>Ветклиника «На Молодёжной»</h3>
+        <p>Московская область, г. Химки, ул. Молодёжная, 32 · в одном здании со стоматологией «Ника-Мед»</p>
+        <p class="muted">Ежедневно с 9:00 до 21:00, приём по предварительной записи</p>
+        <a class="big" href="tel:+74955717338">+7 495 571-73-38</a>
+        <a class="big" href="tel:+74955711525">+7 495 571-15-25</a>
+        <p class="muted">Вызов на дом, Viber, WhatsApp: +7 495 571-73-38</p>
+        <p><a href="mailto:chemvet@mail.ru">chemvet@mail.ru</a></p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+          <a class="btn btn-primary" href="https://yandex.ru/maps/org/na_molodezhnoy/1006516413/" target="_blank" rel="noopener">Маршрут в Яндекс Картах</a>
+          <a class="btn btn-line" href="#booking">Записаться</a>
+        </div>
+      </div>
+      <div class="ct rv">
+        <h3>Как добраться</h3>
+        <ul class="route">
+          <li><i>Метро</i><span>«Планерная», автобус № 268 до остановки «Больница» или троллейбус № 2 до «ул. Молодёжная»</span></li>
+          <li><i>Ст. Химки</i><span>Автобусы № 27, 28 до «ул. Молодёжная»; № 3 до «Лавочкина» и пешком</span></li>
+          <li><i>От ИКЕА</i><span>Автобус № 443 до «Лавочкина», маршрутка № 383 до «ул. Молодёжная»</span></li>
+          <li><i>На машине</i><span>73 км МКАД, поворот на «Химки, Куркино», через 2 светофора направо и сразу налево до указателя «Ветклиника»</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">© 2009–2026 Ветеринарная клиника «На Молодёжной», Химки · Концепция редизайна, демо. Платные ветеринарные услуги оказываются по договору.</div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-line" href="tel:+74955717338"><svg class="i"><use href="#i-phone"/></svg>Позвонить</a>
+  <a class="btn btn-primary" href="#booking"><svg class="i"><use href="#i-cal"/></svg>Записаться</a>
+</div>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="veil" id="dVeil"></div>
+  <aside class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+    <button class="x" id="dClose" type="button" aria-label="Закрыть">×</button>
+    <span class="kick" id="dKick"></span>
+    <h3 id="dTitle"></h3>
+    <p id="dText" style="margin:0;color:var(--ink-2)"></p>
+    <ul id="dList"></ul>
+    <div class="who" id="dWho"></div>
+    <button class="btn btn-primary" id="dBook" type="button">Записаться на эту услугу</button>
+  </aside>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+const STATIC = new URLSearchParams(location.search).has('static');
+const $ = id => document.getElementById(id);
+const rub = n => typeof n === 'number' ? n.toLocaleString('ru-RU') + ' ₽' : n;
+
+/* все цены — из прейскуранта chemvet.ru/doc/price.pdf (11.01.2026) */
+const PETS = {
+  cat:{name:'кошки',list:[['Первичный приём','2000'],['Вакцинация Мультифел с бешенством','3200'],['Кастрация кота, с наркозом','5000'],['Стерилизация кошки, с наркозом','10 000'],['Чипирование с сертификатом','2000'],['УЗИ сердца с цветным допплером','3500']]},
+  dog:{name:'собаки',list:[['Первичный приём','2000'],['Вакцинация Астерион с бешенством','3000'],['Рентгенография, 1 проекция','2500'],['ЭКГ с расшифровкой','2000'],['Кастрация кобеля до 10 кг','8000*'],['Чипирование с сертификатом','2000']]},
+  ferret:{name:'хорька или кролика',list:[['Первичный приём','2000'],['Кастрация хорька, кролика','9000*'],['Стерилизация самки хорька, крольчихи','15 000'],['Удаление желёз у хорьков','10 000*'],['Обрезка когтей','1000']]},
+  small:{name:'грызуна или птицы',list:[['Первичный приём','2000'],['Обрезка зубов у грызунов','500'],['Очистка защёчных мешков у грызунов','300'],['Обрезка клюва','300'],['Обрезка когтей','1000']]}
+};
+const PET_NOTE = {
+  cat:'Стоимость кастрации и стерилизации кошек указана полностью, с наркозом и фиксацией.',
+  dog:'* без стоимости наркоза. Вакцинация и кастрация — без платы за приём.',
+  ferret:'* без стоимости наркоза и препаратов.',
+  small:'Рыб, рептилий и приматов клиника не лечит.'
+};
+function renderPet(k){
+  document.querySelectorAll('.pet').forEach(b=>b.classList.toggle('on',b.dataset.pet===k));
+  const p=PETS[k];
+  $('petPanel').innerHTML=`<ul>${p.list.map(([n,v])=>`<li><span>${n}</span><b>${v.includes('*')?v.replace('*',' ₽*'):v+' ₽'}</b></li>`).join('')}</ul>
+  <p class="note">${PET_NOTE[k]}</p>
+  <div class="row"><button class="btn btn-primary" type="button" id="petBook">Записать ${p.name}</button><a class="btn btn-line" href="tel:+74955717338">Позвонить</a></div>`;
+  $('petBook').onclick=()=>{pickKind({cat:'Кошка',dog:'Собака',ferret:'Хорёк',small:'Грызун'}[k]);$('booking').scrollIntoView({behavior:STATIC?'auto':'smooth'})};
+}
+document.querySelectorAll('.pet').forEach(b=>b.onclick=()=>renderPet(b.dataset.pet));
+
+const IC = {
+  steth:'<path d="M6 3v6a5 5 0 0 0 10 0V3M11 14v2a5 5 0 0 0 10 0v-3"/><circle cx="21" cy="11" r="2"/>',
+  shield:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+  wave:'<path d="M2 12h3l2-5 3 10 3-14 3 12 2-3h4"/>',
+  heart:'<path d="M12 20s-8-4.6-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.4 12 20 12 20Z"/><path d="M7 12h3l1.5-2 2 4 1.5-2h2"/>',
+  bone:'<path d="M7 17 17 7M6.5 13.5a2.5 2.5 0 1 1-3 3 2.5 2.5 0 1 1 3-3ZM17.5 10.5a2.5 2.5 0 1 1 3-3 2.5 2.5 0 1 1-3 3Z"/>',
+  cut:'<circle cx="6" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M8.5 7.5 20 18M8.5 16.5 20 6"/>',
+  tooth:'<path d="M7 3c-2.5 0-4 2-4 5 0 3 1.4 4.7 2 8 .4 2.2 1 4 2.2 4 1.4 0 1.5-2.6 2-4.6.3-1.2.9-1.8 1.8-1.8s1.5.6 1.8 1.8c.5 2 .6 4.6 2 4.6 1.2 0 1.8-1.8 2.2-4 .6-3.3 2-5 2-8 0-3-1.5-5-4-5-2 0-2.8 1-4 1s-2-1-4-1Z"/>',
+  flask:'<path d="M9 3h6M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.5L14 9V3"/><path d="M7 15h10"/>',
+  home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>'
+};
+const SERVICES = [
+  {n:'Приём и терапия',ic:'steth',d:'Осмотр, диагноз и план лечения, капельницы и инфузионная терапия.',from:'2000',
+   items:[['Первичный приём','2000 ₽'],['Повторный приём','1500 ₽'],['Приём врача высшей категории','2500 ₽'],['Приём главного врача','3000 ₽']],who:'Малахова Ю. Ю., Деркачева С. А., Горбунова М. Г.'},
+  {n:'Вакцинация',ic:'shield',d:'Прививки кошкам и собакам с отметкой в ветпаспорте.',from:'2000',
+   items:[['Бешенство (Рабизин, Нобивак Рабиес)','2000 ₽'],['Кошки: Мультифел с бешенством','3200 ₽'],['Собаки: Астерион с бешенством','3000 ₽'],['Оформление ветпаспорта','200 ₽']],who:'Плата за приём при вакцинации не взимается.'},
+  {n:'УЗИ и рентген',ic:'wave',d:'Цифровой рентген, УЗИ брюшной полости и органов с цветным допплером.',from:'1500',
+   items:[['УЗИ брюшной полости с допплером','3000 ₽'],['УЗИ одного органа','1500 ₽'],['Рентгенография, 1 проекция','2500 ₽']],who:'Малахова Ю. Ю., Деркачева С. А., Горбунова М. Г.'},
+  {n:'Кардиология',ic:'heart',d:'ЭКГ, ЭХО сердца, кардиомониторинг, ведение кардиобольных.',from:'2000',
+   items:[['Приём кардиолога','3000 ₽'],['УЗИ сердца с цветным допплером','3500 ₽'],['ЭКГ с расшифровкой','2000 ₽'],['Кардиомониторинг','2000 ₽']],who:'Малахова Юлия Юрьевна, главный врач'},
+  {n:'Хирургия',ic:'cut',d:'Кастрация, стерилизация, полостные и травматологические операции.',from:'5000',
+   items:[['Кастрация кота (полная стоимость)','5000 ₽'],['Стерилизация кошки (полная стоимость)','10 000 ₽'],['Кастрация кобеля до 10 кг','8000 ₽'],['Операции 1-й категории сложности','3500–6000 ₽']],who:'Малахова Ю. Ю., Деркачева С. А., Горбунова М. Г.'},
+  {n:'Стоматология',ic:'tooth',d:'Снятие зубного камня, удаление зубов, санация ротовой полости.',from:'300',
+   items:[['Снятие камня, один зуб','300 ₽'],['Полная санация: кошки','5000 ₽'],['Полная санация: собаки','от 6000 ₽']],who:'Деркачева Светлана Анатольевна'},
+  {n:'Анализы',ic:'flask',d:'Экспресс-биохимия на месте, остальное — через партнёрские лаборатории.',from:'220',
+   items:[['Экспресс-биохимия, 1 показатель','220 ₽'],['Взятие крови','550 ₽'],['Экспресс-анализ мочи','500 ₽']],who:'Экстренный анализ крови по критическим показателям делают в клинике.'},
+  {n:'Чипирование',ic:'bone',d:'Чип Bayer, внесение в международную базу, сертификат.',from:'2000',
+   items:[['Чип Bayer с сертификатом','2000 ₽'],['Чип производства Испании','2000 ₽']],who:'Двукратная проверка чипа до и после постановки.'},
+  {n:'Вызов на дом',ic:'home',d:'Осмотр и назначение лечения дома, если питомца трудно везти.',from:'3000',
+   items:[['Вызов врача по Химкам и Куркино','от 3000 ₽'],['С 21:00 до 9:00','+50 %']],who:'Вызов: +7 495 571-73-38 (телефон, Viber, WhatsApp)'}
+];
+const svcGrid=$('svcGrid');
+SERVICES.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.type='button';b.className='svc rv';
+  b.innerHTML=`<span class="ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${IC[s.ic]}</svg></span><span><h3>${s.n}</h3><p>${s.d}</p><span class="from">от ${s.from} ₽</span></span>`;
+  b.onclick=()=>openDrawer(i);
+  svcGrid.appendChild(b);
+});
+const drawer=$('drawer');
+function openDrawer(i){
+  const s=SERVICES[i];
+  $('dKick').textContent='Услуга';$('dTitle').textContent=s.n;$('dText').textContent=s.d;
+  $('dList').innerHTML=s.items.map(([a,b])=>`<li><span>${a}</span><b>${b}</b></li>`).join('');
+  $('dWho').textContent=s.who;
+  $('dBook').onclick=()=>{closeDrawer();pickWhy(s.n);$('booking').scrollIntoView({behavior:STATIC?'auto':'smooth'})};
+  drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');
+}
+function closeDrawer(){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true')}
+$('dClose').onclick=closeDrawer;$('dVeil').onclick=closeDrawer;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+
+const DOCTORS=[
+  {n:'Малахова Юлия Юрьевна',r:'Главный ветеринарный врач',img:'malakhova-sq.jpg',p:'Медицинское и ветеринарное образование. Общая хирургия: операции на веках и ушах, грыжесечение, кесарево сечение.',t:['Кардиология','УЗИ','Хирургия']},
+  {n:'Деркачева Светлана Анатольевна',r:'Ветеринарный врач',img:'derkacheva.jpg',p:'Воронежский государственный аграрный университет, 2005.',t:['Рентген','УЗИ','Дерматология','Стоматология']},
+  {n:'Горбунова Мария Геннадиевна',r:'Ветеринарный врач',img:'gorbunova.jpg',p:'МГАВМиБ им. К. И. Скрябина, 2004.',t:['Терапия','Нефрология','Гериатрия','Хирургия']}
+];
+$('docGrid').innerHTML=DOCTORS.map((d,i)=>`<article class="doc rv"><div class="ph"><img src="assets/${d.img}" alt="${d.n}" width="590" height="885"></div>
+<div class="bd"><span class="role">${d.r}</span><h3>${d.n}</h3><p>${d.p}</p><div class="tags">${d.t.map(x=>`<span>${x}</span>`).join('')}</div>
+<a class="btn btn-line" href="#booking">Записаться</a></div></article>`).join('');
+
+/* booking */
+const KINDS=['Кошка','Собака','Хорёк','Кролик','Грызун','Птица'];
+const WHYS=['Приём и терапия','Вакцинация','УЗИ и рентген','Кардиология','Хирургия','Стоматология','Вызов на дом'];
+const B={step:0,kind:'',why:'',date:'',time:''};
+$('bKind').innerHTML=KINDS.map(k=>`<button class="chip" type="button" data-kind="${k}">${k}</button>`).join('');
+$('bWhy').innerHTML=WHYS.map(k=>`<button class="chip" type="button" data-why="${k}">${k}</button>`).join('');
+const DN=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
+const base=new Date();base.setHours(12,0,0,0);
+$('bDates').innerHTML=Array.from({length:7},(_,i)=>{const d=new Date(base);d.setDate(d.getDate()+i);
+  const lab=i===0?'Сегодня':i===1?'Завтра':DN[d.getDay()];
+  return `<button class="chip" type="button" data-date="${d.getDate()}.${String(d.getMonth()+1).padStart(2,'0')}"><small>${lab}</small>${d.getDate()}</button>`}).join('');
+const TIMES=['9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+const BUSY=[1,4,7,10];
+function renderTimes(seed){
+  $('bTimes').innerHTML=TIMES.map((t,i)=>`<button class="chip" type="button" data-time="${t}" ${BUSY.includes((i+seed)%12)?'disabled':''}>${t}</button>`).join('');
+}
+renderTimes(0);
+function sel(group,attr,val){group.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.getAttribute(attr)===val))}
+function pickKind(k){B.kind=k;sel($('bKind'),'data-kind',k);check()}
+function pickWhy(w){if(!WHYS.includes(w))return;B.why=w;sel($('bWhy'),'data-why',w);check()}
+$('bKind').onclick=e=>{const c=e.target.closest('[data-kind]');if(c)pickKind(c.dataset.kind)};
+$('bWhy').onclick=e=>{const c=e.target.closest('[data-why]');if(c)pickWhy(c.dataset.why)};
+$('bDates').onclick=e=>{const c=e.target.closest('[data-date]');if(!c)return;B.date=c.dataset.date;B.time='';sel($('bDates'),'data-date',B.date);renderTimes([...$('bDates').children].indexOf(c)*5%12);check()};
+$('bTimes').onclick=e=>{const c=e.target.closest('[data-time]');if(!c||c.disabled)return;B.time=c.dataset.time;sel($('bTimes'),'data-time',B.time);check()};
+['bPet','bName','bPhone'].forEach(id=>$(id).addEventListener('input',()=>{
+  if(id==='bPhone'){const d=$(id).value.replace(/\D/g,'').replace(/^8/,'7').slice(0,11);
+    if(d){const p=d.startsWith('7')?d:'7'+d;let s='+7';if(p.length>1)s+=' ('+p.slice(1,4);if(p.length>=4)s+=') '+p.slice(4,7);if(p.length>=7)s+='-'+p.slice(7,9);if(p.length>=9)s+='-'+p.slice(9,11);if($(id).value!==s)$(id).value=s}}
+  check()}));
+function valid(){
+  return [B.kind&&$('bPet').value.trim().length>0, !!B.why, !!(B.date&&B.time), $('bName').value.trim().length>1&&$('bPhone').value.replace(/\D/g,'').length>=11][B.step];
+}
+const HINTS=['Шаг 1 из 4 · питомец','Шаг 2 из 4 · повод','Шаг 3 из 4 · время','Шаг 4 из 4 · контакты'];
+function check(){$('bNext').disabled=false;$('bNext').style.opacity=valid()?1:.55}
+function go(n){
+  B.step=n;
+  document.querySelectorAll('#book .pane').forEach(p=>p.classList.toggle('on',+p.dataset.step===n));
+  document.querySelectorAll('#book .steps span').forEach((s,i)=>s.classList.toggle('on',i<=n));
+  if(n===4){$('bFoot').style.display='none';
+    $('bSum').innerHTML=`<div><b>${$('bPet').value}</b> · ${B.kind.toLowerCase()}</div><div>${B.why}</div><div>${B.date}, ${B.time}</div><div>${$('bName').value}, ${$('bPhone').value}</div>`;return}
+  $('bHint').textContent=HINTS[n];$('bNext').textContent=n===3?'Отправить заявку':'Далее';check();
+}
+$('bNext').onclick=()=>{if(valid())go(B.step+1);else{const f=$('book').querySelector('.pane.on input');if(f&&!f.value)f.focus()}};
+check();
+
+/* prices */
+const PRICES={
+  'Приём':[['Первичный приём','2000 ₽'],['Повторный приём','1500 ₽'],['Приём врача высшей категории','2500 ₽'],['Приём главного врача','3000 ₽'],['Приём ветеринарного кардиолога','3000 ₽'],['Консультация по анализам, до 15 минут','1000 ₽']],
+  'Диагностика':[['УЗИ брюшной полости с цветным допплером','3000 ₽'],['УЗИ одного органа','1500 ₽'],['УЗИ сердца с цветным допплером','3500 ₽'],['ЭКГ с расшифровкой и заключением','2000 ₽'],['Рентгенография, одна проекция','2500 ₽'],['Экспресс-биохимия, один показатель','220 ₽']],
+  'Профилактика':[['Вакцинация от бешенства','2000 ₽'],['Вакцинация кошек Мультифел с бешенством','3200 ₽'],['Вакцинация собак Астерион с бешенством','3000 ₽'],['Чипирование, чип Bayer','2000 ₽'],['Обрезка когтей','1000 ₽'],['Вызов врача на дом по Химкам и Куркино','от 3000 ₽']],
+  'Хирургия':[['Кастрация кота, полная стоимость','5000 ₽'],['Стерилизация кошки, полная стоимость','10 000 ₽'],['Кастрация кобеля до 10 кг (без наркоза)','8000 ₽'],['Стерилизация суки до 10 кг (без наркоза)','18 000 ₽'],['Санация ротовой полости кошки','5000 ₽']]
+};
+$('pTabs').innerHTML=Object.keys(PRICES).map((k,i)=>`<button class="tab${i?'':' on'}" type="button" data-tab="${k}">${k}</button>`).join('');
+function showPrices(k){$('pList').innerHTML=PRICES[k].map(([a,b])=>`<div><span>${a}</span><b>${b}</b></div>`).join('');document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===k))}
+$('pTabs').onclick=e=>{const t=e.target.closest('[data-tab]');if(t)showPrices(t.dataset.tab)};
+showPrices('Приём');
+
+renderPet('cat');
+
+/* theme */
+$('theme').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark'};
+
+/* reveal */
+if(!STATIC&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+</script>
+
+</body></html>
