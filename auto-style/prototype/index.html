@@ -1,0 +1,697 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><title>Авто Стайл</title><meta name="claude:viewport-fit-sides" content="cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap"></head><body>
+
+
+
+
+
+<style>
+/* Авто Стайл: петрольный графит из логотипа + сигнальный красный из меню старого сайта.
+   Композиция «табло мастерской»: статус работы, подбор работ по симптому, калькулятор шиномонтажа по реальному прайсу, акции-календарь, запись. */
+:root{
+  --ground:#eef1f2;
+  --card:#ffffff;
+  --panel:#0b2531;        /* логотип: петрольный графит */
+  --panel-2:#123444;
+  --panel-ink:#e9f0f2;
+  --ink:#0d2430;
+  --ink-2:#36515d;
+  --muted:#667b85;
+  --line:#d6dee1;
+  --red:#d90f22;          /* меню старого сайта */
+  --red-ink:#ffffff;
+  --red-soft:#fde8ea;
+  --ok:#14a06a;
+  --shadow:0 22px 50px -28px rgba(11,37,49,.45);
+  --display:"Tektur","Inter Tight",system-ui,sans-serif;
+  --body:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#071820;--card:#0e2733;--panel:#0b222d;--panel-2:#123444;--panel-ink:#e9f0f2;--ink:#e6eef1;--ink-2:#b4c6cd;--muted:#8aa1aa;--line:#1f3d4a;
+  --red:#ff3043;--red-soft:#3a1419;--shadow:0 22px 50px -28px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#071820;--card:#0e2733;--panel:#0b222d;--panel-2:#123444;--panel-ink:#e9f0f2;--ink:#e6eef1;--ink-2:#b4c6cd;--muted:#8aa1aa;--line:#1f3d4a;
+  --red:#ff3043;--red-soft:#3a1419;--shadow:0 22px 50px -28px rgba(0,0,0,.8);color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 16px/1.55 var(--body);overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit}
+img{max-width:100%;display:block}
+.wrap{width:min(1200px,100% - 40px);margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(28px,3.6vw,44px);font-weight:700}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.eyebrow::before{content:"";width:22px;height:3px;background:var(--red);border-radius:2px}
+.lead{color:var(--ink-2);font-size:18px;max-width:640px}
+section{padding:88px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.sec-head h2{margin-top:14px}
+.sec-head p{margin:0;color:var(--muted);max-width:420px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 24px;border-radius:10px;border:0;cursor:pointer;font:600 16px/1 var(--body);text-decoration:none;transition:transform .18s,box-shadow .18s,background .18s,color .18s}
+.btn-red{background:var(--red);color:var(--red-ink);box-shadow:0 10px 24px -12px var(--red)}
+.btn-red:hover,.btn-red.is-hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px var(--red)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-line:hover,.btn-line.is-hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn-dark{background:var(--panel);color:var(--panel-ink)}
+.btn-dark:hover,.btn-dark.is-hover{background:var(--panel-2)}
+.btn svg{width:18px;height:18px}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--ground) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:22px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo svg{width:40px;height:40px}
+.logo b{font:800 20px/1 var(--display);letter-spacing:.02em;white-space:nowrap}
+.logo small{display:block;font:500 11px/1.2 var(--body);color:var(--muted);letter-spacing:.04em;margin-top:3px}
+.nav{display:flex;gap:4px;margin-left:8px}
+.nav a{padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:500;color:var(--ink-2);font-size:15px}
+.nav a:hover,.nav a.is-hover{background:var(--card);color:var(--ink)}
+.hdr-r{margin-left:auto;display:flex;align-items:center;gap:14px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.status i{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 22%,transparent)}
+.status.closed i{background:#c79a1a;box-shadow:0 0 0 4px rgba(199,154,26,.2)}
+.tel{font:700 17px/1 var(--display);text-decoration:none;white-space:nowrap;letter-spacing:.01em}
+.tel:hover,.tel.is-hover{color:var(--red)}
+.theme{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);cursor:pointer;display:grid;place-items:center}
+.theme svg{width:18px;height:18px}
+.hdr .btn{height:44px;padding:0 18px;font-size:15px}
+
+/* hero */
+.hero{padding:56px 0 0;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:40px;align-items:stretch}
+.hero h1{font-size:clamp(42px,6.2vw,82px);font-weight:800;margin:18px 0 22px;text-transform:uppercase;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--red);display:block}
+.hero .lead{margin:0 0 30px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;border-top:1px solid var(--line)}
+.facts div{padding:18px 16px 0 0}
+.facts b{display:block;font:700 19px/1.15 var(--display)}
+.facts span{font-size:14px;color:var(--muted)}
+
+.triage{background:var(--panel);color:var(--panel-ink);border-radius:20px;padding:30px;box-shadow:var(--shadow);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.triage::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 22px,rgba(255,255,255,.025) 22px 44px);pointer-events:none}
+.triage>*{position:relative}
+.tr-top{display:flex;justify-content:space-between;align-items:center;font:600 12px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:#93b0bb}
+.tr-top .lamp{display:flex;gap:6px}
+.tr-top .lamp i{width:8px;height:8px;border-radius:50%;background:#2b4a57}
+.tr-top .lamp i.on{background:var(--red);box-shadow:0 0 10px var(--red)}
+.triage h3{font-size:26px;margin:18px 0 18px;font-weight:700}
+.needs{display:flex;flex-wrap:wrap;gap:8px}
+.need{border:1px solid #2c4b58;background:rgba(255,255,255,.03);color:var(--panel-ink);padding:10px 14px;border-radius:9px;cursor:pointer;font-size:15px;font-weight:500;transition:.18s}
+.need:hover,.need.is-hover{border-color:#6f909c;background:rgba(255,255,255,.07)}
+.need.on{background:var(--red);border-color:var(--red);color:#fff}
+.tr-out{margin-top:22px;padding:20px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid #23414e;flex:1;display:flex;flex-direction:column}
+.tr-out small{font:600 11px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:#93b0bb}
+.tr-out h4{font:700 21px/1.2 var(--display);margin:10px 0 8px}
+.tr-out p{margin:0 0 6px;color:#bfd2d8;font-size:15px}
+.tr-out ul{margin:6px 0 16px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.tr-out li{font-size:13px;padding:5px 9px;border-radius:6px;background:#173a49;color:#d7e6ea}
+.tr-out .btn{margin-top:auto;align-self:flex-start;height:46px}
+.tr-note{font-size:13px;color:#93b0bb;margin-top:12px}
+
+.brands{margin-top:56px;border-block:1px solid var(--line);overflow:hidden;position:relative;background:var(--card)}
+.brands-in{display:flex;gap:40px;padding:18px 0;width:max-content;animation:run 60s linear infinite}
+.brands span{font:600 15px/1 var(--display);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.brands span.r{color:var(--red)}
+@keyframes run{to{transform:translateX(-50%)}}
+.static .brands-in{animation:none}
+
+/* services */
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.svc{position:relative;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px 20px;cursor:pointer;min-height:188px;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s}
+.svc:hover,.svc.is-hover{transform:translateY(-3px);border-color:var(--ink-2);box-shadow:var(--shadow)}
+.svc.on{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.svc .no{font:700 13px/1 var(--display);color:var(--red);letter-spacing:.1em}
+.svc svg{width:30px;height:30px;margin:16px 0 14px;color:var(--ink)}
+.svc h3{font-size:19px;font-weight:700}
+.svc p{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.svc-panel{grid-column:1/-1;background:var(--panel);color:var(--panel-ink);border-radius:var(--r);padding:28px 30px;display:none;grid-template-columns:1fr auto;gap:24px;align-items:start}
+.svc-panel.open{display:grid}
+.svc-panel h3{font-size:24px;margin-bottom:12px}
+.svc-panel ul{list-style:none;margin:0;padding:0;columns:3;column-gap:28px}
+.svc-panel li{padding:6px 0 6px 18px;position:relative;break-inside:avoid;color:#cfdfe4;font-size:15px}
+.svc-panel li::before{content:"";position:absolute;left:0;top:14px;width:8px;height:2px;background:var(--red)}
+.svc-panel .side{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.svc-panel .x{background:none;border:1px solid #2c4b58;color:#cfdfe4;border-radius:8px;width:38px;height:38px;cursor:pointer}
+.svc-panel .note{font-size:13px;color:#93b0bb;margin-top:14px}
+.extra{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.extra span{background:var(--card);border:1px solid var(--line);padding:8px 14px;border-radius:999px;font-size:14px;color:var(--ink-2)}
+
+/* tires */
+.tires{background:var(--panel);color:var(--panel-ink)}
+.tires .sec-head p{color:#9bb5bf}
+.tires .eyebrow{color:#ff5a68}.tires .eyebrow::before{background:#ff5a68}
+.t-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px}
+.t-box{background:#0f2e3b;border:1px solid #23414e;border-radius:18px;padding:28px}
+.seg{display:inline-flex;background:#081d26;border-radius:10px;padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{border:0;background:none;color:#b5cad1;padding:10px 16px;border-radius:7px;cursor:pointer;font-weight:600;font-size:14px}
+.seg button.on{background:var(--panel-ink);color:var(--panel)}
+.radii{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 26px}
+.rad{width:62px;height:62px;border-radius:50%;border:2px solid #2c4b58;background:radial-gradient(circle,#0f2e3b 0 38%,#163b4a 39% 100%);color:var(--panel-ink);font:700 15px/1 var(--display);cursor:pointer;transition:.18s}
+.rad:hover,.rad.is-hover{border-color:#8fb0bb}
+.rad.on{border-color:var(--red);background:radial-gradient(circle,#0f2e3b 0 38%,var(--red) 39% 100%);color:#fff}
+.rad[disabled]{opacity:.25;cursor:not-allowed}
+.t-out{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:10px}
+.t-out div{background:#081d26;border-radius:12px;padding:16px}
+.t-out div:first-child{background:var(--red)}
+.t-out small{display:block;font-size:12px;color:#9bb5bf;margin-bottom:8px;line-height:1.2}
+.t-out div:first-child small{color:#ffd7db}
+.t-out b{font:700 26px/1 var(--display)}
+.t-out div:first-child b{font-size:32px}
+.chk{display:flex;align-items:center;gap:10px;margin-top:20px;cursor:pointer;font-size:15px;color:#cfdfe4;user-select:none}
+.chk i{width:22px;height:22px;border-radius:6px;border:2px solid #4c6b77;display:grid;place-items:center;flex-shrink:0}
+.chk.on i{background:var(--red);border-color:var(--red)}
+.chk.on i::after{content:"";width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.t-note{font-size:13px;color:#8aa6b0;margin-top:16px}
+.t-list{list-style:none;margin:0;padding:0}
+.t-list li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px dashed #2a4855;font-size:15px}
+.t-list li b{font-family:var(--display);white-space:nowrap}
+.t-badge{display:flex;gap:14px;align-items:center;margin-top:22px;padding:18px;border-radius:14px;background:rgba(255,48,67,.12);border:1px solid rgba(255,48,67,.35)}
+.t-badge b{font:800 30px/1 var(--display);color:#ff5a68}
+.t-badge span{font-size:14px;color:#dbe7ea}
+
+/* prices */
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.p-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.p-card h3{font-size:19px;display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.p-card h3 i{width:10px;height:10px;background:var(--red);border-radius:2px;transform:rotate(45deg)}
+.p-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.p-row:last-child{border-bottom:0}
+.p-row b{font-family:var(--display);white-space:nowrap}
+.p-wide{grid-column:1/-1;display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--red-soft);border-color:transparent}
+.p-wide p{margin:0;max-width:640px;color:var(--ink-2)}
+
+/* promo */
+.promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.perma{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.perma div{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.perma b{display:block;font:800 30px/1 var(--display);color:var(--red);margin-bottom:8px}
+.perma span{font-size:14px;color:var(--ink-2)}
+.cal{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px}
+.cal h3{font-size:20px;margin-bottom:6px}
+.cal>p{margin:0 0 18px;font-size:14px;color:var(--muted)}
+.ev{display:grid;grid-template-columns:96px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.ev .d{font:700 14px/1.2 var(--display);color:var(--ink-2)}
+.ev .t{font-size:15px}
+.ev .p{font:800 18px/1 var(--display)}
+.ev.next{background:var(--red-soft);margin:0 -14px;padding:14px;border-radius:10px;border-top-color:transparent}
+.ev.next .d{color:var(--red)}
+.ev .tag{display:inline-block;font:700 10px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:#fff;padding:4px 6px;border-radius:4px;margin-left:8px;vertical-align:2px}
+.fine{font-size:13px;color:var(--muted);margin-top:16px}
+
+/* lounge */
+.lounge-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:240px 240px;gap:14px}
+.ph{border-radius:var(--r);overflow:hidden;position:relative;background:var(--panel)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:12px;bottom:12px;background:rgba(7,24,32,.78);color:#fff;font-size:13px;padding:6px 10px;border-radius:7px;backdrop-filter:blur(6px)}
+.ph.big{grid-row:1/3}
+.l-text{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;justify-content:center}
+.l-text h3{font-size:21px;margin-bottom:10px}
+.l-text p{margin:0;color:var(--ink-2);font-size:15px}
+.l-text ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.l-text li{display:flex;gap:10px;align-items:center;font-size:15px}
+.l-text li::before{content:"";width:7px;height:7px;background:var(--red);border-radius:50%}
+
+/* booking */
+.booking{background:linear-gradient(180deg,var(--ground),color-mix(in srgb,var(--panel) 6%,var(--ground)))}
+.b-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start}
+.b-side .lead{margin:16px 0 26px}
+.b-side ol{margin:0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:s}
+.b-side li{display:flex;gap:14px;align-items:center;counter-increment:s;color:var(--ink-2)}
+.b-side li::before{content:counter(s);width:34px;height:34px;border-radius:9px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font:700 14px/1 var(--display);color:var(--ink);flex-shrink:0}
+.book{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:var(--shadow);min-height:470px;display:flex;flex-direction:column}
+.steps{display:flex;gap:6px;margin-bottom:24px}
+.steps i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.steps i.on{background:var(--red)}
+.book h3{font-size:22px;margin-bottom:6px}
+.book .hint{color:var(--muted);font-size:14px;margin:0 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:15px;font-weight:500;display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1.25;transition:.15s}
+.chip small{font-size:12px;color:var(--muted);font-weight:400}
+.chip:hover,.chip.is-hover{border-color:var(--ink-2)}
+.chip.on{border-color:var(--red);background:var(--red-soft)}
+.chip[disabled]{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.chips.sm .chip{padding:8px 12px;font-size:14px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:14px;font-weight:600;color:var(--ink-2)}
+.field input{height:52px;border-radius:10px;border:1.5px solid var(--line);background:var(--ground);padding:0 16px;font:500 17px var(--body);color:var(--ink);outline:none}
+.field input:focus{border-color:var(--red);background:var(--card)}
+.summary{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.summary span{background:var(--ground);border-radius:8px;padding:7px 11px;font-size:14px}
+.book-nav{display:flex;justify-content:space-between;gap:12px;margin-top:auto;padding-top:24px}
+.demo-note{font-size:12px;color:var(--muted);margin-top:14px;text-align:center}
+.done{text-align:center;margin:auto 0;padding:20px 0}
+.done .ok{width:76px;height:76px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;margin:0 auto 18px}
+.done h3{font-size:28px;margin-bottom:10px}
+.done p{color:var(--ink-2);max-width:420px;margin:0 auto}
+
+/* contacts */
+.c-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.c-card{background:var(--panel);color:var(--panel-ink);border-radius:18px;padding:34px;display:flex;flex-direction:column;gap:22px}
+.c-row small{display:block;font:600 11px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:#93b0bb;margin-bottom:8px}
+.c-row a,.c-row span{font:600 21px/1.3 var(--display);text-decoration:none}
+.c-row a:hover,.c-row a.is-hover{color:#ff5a68}
+.c-row p{margin:4px 0 0;color:#9bb5bf;font-size:14px}
+.c-card .cta{margin-top:auto}
+.c-photo{border-radius:18px;overflow:hidden;position:relative;min-height:420px}
+.c-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.c-photo .pin{position:absolute;left:18px;bottom:18px;right:18px;background:rgba(7,24,32,.82);color:#fff;border-radius:12px;padding:16px 18px;backdrop-filter:blur(8px);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.c-photo .pin b{font:700 16px/1.3 var(--display)}
+.c-photo .pin span{font-size:13px;color:#b9cdd3}
+footer{padding:34px 0 120px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* mobile bar */
+.mbar{display:none}
+
+/* reveal */
+.rv{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .rv.pre{opacity:0;transform:translateY(24px)}
+
+@media (max-width:1080px){
+  .nav{display:none}
+  .hero-grid,.t-grid,.b-grid,.promo-grid,.c-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .p-grid{grid-template-columns:1fr 1fr}
+  .svc-panel ul{columns:2}
+}
+@media (max-width:720px){
+  section{padding:60px 0}
+  .wrap{width:calc(100% - 32px)}
+  .hdr .wrap{height:62px;gap:10px}
+  .hdr .btn,.status,.hdr .tel{display:none}
+  .logo b{font-size:18px}
+  .hero{padding-top:30px}
+  .hero h1{font-size:42px;margin:14px 0 16px}
+  .lead{font-size:16px}
+  .facts{grid-template-columns:1fr 1fr;row-gap:4px}
+  .triage{padding:22px}
+  .triage h3{font-size:22px}
+  .need{font-size:14px;padding:9px 12px}
+  .svc-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .svc{min-height:0;padding:16px}
+  .svc h3{font-size:16px}.svc p{display:none}
+  .svc svg{margin:10px 0}
+  .svc-panel{grid-template-columns:1fr;padding:22px}
+  .svc-panel ul{columns:1}
+  .svc-panel .side{align-items:stretch}
+  .t-box{padding:20px}
+  .rad{width:52px;height:52px;font-size:14px}
+  .t-out{grid-template-columns:1fr 1fr}
+  .t-out div:first-child{grid-column:1/-1}
+  .p-grid,.perma{grid-template-columns:1fr}
+  .ev{grid-template-columns:78px 1fr auto;gap:10px}
+  .lounge-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .ph.big{grid-row:auto;grid-column:1/-1;height:220px}
+  .ph{height:150px}
+  .l-text{grid-column:1/-1 !important}
+  .book{padding:22px;min-height:0}
+  .c-card{padding:24px}
+  .c-photo{min-height:300px}
+  .mbar{display:grid;grid-template-columns:1fr 1.3fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--ground) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mbar .btn{height:50px;font-size:15px;padding:0 12px}
+}
+</style>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Авто Стайл">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--panel)"/><g fill="none" stroke="#e9f0f2" stroke-width="2.4"><path d="M9 25a11 11 0 0 1 22 0"/><path d="M20 10v3M11.5 13.5l2 2M28.5 13.5l-2 2M8 20.5l3 .8M32 20.5l-3 .8"/></g><path d="M20 25 26 16" stroke="var(--red)" stroke-width="2.6" stroke-linecap="round"/><circle cx="20" cy="25" r="2.6" fill="var(--red)"/><path d="M9 30h22" stroke="#e9f0f2" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <span><b>АВТО СТАЙЛ</b><small>Ремонт любой сложности</small></span>
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#services">Услуги</a><a href="#tires">Шиномонтаж</a><a href="#prices">Цены</a><a href="#promo">Акции</a><a href="#contacts">Контакты</a>
+    </nav>
+    <div class="hdr-r">
+      <span class="status" id="status"><i></i><span>Ежедневно 10:00–22:00</span></span>
+      <a class="tel" href="tel:+79150067176">8 (915) 006-71-76</a>
+      <button class="theme" id="theme" aria-label="Сменить тему"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
+      <a class="btn btn-red" href="#booking">Записаться</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Техцентр-мультибренд · ЗАО</span>
+      <h1>Ремонт<em>любой сложности</em></h1>
+      <p class="lead">Слесарный ремонт, диагностика, шиномонтаж, сход-развал, мойка и полировка в одном месте — у Можайского шоссе, на улице Рябиновой.</p>
+      <div class="cta">
+        <a class="btn btn-red" href="#booking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Записаться онлайн</a>
+        <a class="btn btn-line" href="tel:+79150067176"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>8 (915) 006-71-76</a>
+      </div>
+      <div class="facts">
+        <div><b>10:00–22:00</b><span>ежедневно, без выходных</span></div>
+        <div><b>Все марки</b><span>от Kia до Lexus</span></div>
+        <div><b>Запчасти</b><span>магазин при сервисе</span></div>
+        <div><b>Гарантия</b><span>на все работы</span></div>
+      </div>
+    </div>
+    <aside class="triage rv" id="triage" aria-label="Подбор работ">
+      <div class="tr-top"><span>Что с машиной?</span><span class="lamp"><i class="on"></i><i></i><i></i></span></div>
+      <h3>Опишите проблему — подскажем, с чего начать</h3>
+      <div class="needs" id="needs"></div>
+      <div class="tr-out" id="trOut"></div>
+    </aside>
+  </div>
+  <div class="brands" aria-label="Марки, которые обслуживаем"><div class="brands-in" id="brands"></div></div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="eyebrow">Услуги</span><h2>Восемь направлений<br>под одной крышей</h2></div>
+      <p>Нажмите на направление, чтобы увидеть, какие работы выполняет техцентр. Список — с действующего сайта.</p>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
+    <div class="extra rv">
+      <span>Помощь в покупке автомобиля</span><span>Предпродажная подготовка</span><span>Выезд мастера на место ремонта</span><span>Установка доп. оборудования</span><span>Техосмотр и страхование</span><span>Сезонное хранение резины</span>
+    </div>
+  </div>
+</section>
+
+<section class="tires" id="tires">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="eyebrow">Шиномонтаж</span><h2>Стоимость переобувки —<br>за два касания</h2></div>
+      <p>Выберите тип автомобиля и радиус. Цены — из прайса на сайте, за одно колесо.</p>
+    </div>
+    <div class="t-grid">
+      <div class="t-box rv">
+        <div class="seg" id="tType"><button class="on" data-type="car">Легковой</button><button data-type="suv">Кроссовер, джип, минивэн</button></div>
+        <div class="radii" id="radii"></div>
+        <div class="t-out" id="tOut"></div>
+        <div class="chk" id="tLow" role="checkbox" aria-checked="false" tabindex="0"><i></i>Низкий профиль или RunFlat (+30% к стоимости)</div>
+        <p class="t-note">Цены указаны по опубликованному прайсу gag-avto.ru. Точную стоимость подтвердит мастер.</p>
+      </div>
+      <div class="t-box rv">
+        <h3 style="font-size:20px;margin-bottom:6px">Ремонт колёс и дисков</h3>
+        <ul class="t-list">
+          <li><span>Установка жгута</span><b>1 000 ₽</b></li>
+          <li><span>Ремонт колеса, кордовая латка</span><b>2 300–3 500 ₽</b></li>
+          <li><span>Замена вентиля</span><b>200 ₽/шт.</b></li>
+          <li><span>Обработка бортовым герметиком</span><b>200 ₽/шт.</b></li>
+          <li><span>Механическая чистка дисков</span><b>500 ₽/шт.</b></li>
+        </ul>
+        <div class="t-badge"><b>−10%</b><span>Скидка посетителям сайта на шиномонтаж. Есть сезонное хранение шин.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prices">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="eyebrow">Цены</span><h2>Опубликованные цены</h2></div>
+      <p>Цены «от» — с действующего сайта. Стоимость слесарных работ зависит от марки и модификации.</p>
+    </div>
+    <div class="p-grid">
+      <div class="p-card rv"><h3><i></i>Сход-развал</h3>
+        <div class="p-row"><span>Одна ось</span><b>от 3 000 ₽</b></div>
+        <div class="p-row"><span>Две оси</span><b>4 000 ₽</b></div>
+      </div>
+      <div class="p-card rv"><h3><i></i>Полировка и кузов</h3>
+        <div class="p-row"><span>Полировка фар</span><b>от 1 000 ₽</b></div>
+        <div class="p-row"><span>Полировка детали</span><b>от 2 000 ₽</b></div>
+        <div class="p-row"><span>Заполировать царапины</span><b>от 2 000 ₽</b></div>
+        <div class="p-row"><span>Удаление сколов</span><b>от 1 000 ₽</b></div>
+        <div class="p-row"><span>Удаление царапин</span><b>от 1 000 ₽</b></div>
+      </div>
+      <div class="p-card rv"><h3><i></i>Мойка и химчистка</h3>
+        <div class="p-row"><span>Мойка днища</span><b>от 1 000 ₽</b></div>
+        <div class="p-row"><span>Мойка двигателя</span><b>от 900 ₽</b></div>
+        <div class="p-row"><span>Химчистка салона</span><b>от 5 000 ₽</b></div>
+        <div class="p-row"><span>Твёрдый воск, жидкое стекло, нано-мойка</span><b>по запросу</b></div>
+      </div>
+      <div class="p-card p-wide rv">
+        <p><b>Ремонт двигателя, ходовой, трансмиссии и электрики</b> — стоимость зависит от марки и модификации автомобиля. Мастер проконсультирует и оценит работу и запчасти до начала ремонта.</p>
+        <a class="btn btn-dark" href="tel:+79150067176">Узнать стоимость</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="promo">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="eyebrow">Акции</span><h2>Скидки, которые<br>действуют всегда</h2></div>
+      <p>Скидки на услуги автосервиса и автомойки; на запчасти не распространяются.</p>
+    </div>
+    <div class="promo-grid">
+      <div class="perma rv">
+        <div><b>0 ₽</b><span>Диагностика автомобиля при ремонте</span></div>
+        <div><b>−15%</b><span>Ветеранам СВО и госслужащим</span></div>
+        <div><b>до −25%</b><span>Людям с инвалидностью и вдовам ветеранов СВО</span></div>
+        <div><b>−15%</b><span>В дождь — на химчистку и полировку</span></div>
+      </div>
+      <div class="cal rv">
+        <h3>Праздничный календарь</h3>
+        <p>−10% на услуги автосервиса. Ближайшая акция подсвечена.</p>
+        <div id="cal"></div>
+      </div>
+    </div>
+    <p class="fine">Максимальная скидка индивидуальна и зависит от сложности ремонта — условия с действующего сайта.</p>
+  </div>
+</section>
+
+<section id="lounge" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><span class="eyebrow">Пока идёт ремонт</span><h2>Ремзона на экране,<br>кофе — в клиентской</h2></div>
+    </div>
+    <div class="lounge-grid">
+      <figure class="ph big rv" style="margin:0"><img src="assets/workshop.jpg" alt="Ремонтная зона техцентра"><figcaption>Ремонтная зона</figcaption></figure>
+      <figure class="ph rv" style="margin:0"><img src="assets/lounge.jpg" alt="Клиентская зона"><figcaption>Клиентская</figcaption></figure>
+      <figure class="ph rv" style="margin:0"><img src="assets/reception.jpg" alt="Ресепшен и экран камер"><figcaption>Экран с камерами ремзоны</figcaption></figure>
+      <div class="l-text rv" style="grid-column:2/4">
+        <h3>Видно, что происходит с машиной</h3>
+        <p>Оставьте автомобиль мастеру и подождите в клиентской: телевизор, горячий кофе и чай, камеры, через которые можно наблюдать за ремонтом.</p>
+        <ul><li>До и после ремонта — диагностика и рекомендации</li><li>Оценка стоимости ремонта и запчастей заранее</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="booking">
+  <div class="wrap b-grid">
+    <div class="b-side rv">
+      <span class="eyebrow">Онлайн-запись</span>
+      <h2 style="margin-top:14px">Запишитесь, не дожидаясь звонка</h2>
+      <p class="lead">Выберите работу, марку и удобное время. Администратор перезвонит и подтвердит запись.</p>
+      <ol><li>Работа или услуга</li><li>Марка автомобиля</li><li>День и время с 10 до 22</li><li>Имя и телефон</li></ol>
+    </div>
+    <div>
+      <div class="book" id="book" aria-live="polite"></div>
+      <p class="demo-note">Демо: форма никуда не отправляет данные</p>
+    </div>
+  </div>
+</section>
+
+<section id="contacts">
+  <div class="wrap">
+    <div class="sec-head rv"><div><span class="eyebrow">Контакты</span><h2>Рябиновая, 9 с2</h2></div><p>Район ЗАО, рядом с Можайским шоссе.</p></div>
+    <div class="c-grid">
+      <div class="c-card rv">
+        <div class="c-row"><small>Телефон</small><a href="tel:+79150067176">8 (915) 006-71-76</a></div>
+        <div class="c-row"><small>Адрес</small><span>Москва, ул. Рябиновая, д. 9, стр. 2</span></div>
+        <div class="c-row"><small>Режим работы</small><span>Ежедневно, 10:00–22:00</span><p>Без выходных и праздников</p></div>
+        <div class="c-row"><small>Почта</small><a href="mailto:autostyle-mos@yandex.ru">autostyle-mos@yandex.ru</a></div>
+        <div class="cta">
+          <a class="btn btn-red" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB.%20%D0%A0%D1%8F%D0%B1%D0%B8%D0%BD%D0%BE%D0%B2%D0%B0%D1%8F%2C%209%D1%812" target="_blank" rel="noopener">Маршрут в Яндекс Картах</a>
+          <a class="btn btn-line" style="color:var(--panel-ink);box-shadow:inset 0 0 0 1.5px #2c4b58" href="#booking">Записаться</a>
+        </div>
+      </div>
+      <div class="c-photo rv"><img src="assets/facade.jpg" alt="Здание техцентра «Авто Стайл»"><div class="pin"><div><b>Автосервис · Мойка · Шиномонтаж</b><br><span>Въезд с улицы Рябиновой</span></div><a class="btn btn-red" style="height:42px" href="tel:+79150067176">Позвонить</a></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© Автотехцентр «Авто Стайл», Москва</span><span>Концепция редизайна сайта gag-avto.ru</span></div></footer>
+
+<div class="mbar"><a class="btn btn-line" href="tel:+79150067176">Позвонить</a><a class="btn btn-red" href="#booking">Записаться</a></div>
+
+<script>
+document.documentElement.classList.add('js');
+const qs=new URLSearchParams(location.search);
+const STATIC=qs.has('static');
+if(STATIC)document.documentElement.classList.add('static');
+
+/* theme */
+document.getElementById('theme').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark'};
+
+/* open status (Москва, 10–22) */
+(function(){const now=new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Moscow'}));const h=now.getHours();const st=document.getElementById('status');
+  if(h>=10&&h<22){st.querySelector('span').textContent='Открыто до 22:00'}else{st.classList.add('closed');st.querySelector('span').textContent='Откроемся в 10:00'}})();
+
+const IC={
+  engine:'<path d="M4 10h3l2-3h6v3h2l2 2v5h-2v2h-4l-2-2H7v-3H4z"/><path d="M2 12v4"/>',
+  susp:'<circle cx="12" cy="17" r="4"/><path d="M12 3v3m-3 0h6M10 6l4 2-4 2 4 2"/>',
+  gear:'<circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v8M12 8v8M18 8v4H6"/>',
+  bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  brake:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M5 7a9 9 0 0 1 4-3"/>',
+  snow:'<path d="M12 2v20M4 7l16 10M20 7 4 17"/>',
+  tire:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/>',
+  drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/><path d="M9 14a3 3 0 0 0 3 3"/>'
+};
+const SVC=[
+  {n:'Двигатель',ic:'engine',d:'Диагностика, капремонт, ГБЦ, ГРМ, инжектор',w:['Диагностика двигателя','Капремонт двигателя','Переборка двигателя','Ремонт ГБЦ','Замена ремней ГРМ','Ремонт инжектора','Промывка форсунок','Ремонт топливной системы','Замена масла и фильтров']},
+  {n:'Ходовая и подвеска',ic:'susp',d:'Амортизаторы, сайлентблоки, опоры, ШРУС',w:['Диагностика ходовой','Ремонт подвески','Замена амортизаторов','Замена сайлентблоков','Замена пружин','Замена шаровых опор','Замена подшипника ступицы','Замена ШРУСа','Ремонт заднего моста']},
+  {n:'Трансмиссия',ic:'gear',d:'МКПП, сцепление, масло в АКПП, карданы',w:['Диагностика трансмиссии','Ремонт МКПП','Замена сцепления','Замена масла в АКПП через установку','Ремонт карданных валов']},
+  {n:'Электрика и диагностика',ic:'bolt',d:'Компьютерная диагностика, генераторы, стартеры',w:['Компьютерная диагностика','Поиск неисправностей, удаление ошибок','Ремонт автоэлектрики','Ремонт генераторов','Ремонт стартеров','Установка доп. оборудования']},
+  {n:'Тормоза, руль, выхлоп',ic:'brake',d:'Колодки, диски, суппорты, рейки, глушители',w:['Замена колодок','Замена тормозных дисков','Проточка тормозных дисков','Замена суппорта','Ремонт системы АБС','Ремонт рулевых реек','Ремонт гидроусилителя','Ремонт глушителей и катализаторов']},
+  {n:'Климат и охлаждение',ic:'snow',d:'Заправка и ремонт кондиционеров',w:['Заправка кондиционера','Ремонт кондиционера','Ремонт системы охлаждения','Сухой туман']},
+  {n:'Шины и сход-развал',ic:'tire',d:'Шиномонтаж R13–R22, хранение, развал',w:['Шиномонтаж R13–R22','Низкий профиль и RunFlat','Балансировка','Ремонт порезов и проколов','Сход-развал на стенде','Сезонное хранение резины','Плановое ТО']},
+  {n:'Мойка и полировка',ic:'drop',d:'Комплексная мойка, полировка, химчистка',w:['Комплексная мойка','Мойка днища и двигателя','Полировка кузова и фар','Удаление сколов и царапин','Жидкое стекло, керамика, твёрдый воск','Химчистка салона']}
+];
+const NEEDS=[
+  {n:'Пора на ТО',s:6,t:'Плановое ТО',p:'Замена масла и фильтров, свечей, проверка узлов. Масла и фильтры — в магазине запчастей при сервисе.',w:['Плановое ТО','Замена масла','Фильтры','Свечи']},
+  {n:'Стучит подвеска',s:1,t:'Диагностика ходовой',p:'Мастер найдёт источник стука и согласует ремонт. При ремонте диагностика бесплатна.',w:['Амортизаторы','Сайлентблоки','Шаровые опоры','ШРУС']},
+  {n:'Горит «Check Engine»',s:3,t:'Компьютерная диагностика',p:'Считывание ошибок, поиск неисправности, рекомендации по ремонту.',w:['Диагностика','Электрика','Инжектор','Датчики']},
+  {n:'Пора переобуться',s:6,t:'Шиномонтаж',p:'Легковые и кроссоверы, R13–R22, низкий профиль и RunFlat. Посетителям сайта −10%.',w:['Шиномонтаж','Балансировка','Хранение шин']},
+  {n:'Не холодит кондиционер',s:5,t:'Заправка кондиционера',p:'Проверка системы, заправка и ремонт кондиционера.',w:['Заправка','Ремонт','Сухой туман']},
+  {n:'Скрипят тормоза',s:4,t:'Тормозная система',p:'Проверка колодок и дисков, проточка или замена.',w:['Колодки','Диски','Суппорты','АБС']},
+  {n:'Сколы и царапины',s:7,t:'Полировка и удаление сколов',p:'Полировка детали от 2 000 ₽, удаление сколов от 1 000 ₽ — по прайсу сайта.',w:['Полировка','Сколы','Жидкое стекло']}
+];
+const BRANDS=['Toyota','Kia','Hyundai','Volkswagen','Mercedes','BMW','Audi','Lexus','Nissan','Mazda','Honda','Mitsubishi','Skoda','Renault','Ford','Chevrolet','Opel','Peugeot','Citroen','Subaru','Suzuki','Volvo','SsangYong','Geely','Chery','Great Wall','Daewoo','Jeep'];
+
+/* brands marquee */
+const bEl=document.getElementById('brands');
+bEl.innerHTML=[...BRANDS,...BRANDS].map((b,i)=>`<span class="${i%7===3?'r':''}">${b}</span>`).join('');
+
+/* triage */
+let need=null;
+const needsEl=document.getElementById('needs'),trOut=document.getElementById('trOut');
+needsEl.innerHTML=NEEDS.map((x,i)=>`<button class="need" data-i="${i}">${x.n}</button>`).join('');
+function renderTriage(){
+  needsEl.querySelectorAll('.need').forEach((b,i)=>b.classList.toggle('on',i===need));
+  if(need===null){trOut.innerHTML=`<small>Подсказка</small><h4>Выберите симптом выше</h4><p>Покажем, какие работы обычно нужны, и запишем на удобное время. Ремонтируем автомобили всех марок.</p><a class="btn btn-red" id="triageGo" href="#booking">Записаться без выбора</a>`;return}
+  const x=NEEDS[need];
+  trOut.innerHTML=`<small>С чего начать</small><h4>${x.t}</h4><p>${x.p}</p><ul>${x.w.map(w=>`<li>${w}</li>`).join('')}</ul><button class="btn btn-red" id="triageGo">Записаться: ${x.t.toLowerCase()}</button>`;
+  document.getElementById('triageGo').onclick=()=>{pickService(SVC[x.s].n);document.getElementById('booking').scrollIntoView({behavior:STATIC?'auto':'smooth'})};
+}
+needsEl.addEventListener('click',e=>{const b=e.target.closest('.need');if(!b)return;need=+b.dataset.i;renderTriage()});
+renderTriage();
+
+/* services */
+const svcGrid=document.getElementById('svcGrid');
+svcGrid.innerHTML=SVC.map((s,i)=>`<button class="svc rv" data-i="${i}"><span class="no">${String(i+1).padStart(2,'0')}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${IC[s.ic]}</svg><h3>${s.n}</h3><p>${s.d}</p></button>`).join('')+`<div class="svc-panel" id="svcPanel"></div>`;
+const panel=document.getElementById('svcPanel');
+let openSvc=null;
+function showSvc(i){
+  openSvc=(openSvc===i)?null:i;
+  svcGrid.querySelectorAll('.svc').forEach((b,k)=>b.classList.toggle('on',k===openSvc));
+  if(openSvc===null){panel.classList.remove('open');return}
+  const s=SVC[i];
+  // place panel after the row containing the card
+  const cols=getComputedStyle(svcGrid).gridTemplateColumns.split(' ').length;
+  const cards=svcGrid.querySelectorAll('.svc');const rowEnd=Math.min(cards.length-1,Math.floor(i/cols)*cols+cols-1);
+  cards[rowEnd].after(panel);
+  panel.innerHTML=`<div><h3>${s.n}</h3><ul>${s.w.map(w=>`<li>${w}</li>`).join('')}</ul><p class="note">Стоимость зависит от марки и модификации — мастер рассчитает после диагностики.</p></div><div class="side"><button class="x" aria-label="Закрыть" id="svcX">✕</button><button class="btn btn-red" id="svcBook">Записаться</button></div>`;
+  panel.classList.add('open');
+  document.getElementById('svcX').onclick=()=>showSvc(i);
+  document.getElementById('svcBook').onclick=()=>{pickService(s.n);document.getElementById('booking').scrollIntoView({behavior:STATIC?'auto':'smooth'})};
+}
+svcGrid.addEventListener('click',e=>{const b=e.target.closest('.svc');if(b)showSvc(+b.dataset.i)});
+
+/* tires: prices per wheel from gag-avto.ru/shinomontazh/ */
+const TIRE={
+  car:{r:['R13','R14','R15','R16','R17','R18','R19','R20'],c:[2500,2700,3000,3300,3600,4000,4600,5300],su:[250,250,250,300,300,300,350,350],md:[250,250,300,300,350,400,400,500],b:[250,250,300,300,350,400,400,500]},
+  suv:{r:['R15','R16','R17','R18','R19','R20','R21','R22'],c:[3600,3800,4200,4700,5200,5700,6800,7300],su:[300,300,350,350,400,450,500,500],md:[350,350,400,450,500,550,600,600],b:[350,350,400,450,500,550,600,600]}
+};
+const ALLR=['R13','R14','R15','R16','R17','R18','R19','R20','R21','R22'];
+const T={type:'car',r:'R16',low:false};
+const fmt=n=>n.toLocaleString('ru-RU').replace(/ /g,' ')+' ₽';
+function renderTires(){
+  const d=TIRE[T.type];if(!d.r.includes(T.r))T.r=d.r[2];
+  document.querySelectorAll('#tType button').forEach(b=>b.classList.toggle('on',b.dataset.type===T.type));
+  document.getElementById('radii').innerHTML=ALLR.map(r=>`<button class="rad ${r===T.r?'on':''}" data-r="${r}" ${d.r.includes(r)?'':'disabled'}>${r}</button>`).join('');
+  const k=d.r.indexOf(T.r),m=T.low?1.3:1,v=x=>fmt(Math.round(x*m/10)*10);
+  document.getElementById('tOut').innerHTML=`<div><small>Комплекс</small><b>${v(d.c[k])}</b></div><div><small>Снятие и установка</small><b>${v(d.su[k])}</b></div><div><small>Монтаж и демонтаж</small><b>${v(d.md[k])}</b></div><div><small>Балансировка</small><b>${v(d.b[k])}</b></div>`;
+  const lw=document.getElementById('tLow');lw.classList.toggle('on',T.low);lw.setAttribute('aria-checked',T.low);
+}
+document.getElementById('tType').onclick=e=>{const b=e.target.closest('button');if(b){T.type=b.dataset.type;renderTires()}};
+document.getElementById('radii').onclick=e=>{const b=e.target.closest('.rad');if(b&&!b.disabled){T.r=b.dataset.r;renderTires()}};
+const lowEl=document.getElementById('tLow');lowEl.onclick=()=>{T.low=!T.low;renderTires()};lowEl.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();T.low=!T.low;renderTires()}};
+renderTires();
+
+/* promo calendar */
+(function(){
+  const EV=[{m:0,d1:1,d2:10,l:'1–10 января',t:'Новогодняя скидка для всех'},{m:1,d1:20,d2:25,l:'20–25 февраля',t:'Скидка мужчинам'},{m:2,d1:5,d2:10,l:'5–10 марта',t:'Скидка женщинам'},{m:4,d1:1,d2:10,l:'1–10 мая',t:'Майская скидка для всех'}];
+  const now=new Date();const y=now.getFullYear();
+  let best=null,bd=1e15;
+  EV.forEach((e,i)=>{let end=new Date(y,e.m,e.d2,23,59);let st=new Date(y,e.m,e.d1);if(end<now){st=new Date(y+1,e.m,e.d1)}const dist=Math.max(0,st-now);if(dist<bd){bd=dist;best=i}});
+  document.getElementById('cal').innerHTML=EV.map((e,i)=>`<div class="ev ${i===best?'next':''}"><span class="d">${e.l}</span><span class="t">${e.t}${i===best?'<span class="tag">Скоро</span>':''}</span><span class="p">−10%</span></div>`).join('')+
+  `<div class="ev"><span class="d">День рождения</span><span class="t">За 3 дня до и 3 дня после</span><span class="p">−10%</span></div>`;
+})();
+
+/* booking */
+const DAYS=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const B={step:0,svc:null,brand:null,date:null,time:null,name:'',phone:''};
+const bookEl=document.getElementById('book');
+function days(){const out=[];const b=new Date();b.setHours(0,0,0,0);for(let k=0;k<8;k++){const d=new Date(b);d.setDate(b.getDate()+k);out.push(d)}return out}
+function fmtDate(d){return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
+function seeded(n){let x=Math.sin(n)*10000;return x-Math.floor(x)}
+function renderBook(){
+  const steps=`<div class="steps">${[0,1,2,3].map(k=>`<i class="${k<=B.step?'on':''}"></i>`).join('')}</div>`;
+  let body='';
+  if(B.step===0){
+    body=`<h3>Что нужно сделать?</h3><p class="hint">Если не уверены — выберите «Диагностика», мастер разберётся.</p><div class="chips">${[...SVC.map(s=>s.n),'Диагностика','Запчасти под заказ'].map(n=>`<button class="chip ${B.svc===n?'on':''}" data-svc="${n}">${n}</button>`).join('')}</div>`;
+  }else if(B.step===1){
+    body=`<h3>Марка автомобиля</h3><p class="hint">Обслуживаем все марки — выберите свою или «Другая».</p><div class="chips sm">${[...BRANDS,'Другая'].map(n=>`<button class="chip ${B.brand===n?'on':''}" data-brand="${n}">${n}</button>`).join('')}</div>`;
+  }else if(B.step===2){
+    const ds=days();if(B.date===null)B.date=0;const d=ds[B.date];const key=d.getDate()+d.getMonth()*31;
+    const slots=[];for(let h=10;h<22;h++)slots.push(h+':00');
+    body=`<h3>День и время</h3><p class="hint">Работаем ежедневно с 10:00 до 22:00.</p><div class="chips" style="margin-bottom:16px">${ds.map((x,k)=>`<button class="chip ${B.date===k?'on':''}" data-date="${k}">${k===0?'Сегодня':k===1?'Завтра':DAYS[(x.getDay()+6)%7]}<small>${fmtDate(x)}</small></button>`).join('')}</div>
+    <div class="chips sm">${slots.map((s,k)=>{const busy=seeded(key*30+k)<.3;return `<button class="chip ${B.time===s?'on':''}" data-time="${s}" ${busy?'disabled':''}>${s}</button>`}).join('')}</div>`;
+  }else if(B.step===3){
+    const d=days()[B.date];
+    body=`<h3>Куда перезвонить?</h3><div class="summary"><span><b>${B.svc}</b></span><span>${B.brand}</span><span>${fmtDate(d)}, ${B.time}</span></div>
+    <div class="field"><label for="bName">Имя</label><input id="bName" autocomplete="name" placeholder="Как к вам обращаться" value="${B.name}"></div>
+    <div class="field"><label for="bPhone">Телефон</label><input id="bPhone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" value="${B.phone}"></div>`;
+  }else{
+    const d=days()[B.date];
+    body=`<div class="done"><div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-10"/></svg></div>
+    <h3>Заявка принята</h3><p>${B.name||'Спасибо'}, ждём ваш ${B.brand==='Другая'?'автомобиль':B.brand} ${fmtDate(d)} в ${B.time}. Администратор перезвонит, чтобы подтвердить запись.</p>
+    <p style="margin-top:12px;font-size:14px;color:var(--muted)">Москва, ул. Рябиновая, 9 с2 · 8 (915) 006-71-76</p>
+    <button class="btn btn-line" style="margin-top:20px" data-reset>Новая заявка</button></div>`;
+  }
+  const can=[B.svc,B.brand,B.time,B.phone.replace(/\D/g,'').length>=11][B.step];
+  const nav=B.step<4?`<div class="book-nav"><button class="btn btn-line" data-back ${B.step===0?'style="visibility:hidden"':''}>Назад</button><button class="btn btn-red" data-next ${can?'':'disabled style="opacity:.45;cursor:not-allowed"'}>${B.step===3?'Отправить заявку':'Далее'}</button></div>`:'';
+  bookEl.innerHTML=steps+body+nav;
+  const ph=bookEl.querySelector('#bPhone'),nm=bookEl.querySelector('#bName');
+  if(nm)nm.addEventListener('input',e=>{B.name=e.target.value});
+  if(ph)ph.addEventListener('input',e=>{B.phone=maskPhone(e.target.value);e.target.value=B.phone;const nb=bookEl.querySelector('[data-next]');const ok=B.phone.replace(/\D/g,'').length>=11;nb.disabled=!ok;nb.style.opacity=ok?1:.45;nb.style.cursor=ok?'pointer':'not-allowed'});
+}
+function maskPhone(v){let d=v.replace(/\D/g,'');if(d[0]==='8')d='7'+d.slice(1);if(d[0]!=='7')d='7'+d;d=d.slice(0,11);
+  let o='+7';if(d.length>1)o+=' ('+d.slice(1,4);if(d.length>=4)o+=')';if(d.length>4)o+=' '+d.slice(4,7);if(d.length>7)o+='-'+d.slice(7,9);if(d.length>9)o+='-'+d.slice(9,11);return o}
+bookEl.addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;
+  if(t.dataset.svc){B.svc=t.dataset.svc}
+  else if(t.dataset.brand){B.brand=t.dataset.brand}
+  else if(t.dataset.date!==undefined){B.date=+t.dataset.date;B.time=null}
+  else if(t.dataset.time){B.time=t.dataset.time}
+  else if(t.hasAttribute('data-next')&&!t.disabled){B.step++}
+  else if(t.hasAttribute('data-back')){B.step--}
+  else if(t.hasAttribute('data-reset')){Object.assign(B,{step:0,svc:null,brand:null,date:null,time:null,name:'',phone:''})}
+  else return;
+  renderBook();
+});
+function pickService(n){Object.assign(B,{step:1,svc:n,brand:null,date:null,time:null});renderBook()}
+renderBook();
+
+/* reveal */
+if(!STATIC&&'IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>{const r=el.getBoundingClientRect();if(r.top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+</script>
+
+</body></html>
